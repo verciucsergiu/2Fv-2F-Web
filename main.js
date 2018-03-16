@@ -47,3 +47,7 @@ route('/page1', 'page1', function () {
     this.id = id;
     
 });
+
+route('*', 'error', function () {
+
+});
