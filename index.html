@@ -4,55 +4,34 @@
 <head>
     <meta charset="utf-8">
     <title>2Fv-2F-Web</title>
-    <link rel="stylesheet" type="text/css" href="main.css">
-    <script type="text/javascript" src="template-engine.js"></script>
-    <script type="text/javascript" src="router.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
 
-    <script type="text/html" id="home">
-        <h1>2Fv-2F-Web</h1>
-    </script>
-    <script type="text/html" id="page1">
-        <h1>Page 2: <%= heading %></h1>
-        <button id="counter">count++ <%= counter %></button>
-        <button id="refresh">refresh localstorage</button>
-        <% if(counter > 3) {%>
-            <h1>Framework test din if</h1>
-        <% } %>
-        <% for (let i = 0; i < 10; i++) { %>
-            <h1>Framework test</h1>
-
-        <%}%>
-        <select>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-        </select>
-    </script>
-    <script type="text/html" id="error">
-        404 not found
-    </script>
-
-    <script type="text/html" id="page2">
-        <h1>id <%= id %></h1>
-    </script>
+    <script id="sdmf-script-element" type="text/javascript" src="framework/main.js"></script>
+    <script type="text/javascript" src="framework/page.js"></script>
+    <script type="text/javascript" src="framework/router.js"></script>
+    <script type="text/javascript" src="framework/template-engine.js"></script>
+    <style id="sdmf-style-element">
+    </style>
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li>
-                <a href="#">Home</a>
-            </li>
-            <li>
-                <a href="#/page1">Page 1</a>
-            </li>
-        </ul>
-    </nav>
+    <nav class="nav-bar">
+        <div class="container">
+            <ul class="nav-menu-list">
+                <li class="nav-menu-item">
+                    <a href="#">Home</a>
+                </li>
+                <li class="nav-menu-item">
+                    <a href="#/page1">Login</a>
+                </li>
+            </ul>
+        </div>
 
-    <div id="view">
+    </nav>
+    <div id="sdmf-view-element" class="container">
     </div>
 
-    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="src/main.js"></script>
 </body>
 
 </html>

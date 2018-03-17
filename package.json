@@ -1,0 +1,23 @@
+{
+  "name": "2fv-2f-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/verciucsergiu/2Fv-2F-Web.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/verciucsergiu/2Fv-2F-Web/issues"
+  },
+  "homepage": "https://github.com/verciucsergiu/2Fv-2F-Web#readme",
+  "dependencies": {
+    "connect": "^3.6.6",
+    "serve-static": "^1.13.2"
+  }
+}

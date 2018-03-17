@@ -1,0 +1,71 @@
+@font-face {
+    font-family: 'Open-Sans';/* IE9 Compat Modes */
+    src: url('fonts/open-sans/OpenSans-Regular.ttf')  format('truetype');/* Safari, Android, iOS */
+  }
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Open-Sans;
+}
+* {
+    box-sizing: border-box;
+}
+
+.nav-bar {
+    width: 100%;
+    background-color: #0F406B;
+}
+.nav-menu-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu-list > .nav-menu-item {
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+.nav-menu-item a {
+    text-transform: uppercase;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-menu-list > .nav-menu-item:hover {
+    background-color: #0D5A9E;
+}
+
+.flex-container-center {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+
+    .container {
+        width: 750px;
+    }
+}
+
+@media (min-width: 992px) {
+
+    
+    .container {
+        width: 970px;
+    }
+}
+
+@media (min-width: 1200) {
+
+    .container {
+        width: 1170px;
+    }
+}
