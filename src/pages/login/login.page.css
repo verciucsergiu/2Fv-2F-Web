@@ -1,9 +1,14 @@
+@font-face {
+    font-family: 'Open-Sans';
+    src: url('fonts/open-sans/OpenSans-Regular.ttf')  format('truetype');
+}
+
 .login-container {
     margin-top: 20px;
 }
 
 .login-box {
-    font-family: 'Open Sans', 'sans-serif';
+    font-family: Open-Sans;
     margin-top: 30px;
     width: 360px;
     height: 400px;
