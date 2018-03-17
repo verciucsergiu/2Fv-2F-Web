@@ -4,7 +4,7 @@
     this.tmpl = function tmpl(str, data) {
         var fn = str[0] == '.' && str[1] == '/' ?
             cache[str] = cache[str] || 
-                    tmpl(readTextFile(str))
+                    tmpl(framework.readTextFile(str))
             :
             new Function("obj",
                 "var p=[],print=function(){p.push.apply(p,arguments);};" +

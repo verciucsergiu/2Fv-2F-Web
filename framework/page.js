@@ -10,7 +10,7 @@
         let elem = document.createElement('script');
         elem.setAttribute('type', 'text/javascript');
         elem.setAttribute('src', 'src/' + path);
-        insertAfter(elem, scriptElement);
+        framework.insertAfterElement(elem, framework.scriptElement);
     }
 
     this.defineJs = defineJs;

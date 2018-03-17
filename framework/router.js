@@ -1,8 +1,9 @@
 (function () {
     var routes = {};
     var events = [];
+    var currnetRoute = null;
     var pageViewPort = null;
-    var styleElement = null;
+    var styleElement = framework.styleElement;
     var context = {
         on: function (selector, evt, handler) {
             events.push([selector, evt, handler]);
@@ -11,9 +12,10 @@
             listeners.forEach(function (fn) { fn(); });
         }
     };
+
     function route(path, page, controller) {
         if (!page.templateUrl) {
-            throw 'Route: ' + path + ' doesn\'t have a template';
+            framework.printError('Route: ' + path + ' doesn\'t have a template');
             return;
         }
 
@@ -55,9 +57,8 @@
     }
 
     function router() {
-        pageViewPort = pageViewPort || document.getElementById('sdmf-view-element');
-        styleElement = styleElement || document.getElementById('sdmf-style-element');
 
+        pageViewPort = pageViewPort || document.getElementById(framework.pageViewElementId);
         removeEventListeners();
         events = [];
         let url = location.hash.slice(1) || '/';
@@ -67,9 +68,7 @@
             parameterRouteValue = url.slice(paramIndex + 1);
             url = url.slice(0, paramIndex);
         }
-
         let route = routes[url] || routes['*'];
-
         if (route && route.controller) {
             let ctrl;
             if (parameterRouteValue) {
@@ -77,11 +76,22 @@
             } else {
                 ctrl = new route.controller();
             }
+
+            if (currnetRoute != route) {
+                if (currnetRoute) {
+                    let currnetRouteControler = new currnetRoute.controller();
+                    if (currnetRouteControler.$onLeave) {
+                        currnetRouteControler.$onLeave();
+                    }
+                }
+                currnetRoute = route;
+            }
+            
             if (!pageViewPort || !styleElement || !route.templateUrl) {
                 return;
             }
 
-            
+
 
             route.onRefresh(function () {
                 removeEventListeners();
@@ -91,12 +101,14 @@
             });
             if (route.styleUrl) {
                 if (!route.style) {
-                    let style = readTextFile(route.styleUrl);
+                    let style = framework.readTextFile(route.styleUrl);
                     route.style = style;
                 }
                 styleElement.innerHTML = route.style;
             }
-
+            if (ctrl.$onInit) {
+                ctrl.$onInit();
+            }
             ctrl.$refresh();
         }
     }

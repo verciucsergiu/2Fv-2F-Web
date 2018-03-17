@@ -1,7 +1,7 @@
 @font-face {
-    font-family: 'Open-Sans';/* IE9 Compat Modes */
-    src: url('fonts/open-sans/OpenSans-Regular.ttf')  format('truetype');/* Safari, Android, iOS */
-  }
+    font-family: 'Open-Sans';
+    src: url('fonts/open-sans/OpenSans-Regular.ttf')  format('truetype');
+}
 
 body {
     margin: 0;
@@ -56,7 +56,6 @@ body {
 }
 
 @media (min-width: 992px) {
-
     
     .container {
         width: 970px;
@@ -68,4 +67,14 @@ body {
     .container {
         width: 1170px;
     }
+}
+
+.framework-error {
+    padding: 20px;
+    margin: 20px;
+    border: 2px solid #9E161D;
+    background-color: #f8f8f8;
+    color: #9E161D;
+    font-family: Open-Sans;
+    font-size: 14px;
 }
