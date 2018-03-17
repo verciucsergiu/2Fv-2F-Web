@@ -5,7 +5,7 @@
             styleUrl: './src/pages/login/login.page.css'
         },
         function () {
-            this.loginTitle = 'login title from javascript';
+            
         });
 })();
 

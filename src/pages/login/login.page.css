@@ -1,3 +1,49 @@
 .login-container {
     margin-top: 20px;
 }
+
+.login-box {
+    font-family: 'Open Sans', 'sans-serif';
+    margin-top: 30px;
+    width: 360px;
+    height: 400px;
+    background: rgba(157,233,255,1);
+    -moz-box-shadow: 0 0 3px #007ea2;
+    -webkit-box-shadow: 0 0 3px #007ea2;
+    box-shadow: 0 0 3px #007ea2;
+    position: absolute;
+    box-sizing: border-box;
+    padding: 30px;
+    padding-top: 0px;
+}
+
+.login-box h3 {
+    font-size: 40px;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 10px;
+}
+
+.login-box input{
+    display: flex;
+    margin-top: 30px;
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+}
+
+.login-box input[type="text"],input[type="password"] {
+    background: rgba(255,255,255,0.5);
+    font-size: 15px;
+    text-align: center;
+    border: none;
+    padding: auto;
+}
+.login-box input[type="submit"] {
+    padding: auto;
+    border: none;
+    font-size: 20px;
+
+    background: rgb(0,120,204);
+    color: White;
+}
