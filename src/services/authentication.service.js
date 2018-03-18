@@ -1,47 +1,42 @@
-(() => {
-    let adminToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTE2MjM5MDIyfQ.nN67GfxbNqRbd0AD09Jl-VcK0Q9SExX9NR0XloBnENI';
-    let localStorageUserTokeItem = 'userToken';
+var AuthService = class {
+    constructor() {
+        this.adminToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTE2MjM5MDIyfQ.nN67GfxbNqRbd0AD09Jl-VcK0Q9SExX9NR0XloBnENI';
+        this.localStorageUserTokeItem = 'userToken';
+    }
 
-    function login(loginObject, resolve, reject) {
+    static login(loginObject, resolve, reject) {
         if (loginObject.password === '1q2w3e4' && loginObject.username === 'admin') {
-            addTokenLocalStorage(adminToken);
+            this.addTokenLocalStorage(this.adminToken);
             resolve();
         } else {
             reject();
         }
     }
 
-    function getUserRole() {
-        let token = localStorage.getItem(localStorageUserTokeItem);
+    static getUserRole() {
+        let token = localStorage.getItem(this.localStorageUserTokeItem);
         if (!token) {
             return null;
-        } else if (token === adminToken) {
+        } else if (token === this.adminToken) {
             return 'admin';
         } else {
             return 'user';
         }
     }
 
-    function isLoggedIn() {
-        let token = localStorage.getItem(localStorageUserTokeItem);
+    static isLoggedIn() {
+        let token = localStorage.getItem(this.localStorageUserTokeItem);
         if (token) {
             return true;
         }
         return false;
     }
     
-    function logout() {
-        localStorage.removeItem(localStorageUserTokeItem);
+    static logout() {
+        localStorage.removeItem(this.localStorageUserTokeItem);
     }
 
-    function addTokenLocalStorage(token) {
-        localStorage.setItem(localStorageUserTokeItem, adminToken);
+    static addTokenLocalStorage(token) {
+        localStorage.setItem(this.localStorageUserTokeItem, token);
     }
-
-    this.authService = function () { };
-    Object.defineProperty(this.authService, 'login', { value: login });
-    Object.defineProperty(this.authService, 'isLoggedIn', { value: isLoggedIn });
-    Object.defineProperty(this.authService, 'getUserRole', { value: getUserRole });
-    Object.defineProperty(this.authService, 'logout', { value: logout });
-
-})();
+};

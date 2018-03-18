@@ -4,7 +4,7 @@
             templateUrl: './src/pages/login/login.page.html',
             styleUrl: './src/pages/login/login.page.css',
             guard: {
-                canEnter: () => !authService.isLoggedIn(),
+                canEnter: [AuthGuard],
                 redirectTo: '/'
             }
         },
@@ -14,9 +14,9 @@
 
             this.loginError = false;
             this.$on('#submit', 'click', function () {
-                authService.login(new LoginModel(this.username, this.password),
+                AuthService.login(new LoginModel(this.username, this.password),
                     () => {
-                        router.navigate('/');
+                        Router.navigate('/');
                     },
                     () => {
                         this.loginError = true;

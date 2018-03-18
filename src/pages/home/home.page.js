@@ -8,15 +8,15 @@
             this.demo = '';
             this.isLoggedIn = true;
             this.$onInit = function () {
-                this.isLoggedIn = authService.isLoggedIn();
+                this.isLoggedIn = AuthService.isLoggedIn();
             };
             this.$on('#modify', 'click', function () {
                 this.demo = 'modified from javascript!';
                 this.$refresh()
             }.bind(this));
             this.$on('#logout', 'click', function () {
-                authService.logout();
-                this.isLoggedIn = authService.isLoggedIn();
+                AuthService.logout();
+                this.isLoggedIn = AuthService.isLoggedIn();
                 this.$refresh();
             }.bind(this));
         });

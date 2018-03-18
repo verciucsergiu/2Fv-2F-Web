@@ -1,9 +1,70 @@
+var BindHandler = class {
+    constructor() {
+        this.currentContext = null;
+        this.elements = null;
+    }
+
+    static bindElementsWithContext(context) {
+        this.currentContext = context;
+        this.elements = document.querySelectorAll(Framework.bindSelector);
+        this.elements.forEach((element) => {
+            var propToBind = element.getAttribute(Framework.bindAttribute);
+            if (this.isElementTypeable(element)) {
+                this.addPropertySetAndGetOnContext(propToBind, this.elements);
+                if (context[propToBind] !== undefined) {
+                    element.onkeyup = () => {
+                        context[propToBind] = element.value;
+                    }
+                    element.onkeydown = (keyElement) => {
+                        if (keyElement.key == 'Tab') {
+                            context[propToBind] = element.value;
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    static addPropertySetAndGetOnContext(prop, elems) {
+        var propertyInitValue = null;
+        if (this.currentContext.hasOwnProperty(prop)) {
+            propertyInitValue = this.currentContext[prop];
+        }
+        var value;
+        Object.defineProperty(this.currentContext, prop, {
+            set: function (newValue) {
+                value = newValue;
+                elems.forEach(function (element) {
+                    if (element.getAttribute(Framework.bindAttribute) === prop) {
+                        if (element.type && BindHandler.isElementTypeable(element)) {
+                            element.value = newValue;
+                        }
+                        else if (!element.type) {
+                            element.innerHTML = newValue;
+                        }
+                    }
+                });
+            },
+            get: function () {
+                return value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+
+        this.currentContext[prop] = propertyInitValue;
+    }
+
+    static isElementTypeable(element) {
+        return Framework.typeableElementTypes.find(() => element.type);
+    }
+};
+
 (() => {
     var routes = {};
     var events = [];
     var currentRoute = null;
-    var pageViewPort = null;
-    var styleElement = framework.styleElement;
+    
     var context = {
         on: function (selector, evt, handler) {
             events.push([selector, evt, handler]);
@@ -15,7 +76,7 @@
 
     function route(path, page, controller) {
         if (!page.templateUrl) {
-            framework.printError('Route: ' + path + ' doesn\'t have a template');
+            Framework.printError('Route: ' + path + ' doesn\'t have a template');
             return;
         }
 
@@ -41,7 +102,7 @@
 
     function forEachEventElement(fnName) {
         for (var i = 0, len = events.length; i < len; i++) {
-            var els = pageViewPort.querySelectorAll(events[i][0]);
+            var els = Framework.pageViewElement.querySelectorAll(events[i][0]);
             for (var j = 0, elsLen = els.length; j < elsLen; j++) {
                 els[j][fnName].apply(els[j], events[i].slice(1));
             }
@@ -57,7 +118,6 @@
     }
 
     function router() {
-        pageViewPort = pageViewPort || document.getElementById(framework.pageViewElementId);
         removeEventListeners();
         events = [];
         let url = location.hash.slice(1) || '/';
@@ -90,25 +150,25 @@
                 currentRoute = route;
             }
 
-            if (!pageViewPort || !styleElement || !route.templateUrl) {
+            if (!route.templateUrl) {
                 return;
             }
 
             route.onRefresh(function () {
                 removeEventListeners();
 
-                pageViewPort.innerHTML = tmpl(route.templateUrl, ctrl);
-                bindElementsWithContext(ctrl);
+                Framework.pageViewElement.innerHTML = tmpl(route.templateUrl, ctrl);
+                BindHandler.bindElementsWithContext(ctrl);
                 addEventListeners();
             });
 
             if (route.styleUrl) {
                 if (!route.style) {
-                    let style = framework.readTextFile(route.styleUrl);
+                    let style = Framework.readTextFile(route.styleUrl);
                     route.style = style;
                 }
 
-                styleElement.innerHTML = route.style;
+                Framework.styleElement.innerHTML = route.style;
             }
             if (ctrl.$onInit) {
                 ctrl.$onInit();
@@ -119,29 +179,40 @@
 
     function checkGuard(route) {
         if (route.hasOwnProperty('guard') && route.guard) {
-            if (route.guard.hasOwnProperty('canEnter') && typeof route.guard.canEnter == 'function') {
-                if (!route.guard.canEnter()) {
+            if (route.guard.hasOwnProperty('canEnter') && Array.isArray(route.guard.canEnter)) {
+                let guards = route.guard.canEnter;
+                let canEnter = true;
+                for(let guard of guards) {
+                    let guardInstance = new guard();
+                    if (!guardInstance instanceof Guard) {
+                        canEnter = false;
+                        Framework.printError("Guard :'" + guardInstance.constructor.name + "' doesn't extends Guard class!");
+                    }
+                    if (!guardInstance.hasOwnProperty('canEnter') && typeof guardInstance.canEnter != 'function') {
+                        Framework.printError("Guard :'" + guardInstance.constructor.name + "' doesn't have a function called 'canEnter'!");
+                        canEnter = false;
+                        break;
+                    } else {
+                        canEnter = guardInstance.canEnter();
+                        if (!canEnter) {
+                            break;
+                        }
+                    }
+                }
+                
+                if (!canEnter) {
                     if (route.guard.redirectTo) {
-                        navigate(route.guard.redirectTo);
+                        Router.navigate(route.guard.redirectTo);
                     } else {
                         route = route['*'];
                     }
                 }
             } else {
-                framework.printError("A route has a guard but property: 'canEnter' is undefined or is not a function!");
+                Framework.printError("A route has a guard but property: 'canEnter' is undefined or is not an array!");
             }
         }
     }
 
-    function navigate(path, parameter) {
-        if (path.indexOf('/') != 0) {
-            path = '/' + path;
-        }
-        if (parameter) {
-            path = path + '/' + parameter;
-        }
-        location.hash = '#' + path;
-    }
 
     this.addEventListener('hashchange', router);
 
@@ -149,69 +220,15 @@
 
     this.route = route;
 
-    this.router = function () { };
-    Object.defineProperty(this.router, 'navigate', { value: navigate });
-
-})();
-
-// two way binding 
-(() => {
-    var currentContext = null;
-    var elements = null;
-    function bindHtmlToJsWithContext(context) {
-        currentContext = context;
-        elements = document.querySelectorAll(framework.bindSelector);
-        elements.forEach((element) => {
-            var propToBind = element.getAttribute(framework.bindAttribute);
-            if (isElementTypeable(element)) {
-                addPropertySetAndGetOnContext(propToBind);
-                if (context[propToBind] !== undefined) {
-                    element.onkeyup = () => {
-                        context[propToBind] = element.value;
-                    }
-                    element.onkeydown = (keyElement) => {
-                        if(keyElement.key == 'Tab') {
-                            context[propToBind] = element.value;
-                        }
-                    }
-                }
+    this.Router = class {
+        static navigate(path, parameter) {
+            if (path.indexOf('/') != 0) {
+                path = '/' + path;
             }
-        });
-    }
-
-    function addPropertySetAndGetOnContext(prop) {
-        var propertyInitValue = null;
-        if (currentContext.hasOwnProperty(prop)) {
-            propertyInitValue = currentContext[prop];
+            if (parameter) {
+                path = path + '/' + parameter;
+            }
+            location.hash = '#' + path;
         }
-        var value;
-        Object.defineProperty(currentContext, prop, {
-            set: function (newValue) {
-                value = newValue;
-                elements.forEach(function (element) {
-                    if (element.getAttribute(framework.bindAttribute) === prop) {
-                        if (element.type && isElementTypeable(element)) {
-                            element.value = newValue;
-                        }
-                        else if (!element.type) {
-                            element.innerHTML = newValue;
-                        }
-                    }
-                });
-            },
-            get: function () {
-                return value;
-            },
-            enumerable: true,
-            configurable: true
-        });
-
-        currentContext[prop] = propertyInitValue;
-    }
-
-    function isElementTypeable(element) {
-        return framework.typeableElementTypes.find(() => element.type);
-    }
-
-    this.bindElementsWithContext = bindHtmlToJsWithContext;
+    };
 })();

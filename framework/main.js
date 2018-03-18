@@ -1,30 +1,52 @@
-(function () {
-    var scriptElementId = 'sdmf-script-element';
-    var scriptElement = document.getElementById(scriptElementId);
+var Framework = class {
 
-    var styleElementId = 'sdmf-style-element';
-    var styleElement = document.getElementById(styleElementId);
-
-    var pageViewElementId = 'sdmf-view-element';
-
-    var typeableElementTypes = [ 'text', 'textarea', 'password'];
-
-    if (!styleElement) {
-        throw 'Framework error: Style element is missing from index.html.\n' +
-        'Please add <style id="sdmf-style-element"></style> to the head of the page.';
+    static get scriptElementId() {
+        return 'sdmf-script-element';
     }
 
-    function init() {
-        setPageViewElement();
+    static get styleElementId() {
+        return 'sdmf-style-element';
     }
 
-    function handleError(error) {
-        viewPort = document.getElementsByTagName('body')[0];
+    static get pageViewElementId() {
+        return 'sdmf-view-element';
+    }
+
+    static get scriptElement() {
+        return this._scriptElement;
+    }
+
+    static get styleElement() {
+        return this._styleElement;
+    }
+
+    static get pageViewElement() {
+        return this._pageViewElement;
+    }
+
+    static get bindSelector() {
+        return '[data-bind]';
+    }
+
+    static get bindAttribute() {
+        return 'data-bind';
+    }
+
+    static get typeableElementTypes() {
+        return [ 'text', 'textarea', 'password'];
+    }
+
+    static init() {
+        this.setDefaultElements();
+    }
+
+    static printError(error) {
+        let viewPort = document.getElementsByTagName('body')[0];
         viewPort.innerHTML =
             '<div class="framework-error">' + error + '</div>';
     }
 
-    function insertAfter(newElement, targetElement) {
+    static insertAfter(newElement, targetElement) {
         let parent = targetElement.parentNode;
         if (parent.lastChild == targetElement) {
             parent.appendChild(newElement);
@@ -33,17 +55,17 @@
         }
     }
 
-    function setAppTitle(title) {
+    static setAppTitle(title) {
         let currentTitle = document.getElementsByTagName('title');
         if (!currentTitle) {
             let elem = document.createElement('title');
-            insertAfter(elem, scriptElement);
+            insertAfter(elem, this.scriptElement);
             currentTitle = elem;
         }
         currentTitle[0].innerHTML = title;
     }
 
-    function readTextFile(file) {
+    static readTextFile(file) {
         var xmlhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 
         xmlhttp.open("GET", file, false);
@@ -51,60 +73,95 @@
         return xmlhttp.responseText;
     }
 
-    function httpGetAsync(theUrl, callback) {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.onreadystatechange = function () {
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-                let response = '';
-                tryParse(xmlHttp.responseText, callback);
-            } else if (xmlHttp.status > 300) {
-                tryParse(xmlHttp.responseText, error);
-            }
-        }
-        xmlHttp.open('GET', theUrl, true);
-        xmlHttp.send(null);
-    }
-
-    function tryParse(text, callback) {
+    static tryParse(text) {
         let result;
         try {
             result = JSON.parse(text);
         } catch (err) {
             result = text;
         } finally {
-            callback(result);
+            return result;
         }
     }
 
-    function setPageViewElement() {
-        let elem = document.getElementById(pageViewElementId);
+    static setDefaultElements() {
+        let elem = document.getElementById('sdmf-view-element');
         if (!elem) {
             throw 'Framework error: Page viewport is missing from index.html.\n' +
             'Please add <div id="sdmf-view-element"></div> in the body of the index.html';
             return;
         }
-        Object.defineProperty(this.framework, 'pageViewElement', { value: elem });
+        this._pageViewElement = elem;
+
+        this._scriptElement =  document.getElementById('sdmf-script-element');
+
+        this._styleElement = document.getElementById('sdmf-style-element');
+
+        if (!this._styleElement) {
+            throw 'Framework error: Style element is missing from index.html.\n' +
+            'Please add <style id="sdmf-style-element"></style> to the head of the page.';
+        }
+    }
+}
+
+var HttpResponse = class {
+    constructor(resonse) {
+        this.statusCode = resonse.status;
+        this.rawText = response.responseText;
     }
 
-    function setFrameworkProperties() {
-        Object.defineProperty(this.framework, 'scriptElementId', { value: scriptElementId });
-        Object.defineProperty(this.framework, 'scriptElement', { value: scriptElement });
-        Object.defineProperty(this.framework, 'pageViewElementId', { value: pageViewElementId });
-        Object.defineProperty(this.framework, 'styleElementId', { value: styleElementId });
-        Object.defineProperty(this.framework, 'styleElement', { value: styleElement });
-        Object.defineProperty(this.framework, 'bindSelector', { value: '[data-bind]' });
-        Object.defineProperty(this.framework, 'bindAttribute', { value: 'data-bind' });
-        Object.defineProperty(this.framework, 'typeableElementTypes', { value: typeableElementTypes });
+    get messageAsObject() {
+        return Framework.tryParse(this.rawText);
+    }
+}
 
-        Object.defineProperty(this.framework, 'init', { value: init });
-        Object.defineProperty(this.framework, 'setAppTitle', { value: setAppTitle });
-        Object.defineProperty(this.framework, 'insertAfterElement', { value: insertAfter });
-        Object.defineProperty(this.framework, 'readTextFile', { value: readTextFile });
-        Object.defineProperty(this.framework, 'httpGetAsync', { value: httpGetAsync });
-        Object.defineProperty(this.framework, 'tryParse', { value: tryParse });
-        Object.defineProperty(this.framework, 'printError', { value: handleError });
+var HttpHeader = class {
+    constructor(contentType) {
+        this.contentType = contentType;
+    }
+}
+
+var HttpClient = class {
+
+    static get(request, callback, error) {
+       request(request, 'get', null, null, callback, error);
     }
 
-    this.framework = function () { };
-    setFrameworkProperties();
-})();
+    static post(request, body, callback, error) {
+        request(request, 'post', body, null, callback, error);
+    }
+
+    static put(request, body, callback, error) {
+        request(request, 'put', body, null, callback, error);
+    }
+
+    static delete(request, body, callback, error) {
+        request(request, 'delete', body, null, callback, error);
+    }
+
+    static options(request, body, callback, error) {
+        request(request, 'options', body, null, callback, error);
+    }
+
+    request(req, requestVerb, body, headers, callback, error) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = () => {
+            if (xmlHttp.readyState == 4) {
+                callback(new HttpResponse(xmlhttp));
+            }
+        }
+
+        xmlHttp.onerror = () => {
+            error(new HttpResponse(xmlHttp));
+        }
+
+        xmlHttp.open(requestVerb, req, true);
+        xmlHttp.send(body);
+    }
+}
+
+var Guard = class {
+    canEnter() {
+        return true;
+    }
+}

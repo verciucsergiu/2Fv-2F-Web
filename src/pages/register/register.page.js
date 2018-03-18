@@ -5,7 +5,7 @@
             styleUrl: './src/pages/register/register.page.css',
             guard: 
             {
-                canEnter: () => !authService.isLoggedIn(),
+                canEnter: [AuthGuard],
                 redirectTo: '/'
             }
         },
