@@ -1,7 +1,7 @@
-(function () {
+(() => {
     var routes = {};
     var events = [];
-    var currnetRoute = null;
+    var currentRoute = null;
     var pageViewPort = null;
     var styleElement = framework.styleElement;
     var context = {
@@ -68,6 +68,7 @@
             parameterRouteValue = url.slice(paramIndex + 1);
             url = url.slice(0, paramIndex);
         }
+
         let route = routes[url] || routes['*'];
         if (route && route.controller) {
             let ctrl;
@@ -77,21 +78,20 @@
                 ctrl = new route.controller();
             }
 
-            if (currnetRoute != route) {
-                if (currnetRoute) {
-                    let currnetRouteControler = new currnetRoute.controller();
-                    if (currnetRouteControler.$onLeave) {
-                        currnetRouteControler.$onLeave();
+            if (currentRoute != route) {
+                if (currentRoute) {
+                    let currentRouteControler = new currentRoute.controller();
+                    if (currentRouteControler.$onLeave) {
+                        currentRouteControler.$onLeave();
                     }
                 }
-                currnetRoute = route;
+
+                currentRoute = route;
             }
-            
+
             if (!pageViewPort || !styleElement || !route.templateUrl) {
                 return;
             }
-
-
 
             route.onRefresh(function () {
                 removeEventListeners();
@@ -99,11 +99,13 @@
                 pageViewPort.innerHTML = tmpl(route.templateUrl, ctrl);
                 addEventListeners();
             });
+
             if (route.styleUrl) {
                 if (!route.style) {
                     let style = framework.readTextFile(route.styleUrl);
                     route.style = style;
                 }
+
                 styleElement.innerHTML = route.style;
             }
             if (ctrl.$onInit) {
@@ -131,3 +133,7 @@
     this.navigate = navigate;
 })();
 
+// two way binding 
+(() => {
+
+})();

@@ -69,6 +69,21 @@ body {
     }
 }
 
+.btn {
+    cursor: pointer;
+    min-width: 200px;
+    padding: 16px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+}
+
+.btn.btn-submit {
+    background-color: rgb(0,120,204);
+    color: white;
+}
+
+
 .framework-error {
     padding: 20px;
     margin: 20px;
