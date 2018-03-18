@@ -64,7 +64,7 @@ var BindHandler = class {
     var routes = {};
     var events = [];
     var currentRoute = null;
-    
+    var templateEngine = new TemplateEngine();
     var context = {
         on: function (selector, evt, handler) {
             events.push([selector, evt, handler]);
@@ -157,7 +157,7 @@ var BindHandler = class {
             route.onRefresh(function () {
                 removeEventListeners();
 
-                Framework.pageViewElement.innerHTML = tmpl(route.templateUrl, ctrl);
+                Framework.pageViewElement.innerHTML = templateEngine.interpret(route.templateUrl, ctrl);
                 BindHandler.bindElementsWithContext(ctrl);
                 addEventListeners();
             });

@@ -1,3 +1,12 @@
+var StaticFileHandler = class {
+    static createScriptElement(path) {
+        let elem = document.createElement('script');
+        elem.setAttribute('type', 'text/javascript');
+        elem.setAttribute('src', 'src/' + path);
+        Framework.insertAfter(elem, Framework.scriptElement);
+    }
+}
+
 var Framework = class {
 
     static get scriptElementId() {
@@ -100,6 +109,31 @@ var Framework = class {
         if (!this._styleElement) {
             throw 'Framework error: Style element is missing from index.html.\n' +
             'Please add <style id="sdmf-style-element"></style> to the head of the page.';
+        }
+    }
+
+    static defineApp(module) {
+        if (Array.isArray(module['services'])) {
+            for(let page of module['services']) {
+                StaticFileHandler.createScriptElement(page);
+            }
+        }
+        if (Array.isArray(module['guards'])) {
+            for(let page of module['guards']) {
+                StaticFileHandler.createScriptElement(page);
+            }
+        }
+        if (Array.isArray(module['files'])) {
+            for(let page of module['files']) {
+                StaticFileHandler.createScriptElement(page);
+            }
+        }
+
+        // pages need to be last no matter what
+        if (Array.isArray(module['pages'])) {
+            for(let page of module['pages']) {
+                StaticFileHandler.createScriptElement(page);
+            }
         }
     }
 }

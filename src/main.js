@@ -1,12 +1,21 @@
 Framework.init();
 
-defineJs('utils.js');
-defineJs('services/authentication.service.js');
-defineJs('guards/auth.guard.js');
-defineJs('models/login.model.js');
-
-definePage('pages/home/home.page.js');
-definePage('pages/login/login.page.js');
-definePage('pages/register/register.page.js');
-definePage('pages/not-found/not-found.page.js');
+Framework.defineApp({
+    pages: [
+        'pages/home/home.page.js',
+        'pages/login/login.page.js',
+        'pages/register/register.page.js',
+        'pages/not-found/not-found.page.js'
+    ],
+    services: [
+        'services/authentication.service.js'
+    ],
+    guards: [
+        'guards/auth.guard.js'
+    ],
+    files: [
+        'utils.js',
+        'models/login.model.js'
+    ]
+});
 

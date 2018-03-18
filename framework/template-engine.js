@@ -1,10 +1,12 @@
-(function () {
-    var cache = {};
+var TemplateEngine = class {
+    constructor() {
+        this.cache = {}
+    }
 
-    this.tmpl = function tmpl(str, data) {
+     interpret(str, data) {
         var fn = str[0] == '.' && str[1] == '/' ?
-            cache[str] = cache[str] || 
-                    tmpl(Framework.readTextFile(str))
+            this.cache[str] = this.cache[str] ||
+            this.interpret(Framework.readTextFile(str))
             :
             new Function("obj",
                 "var p=[],print=function(){p.push.apply(p,arguments);};" +
@@ -23,5 +25,5 @@
                 + "');}return p.join('');");
 
         return data ? fn(data) : fn;
-    };
-})();
+    }
+}
