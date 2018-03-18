@@ -1,11 +1,13 @@
 (function () {
     var scriptElementId = 'sdmf-script-element';
     var scriptElement = document.getElementById(scriptElementId);
-    
+
     var styleElementId = 'sdmf-style-element';
     var styleElement = document.getElementById(styleElementId);
-    
+
     var pageViewElementId = 'sdmf-view-element';
+
+    var typeableElementTypes = [ 'text', 'textarea', 'password'];
 
     if (!styleElement) {
         throw 'Framework error: Style element is missing from index.html.\n' +
@@ -18,7 +20,7 @@
 
     function handleError(error) {
         viewPort = document.getElementsByTagName('body')[0];
-        viewPort.innerHTML = 
+        viewPort.innerHTML =
             '<div class="framework-error">' + error + '</div>';
     }
 
@@ -59,7 +61,7 @@
                 tryParse(xmlHttp.responseText, error);
             }
         }
-        xmlHttp.open('GET', theUrl, true); 
+        xmlHttp.open('GET', theUrl, true);
         xmlHttp.send(null);
     }
 
@@ -76,7 +78,7 @@
 
     function setPageViewElement() {
         let elem = document.getElementById(pageViewElementId);
-        if(!elem) {
+        if (!elem) {
             throw 'Framework error: Page viewport is missing from index.html.\n' +
             'Please add <div id="sdmf-view-element"></div> in the body of the index.html';
             return;
@@ -90,7 +92,10 @@
         Object.defineProperty(this.framework, 'pageViewElementId', { value: pageViewElementId });
         Object.defineProperty(this.framework, 'styleElementId', { value: styleElementId });
         Object.defineProperty(this.framework, 'styleElement', { value: styleElement });
-        
+        Object.defineProperty(this.framework, 'bindSelector', { value: '[data-bind]' });
+        Object.defineProperty(this.framework, 'bindAttribute', { value: 'data-bind' });
+        Object.defineProperty(this.framework, 'typeableElementTypes', { value: typeableElementTypes });
+
         Object.defineProperty(this.framework, 'init', { value: init });
         Object.defineProperty(this.framework, 'setAppTitle', { value: setAppTitle });
         Object.defineProperty(this.framework, 'insertAfterElement', { value: insertAfter });
@@ -100,6 +105,6 @@
         Object.defineProperty(this.framework, 'printError', { value: handleError });
     }
 
-    this.framework = function () {};
+    this.framework = function () { };
     setFrameworkProperties();
 })();

@@ -42,6 +42,7 @@ body {
 .flex-container-center {
     display: flex;
     justify-content: center;
+    
 }
 
 .container {
@@ -72,7 +73,7 @@ body {
 .btn {
     cursor: pointer;
     min-width: 200px;
-    padding: 16px;
+    padding: 15px;
     font-size: 20px;
     border-radius: 10px;
     border: none;
@@ -83,6 +84,15 @@ body {
     color: white;
 }
 
+
+.message {
+    font-size: 14px;
+    color: white;
+}
+
+.message.error {
+    color: #9E161D;
+}
 
 .framework-error {
     padding: 20px;

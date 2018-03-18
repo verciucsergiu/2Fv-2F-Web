@@ -2,9 +2,14 @@
     route('/register',
         {
             templateUrl: './src/pages/register/register.page.html',
-            styleUrl: './src/pages/register/register.page.css'
+            styleUrl: './src/pages/register/register.page.css',
+            guard: 
+            {
+                canEnter: () => !authService.isLoggedIn(),
+                redirectTo: '/'
+            }
         },
         function () {
-            
+
         });
 })();

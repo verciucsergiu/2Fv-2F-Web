@@ -1,11 +1,13 @@
 <div class="flex-container-center login-container">
-
     <div class="login-box" align="center">
         <h3>2Fv-2F-Web</h3>
-        <input type="text" name="username" placeholder="Username/Email">
-        <input type="password" name="password" placeholder="Password">
-        <button class="btn btn-submit">Login</button>
-        <p><a href>Lost Password?</a></p>
-        <p><a href="#/page2">New User?</a></p>
+        <input type="text" name="username" placeholder="Username/Email" data-bind="username" >
+        <input type="password" name="password" placeholder="Password" data-bind="password">
+        <button id="submit" class="btn btn-submit">Login</button>
+        <p><a href="#">Lost Password?</a></p>
+        <p><a href="#/register">New User?</a></p>
+        <? if(loginError === true) { ?>
+            <p class="message error">Invalid credentials!</p>
+        <?}?> 
     </div>
 </div>

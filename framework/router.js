@@ -19,7 +19,6 @@
             return;
         }
 
-
         var listeners = [];
         Object.defineProperty(controller.prototype, '$on', { value: context.on });
         Object.defineProperty(controller.prototype, '$refresh', { value: context.refresh.bind(undefined, listeners) });
@@ -34,7 +33,8 @@
             styleUrl: page.styleUrl,
             style: page.style,
             controller: controller,
-            onRefresh: listeners.push.bind(listeners)
+            onRefresh: listeners.push.bind(listeners),
+            guard: page.guard
         };
 
     }
@@ -57,7 +57,6 @@
     }
 
     function router() {
-
         pageViewPort = pageViewPort || document.getElementById(framework.pageViewElementId);
         removeEventListeners();
         events = [];
@@ -71,6 +70,8 @@
 
         let route = routes[url] || routes['*'];
         if (route && route.controller) {
+            checkGuard(route);
+
             let ctrl;
             if (parameterRouteValue) {
                 ctrl = new route.controller(parameterRouteValue);
@@ -97,6 +98,7 @@
                 removeEventListeners();
 
                 pageViewPort.innerHTML = tmpl(route.templateUrl, ctrl);
+                bindElementsWithContext(ctrl);
                 addEventListeners();
             });
 
@@ -115,6 +117,22 @@
         }
     }
 
+    function checkGuard(route) {
+        if (route.hasOwnProperty('guard') && route.guard) {
+            if (route.guard.hasOwnProperty('canEnter') && typeof route.guard.canEnter == 'function') {
+                if (!route.guard.canEnter()) {
+                    if (route.guard.redirectTo) {
+                        navigate(route.guard.redirectTo);
+                    } else {
+                        route = route['*'];
+                    }
+                }
+            } else {
+                framework.printError("A route has a guard but property: 'canEnter' is undefined or is not a function!");
+            }
+        }
+    }
+
     function navigate(path, parameter) {
         if (path.indexOf('/') != 0) {
             path = '/' + path;
@@ -130,10 +148,70 @@
     this.addEventListener('load', router);
 
     this.route = route;
-    this.navigate = navigate;
+
+    this.router = function () { };
+    Object.defineProperty(this.router, 'navigate', { value: navigate });
+
 })();
 
 // two way binding 
 (() => {
+    var currentContext = null;
+    var elements = null;
+    function bindHtmlToJsWithContext(context) {
+        currentContext = context;
+        elements = document.querySelectorAll(framework.bindSelector);
+        elements.forEach((element) => {
+            var propToBind = element.getAttribute(framework.bindAttribute);
+            if (isElementTypeable(element)) {
+                addPropertySetAndGetOnContext(propToBind);
+                if (context[propToBind] !== undefined) {
+                    element.onkeyup = () => {
+                        context[propToBind] = element.value;
+                    }
+                    element.onkeydown = (keyElement) => {
+                        if(keyElement.key == 'Tab') {
+                            context[propToBind] = element.value;
+                        }
+                    }
+                }
+            }
+        });
+    }
 
+    function addPropertySetAndGetOnContext(prop) {
+        var propertyInitValue = null;
+        if (currentContext.hasOwnProperty(prop)) {
+            propertyInitValue = currentContext[prop];
+        }
+        var value;
+        Object.defineProperty(currentContext, prop, {
+            set: function (newValue) {
+                value = newValue;
+                elements.forEach(function (element) {
+                    if (element.getAttribute(framework.bindAttribute) === prop) {
+                        if (element.type && isElementTypeable(element)) {
+                            element.value = newValue;
+                        }
+                        else if (!element.type) {
+                            element.innerHTML = newValue;
+                        }
+                    }
+                });
+            },
+            get: function () {
+                return value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+
+        currentContext[prop] = propertyInitValue;
+    }
+
+    function isElementTypeable(element) {
+        return framework.typeableElementTypes.find(() => element.type);
+    }
+
+    this.bindElementsWithContext = bindHtmlToJsWithContext;
 })();
