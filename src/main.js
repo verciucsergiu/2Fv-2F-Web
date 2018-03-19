@@ -5,7 +5,8 @@ Framework.defineApp({
         'pages/home/home.page.js',
         'pages/login/login.page.js',
         'pages/register/register.page.js',
-        'pages/not-found/not-found.page.js'
+        'pages/not-found/not-found.page.js',
+        'pages/prof/prof.page.js'
     ],
     services: [
         'services/authentication.service.js'
