@@ -11,7 +11,7 @@
                 this.isLoggedIn = AuthService.isLoggedIn();
             };
             this.$on('#modify', 'click', function () {
-                this.demo = 'modified from javascript!';
+                this.demo ='Priviledge: ***' + AuthService.getUserRole() +'*** with name: ***' + AuthService.getUsername()+'***';
                 this.$refresh()
             }.bind(this));
             this.$on('#logout', 'click', function () {

@@ -28,12 +28,22 @@
 }
 
 .prof-box h4 {
+    font-size: 20px;
     cursor: pointer;
+    background-color: rgb(228, 228, 228);
+    height: 30px;
+    width: 40px;
+    line-height: 28px;
+    margin-left: 160px;
+    border-radius: 5px;
 }
 
 .group-box {
     display: none;
     width: 800px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
     margin-top: 20px;
     background: rgba(228, 228, 228, 0.486);
     -moz-box-shadow: 0 0 3px #535353;

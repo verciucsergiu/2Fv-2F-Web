@@ -2,10 +2,17 @@
     route('/prof',
         {
             templateUrl: './src/pages/prof/prof.page.html',
-            styleUrl: './src/pages/prof/prof.page.css'
+            styleUrl: './src/pages/prof/prof.page.css',
+            guard: {
+                canEnter: [ProfGuard],
+                redirectTo: '/'
+            }
         },
         function () {
-            
+            this.username = '';
+            this.$onInit = function () {
+                this.username = AuthService.getUsername();
+            };
         });
 })();
 
@@ -49,7 +56,7 @@ function clickGroup(id) {
         <tr>';
 
     //HEADER
-    table+='<td> </td>\
+    table+='<td>Nume</td>\
         <td>Tip Proiect</td>\
         <td>P</td>\
         <td>A</td>\
@@ -94,7 +101,6 @@ function clickGroup(id) {
 
 function groupSave() {
     // ...
-    alert("saved");
 }
 
 function groupBack() {

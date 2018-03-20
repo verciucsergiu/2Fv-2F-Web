@@ -3,3 +3,8 @@ var AuthGuard = class extends Guard {
         return !AuthService.isLoggedIn();
     }
 }
+
+var ProfGuard = class extends Guard {
+    canEnter() {
+    }
+}
