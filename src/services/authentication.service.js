@@ -1,8 +1,15 @@
 var AuthService = class {
-    constructor() {
-        this.adminToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTE2MjM5MDIyfQ.nN67GfxbNqRbd0AD09Jl-VcK0Q9SExX9NR0XloBnENI';
-        this.profToken = '123';
-        this.localStorageUserTokeItem = 'userToken';
+
+    static get adminToken() {
+        return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTE2MjM5MDIyfQ.nN67GfxbNqRbd0AD09Jl-VcK0Q9SExX9NR0XloBnENI';
+    }
+
+    static get profToken() {
+        return '123';
+    }
+
+    static get localStorageUserTokeItem() {
+        return 'userToken';
     }
 
     static login(loginObject, resolve, reject) {
@@ -25,10 +32,10 @@ var AuthService = class {
         let token = localStorage.getItem(this.localStorageUserTokeItem);
         if (!token) {
             return null;
-        } else if (token === this.adminToken) {
+        } else if (token == this.adminToken) {
             return 'admin';
         } else {
-            if(token === this.profToken){
+            if(token == this.profToken){
                 return 'prof';
             }
             else {

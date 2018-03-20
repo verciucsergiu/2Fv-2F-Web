@@ -213,7 +213,6 @@ var BindHandler = class {
         }
     }
 
-
     this.addEventListener('hashchange', router);
 
     this.addEventListener('load', router);

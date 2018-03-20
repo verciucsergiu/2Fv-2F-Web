@@ -157,8 +157,8 @@ var HttpHeader = class {
 
 var HttpClient = class {
 
-    static get(request, callback, error) {
-       request(request, 'get', null, null, callback, error);
+    static get(request, body, callback, error) {
+       request(request, 'get', body, null, callback, error);
     }
 
     static post(request, body, callback, error) {
