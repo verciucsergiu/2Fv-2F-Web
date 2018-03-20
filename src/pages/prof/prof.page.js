@@ -101,6 +101,7 @@ function clickGroup(id) {
 
 function groupSave() {
     // ...
+    alert('saved');
 }
 
 function groupBack() {
