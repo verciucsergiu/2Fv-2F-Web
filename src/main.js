@@ -7,18 +7,23 @@ Framework.defineApp({
         'pages/register/register.page.js',
         'pages/not-found/not-found.page.js',
         'pages/prof/prof.page.js',
-        'pages/student-home/student-home.page.js'
-    
+        'pages/student-home/student-home.page.js',
+        'pages/prof-grupa/prof-grupa.page.js'
     ],
     services: [
-        'services/authentication.service.js'
+        'services/authentication.service.js',
+        'services/student.service.js'
     ],
     guards: [
-        'guards/auth.guard.js'
+        'guards/auth.guard.js',
+        'guards/student.guard.js',
+        'guards/prof.guard.js'
     ],
     files: [
         'utils.js',
-        'models/login.model.js'
+        'models/login.model.js',
+        'models/user.model.js',
+        'models/student.model.js'
     ]
 });
 

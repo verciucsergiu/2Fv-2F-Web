@@ -8,6 +8,10 @@ var AuthService = class {
         return '123';
     }
 
+    static get studToken() {
+        return '1234';
+    }
+
     static get localStorageUserTokeItem() {
         return 'userToken';
     }
@@ -22,8 +26,13 @@ var AuthService = class {
                 this.addTokenLocalStorage(this.profToken);
                 this.addUsernameLocalStorage(loginObject.username);
                 resolve();
-            } 
-            else {reject();
+            } else if(loginObject.password === 'stud' && loginObject.username === 'stud') {
+                this.addTokenLocalStorage(this.studToken);
+                this.addUsernameLocalStorage(loginObject.username);
+                resolve();
+            }
+            else {
+                reject();
             }
         }
     }

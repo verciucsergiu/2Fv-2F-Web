@@ -1,0 +1,50 @@
+.group-box {
+    width: 800px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    margin-top: 20px;
+    background: rgba(228, 228, 228, 0.486);
+    -moz-box-shadow: 0 0 3px #535353;
+    -webkit-box-shadow: 0 0 3px #535353;
+    box-shadow: 0 0 3px #535353;
+}
+
+.group-box .btn-submit {
+    margin-bottom: 10px;
+    margin-left: 120px;
+}
+
+table.students-table {
+    font-family: "Arial", Gadget, sans-serif;
+    border: 1px solid #FFFFFF;
+    background-color: #F4F4F4;
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+}
+table.students-table td, table.students-table th {
+    border: 1px solid #AAAAAA;
+    padding: 4px 6px;
+}
+table.students-table tbody td {
+    font-size: 15px;
+}
+table.students-table tr:nth-child(even) {
+    background: #E7E7E7;    
+}
+table.students-table thead {
+    background: #CFCFCF;
+    background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+    background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+    background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+    border-bottom: 3px solid #727272;
+}
+table.students-table thead th {
+    font-size: 15px;
+    color: #000000;
+    text-align: left;
+}
+table.students-table tfoot td {
+    font-size: 14px;
+}

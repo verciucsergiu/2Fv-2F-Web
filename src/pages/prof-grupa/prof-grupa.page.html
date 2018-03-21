@@ -1,0 +1,32 @@
+<div class="flex-container-center">
+    <div class="group-box">
+        <h3>
+            <?= idGrupa?>
+        </h3>
+        <button id="group-save-changes" class="btn btn-submit">Save Changes</button>
+        <button id="group-back" class="btn btn-submit">Back</button>
+        <table class="students-table">
+            <thead>
+                <th>Nume</th>
+                <th>Tip Proiect</th>
+                <th>P</th>
+                <th>A</th>
+                <th>S</th>
+                <th>Examen</th>
+                <th>Observatii</th>
+            </thead>
+            <tbody>
+                <? for(let stud of students) { ?>
+                <tr>
+                    <td><?= stud.nume ?></td>
+                    <td><?= stud.tipProiect ?></td>
+                    <td contenteditable="true"><?= stud.notaP ?></td>
+                    <td contenteditable="true"><?= stud.notaA ?></td>
+                    <td contenteditable="true"><?= stud.notaS ?></td>
+                    <td contenteditable="true"><?= stud.notaE ?></td>
+                    <td contenteditable="true"><?= stud.obs ?></td>
+                </tr>
+                <? } ?>
+            </tbody>
+    </div>
+</div>
