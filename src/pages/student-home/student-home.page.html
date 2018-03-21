@@ -21,43 +21,52 @@
 
     <section>
 
+        <div class="scrollit">
+            <table class="student-table">
 
-        <table class="student-table">
 
+                <? for(studentIndex=0;studentIndex<studentsNumber+1;studentIndex++) { ?>
 
-            <? for(studentIndex=0;studentIndex<studentsNumber+1;studentIndex++) { ?>
-                <tr>
-                    <? for(columnIndex=0;columnIndex<numberOfColumns;columnIndex++) { ?>
+                    <? if(studentIndex===0)  { ?>
+                        <thead class="student-table-head">
+                            <tr class="student-table-head-row">
+                                <? for(columnIndex=0;columnIndex<numberOfColumns;columnIndex++) { ?>
 
-                        <? if(studentIndex===0)  { ?>
-                            <th class="table-header-class">
-                                <?= tableHeader[columnIndex] ?>
-                            </th>
-                            <? } else {?>
+                                    <th>
+                                        <?= tableHeader[columnIndex] ?>
+                                    </th>
+                                    <?}?>
+                            </tr>
+                        </thead>
+                        <tbody class="student-table-body">
+                            <? } else { ?>
+                                <tr class="student-table-body-row">
+                                    <? for(columnIndex=0;columnIndex<numberOfColumns;columnIndex++) { ?>
+                                        <? if(username===info[studentIndex-1][0]) { ?>
 
-                                <? if(username===info[studentIndex-1][0]) { ?>
+                                            <td class="regular-student">
+                                                <?= info[studentIndex-1][columnIndex] ?>
+                                            </td>
 
-                                    <td class="chosen-student">
-                                        <?= info[studentIndex-1][columnIndex] ?>
-                                    </td>
+                                            <? } else { ?>
 
-                                    <? } else { ?>
-
-                                        <td class="regular-student">
-                                            <?= info[studentIndex-1][columnIndex] ?>
-                                        </td>
-
-                                        <?}?>
-
-                                            <?}?>
+                                                <td class="regular-student">
+                                                    <?= info[studentIndex-1][columnIndex] ?>
+                                                </td>
 
                                                 <?}?>
-                </tr>
-                <?}?>
+
+                                                    <?}?>
 
 
+                                </tr>
+                                <?}?>
+                        </tbody>
+                        <?}?>
 
-        </table>
+
+            </table>
+        </div>
         <section>
 
 </body>
