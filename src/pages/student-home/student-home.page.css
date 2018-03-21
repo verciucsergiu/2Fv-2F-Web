@@ -13,6 +13,8 @@ body {
     background: -o-linear-gradient(right, #3924b3, #71b1fa);
     background: -moz-linear-gradient(right, #3924b3, #71b1fa);
     background: linear-gradient(right, #3924b3, #71b1fa);
+    height: auto;
+    width: auto;
 }
 
 .username-class-parent {
@@ -21,11 +23,19 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 50px;
 }
 
 .username-name-child {
     display: inline-block;
+}
+
+.group {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 15px;
+    font-size: 30px;
+    color: rgba(201, 226, 238, 0.986);
 }
 
 .table-header-class {
@@ -36,18 +46,18 @@ body {
     text-align: center;
     padding: 15px;
     font-weight: 300;
-    font-size: 12px;
+    font-size: 13px;
     color: #fff;
     border-bottom: solid 1px rgba(255, 255, 255, 0.1);
     position: relative;
+    opacity: 0.5;
 }
 
 .chosen-student {
     text-align: center;
-    background-color: coral;
     padding: 15px;
-    font-weight: 300;
-    font-size: 12px;
+    font-weight: 500;
+    font-size: 14px;
     color: #fff;
     border-bottom: solid 1px rgba(255, 255, 255, 0.1);
     position: relative;
@@ -57,12 +67,12 @@ body {
     border-radius: 3px;
     border-collapse: collapse;
     height: 320px;
-    margin: auto;
-    max-width: 600px;
-    padding: 5px;
+    margin-top: 0px;
+    max-width: 1000px;
+    padding-top: 5px;
     width: 100%;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    overflow:hidden;
+    overflow: hidden;
 }
 
 .table-table-head {
@@ -77,21 +87,47 @@ body {
     background-color: #689ee4;
 }
 
-.student-table-body-row :hover{
-    background-color : rgba(255,255,255,0.2);
+.student-table-body-row:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }
+
+
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+}
+
 
 .regular-student:hover:before {
-                content: "";
-				position: absolute;
-				left: 0;
-				right: 0;
-				top: -9999px;
-				bottom: -9999px;
-				background-color: rgba(255,255,255,0.2);
-				z-index: -1;
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -9999px;
+    bottom: -9999px;
+    background-color: rgba(255, 255, 255, 0.2);
+    z-index: -1;
 }
-
 
 .chosen-student:hover:before {
     content: "";
@@ -100,10 +136,6 @@ body {
     right: 0;
     top: -9999px;
     bottom: -9999px;
-    background-color: rgba(255,255,255,0.2);
+    background-color: rgba(255, 255, 255, 0.2);
     z-index: -1;
-}
-
-.student-table-body-row:hover{
-    background-color: rgba(255,255,255,0.3);
 }

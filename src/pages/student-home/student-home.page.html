@@ -18,10 +18,19 @@
 
     </section>
 
-
     <section>
 
-        <div class="scrollit">
+        <div class="group">
+
+            <?= group ?>
+
+        </div>
+
+
+    </section>
+    <section>
+
+        <div style="overflow-x:auto">
             <table class="student-table">
 
 
@@ -44,14 +53,34 @@
                                     <? for(columnIndex=0;columnIndex<numberOfColumns;columnIndex++) { ?>
                                         <? if(username===info[studentIndex-1][0]) { ?>
 
-                                            <td class="regular-student">
-                                                <?= info[studentIndex-1][columnIndex] ?>
+                                            <td class="chosen-student">
+
+
+                                                <? if(columnIndex>1 && columnIndex<5) { ?>
+
+                                                    <div class="popup" onclick="popupFunction()">
+
+                                                        <?= info[studentIndex-1][columnIndex] ?>
+                                                    </div>
+                                                    <?} else { ?>
+                                                        <?= info[studentIndex-1][columnIndex] ?>
+                                                            <? } ?>
+
                                             </td>
 
                                             <? } else { ?>
 
                                                 <td class="regular-student">
-                                                    <?= info[studentIndex-1][columnIndex] ?>
+
+                                                    <? if(columnIndex>1 && columnIndex<5) { ?>
+
+                                                        <div class="popup" onclick="popupFunction()">
+
+                                                            <?= info[studentIndex-1][columnIndex] ?>
+                                                        </div>
+                                                        <?} else { ?>
+                                                            <?= info[studentIndex-1][columnIndex] ?>
+                                                                <? } ?>
                                                 </td>
 
                                                 <?}?>

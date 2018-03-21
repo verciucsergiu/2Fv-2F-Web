@@ -23,6 +23,6 @@
     this.studentsNumber = 3;
     this.numberOfColumns = 5;
     this.tableHeader = ["Username", "Name", "Numar Prezente", "Observatii", "Sansa Promovare"];
-
+    this.group="B6";
 
 })();
