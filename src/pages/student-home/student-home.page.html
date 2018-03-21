@@ -1,101 +1,62 @@
-<head>
-
-</head>
-
-<body>
-
-    <section>
-
-
-        <div class="username-class-parent">
-            <div class="username-class-child">
-                <p>
-                    <?= username ?>/
-                        <?= studentName ?>
-                </p>
-            </div>
+<section>
+    <div class="username-class-parent">
+        <div class="username-class-child">
+            <p>
+                <?= username ?>/<?= studentName ?>
+            </p>
         </div>
+    </div>
+</section>
 
-    </section>
+<section>
+    <div class="group">
+        <?= group ?>
+    </div>
+</section>
+<section>
 
-    <section>
+    <div style="overflow-x:auto">
+        <table class="student-table">
 
-        <div class="group">
+            <thead class="student-table-head">
+                <tr class="student-table-head-row">
+                    <? for(let column of tableHeader) { ?>
+                        <th>
+                            <?= column ?>
+                        </th>
+                    <?}?>
+                </tr>
+            </thead>
+            <tbody class="student-table-body">
+            <? for(let user of info) { ?>
+                    <tr class="student-table-body-row 
+                    <? if (user.username == username ) 
+                        {?> chosen-student 
+                            <?}else{?> 
+                                regular-student<?}?> "  >
+                        <td>
+                            <?= user.username ?>
+                        </td>
 
-            <?= group ?>
+                        <td>
+                            <?= user.nume ?>
+                        </td>
+                        <td>
+                            <?= user.prezente ?>
+                        </td>
+                        <td>
+                            <?= user.obs ?>
+                        </td>
+                        <td>
+                            <?= user.sanse ?>
+                        </td>
+                    </tr>
+                    <?}?>
+                </tbody>
+        </table>
+    </div>
+</section>
+<?if(showPopup){?>
+popup content
 
-        </div>
-
-
-    </section>
-    <section>
-
-        <div style="overflow-x:auto">
-            <table class="student-table">
-
-
-                <? for(studentIndex=0;studentIndex<studentsNumber+1;studentIndex++) { ?>
-
-                    <? if(studentIndex===0)  { ?>
-                        <thead class="student-table-head">
-                            <tr class="student-table-head-row">
-                                <? for(columnIndex=0;columnIndex<numberOfColumns;columnIndex++) { ?>
-
-                                    <th>
-                                        <?= tableHeader[columnIndex] ?>
-                                    </th>
-                                    <?}?>
-                            </tr>
-                        </thead>
-                        <tbody class="student-table-body">
-                            <? } else { ?>
-                                <tr class="student-table-body-row">
-                                    <? for(columnIndex=0;columnIndex<numberOfColumns;columnIndex++) { ?>
-                                        <? if(username===info[studentIndex-1][0]) { ?>
-
-                                            <td class="chosen-student">
-
-
-                                                <? if(columnIndex>1 && columnIndex<5) { ?>
-
-                                                    <div class="popup" onclick="popupFunction()">
-
-                                                        <?= info[studentIndex-1][columnIndex] ?>
-                                                    </div>
-                                                    <?} else { ?>
-                                                        <?= info[studentIndex-1][columnIndex] ?>
-                                                            <? } ?>
-
-                                            </td>
-
-                                            <? } else { ?>
-
-                                                <td class="regular-student">
-
-                                                    <? if(columnIndex>1 && columnIndex<5) { ?>
-
-                                                        <div class="popup" onclick="popupFunction()">
-
-                                                            <?= info[studentIndex-1][columnIndex] ?>
-                                                        </div>
-                                                        <?} else { ?>
-                                                            <?= info[studentIndex-1][columnIndex] ?>
-                                                                <? } ?>
-                                                </td>
-
-                                                <?}?>
-
-                                                    <?}?>
-
-
-                                </tr>
-                                <?}?>
-                        </tbody>
-                        <?}?>
-
-
-            </table>
-        </div>
-        <section>
-
-</body>
+<?}?>
