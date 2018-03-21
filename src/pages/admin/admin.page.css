@@ -1,0 +1,28 @@
+.admin-container {
+    margin-top: 20px;
+}
+
+.adm-prof-req {
+    width: 600px;
+    height: 250px;
+    margin: 20px;
+    background: rgba(228, 228, 228, 0.486);
+    -moz-box-shadow: 0 0 3px #535353;
+    -webkit-box-shadow: 0 0 3px #535353;
+    box-shadow: 0 0 3px #535353;
+    text-align: center;
+    position: absolute;
+}
+
+.adm-user-list {
+    width: 600px;
+    height: 250px;
+    margin: 20px;
+    margin-top: 320px;
+    background: rgba(228, 228, 228, 0.486);
+    -moz-box-shadow: 0 0 3px #535353;
+    -webkit-box-shadow: 0 0 3px #535353;
+    box-shadow: 0 0 3px #535353;
+    text-align: center;
+    position: absolute;
+}

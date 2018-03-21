@@ -8,7 +8,8 @@ Framework.defineApp({
         'pages/not-found/not-found.page.js',
         'pages/prof/prof.page.js',
         'pages/student-home/student-home.page.js',
-        'pages/prof-grupa/prof-grupa.page.js'
+        'pages/prof-grupa/prof-grupa.page.js',
+        'pages/admin/admin.page.js'
     ],
     services: [
         'services/authentication.service.js',
@@ -17,7 +18,8 @@ Framework.defineApp({
     guards: [
         'guards/auth.guard.js',
         'guards/student.guard.js',
-        'guards/prof.guard.js'
+        'guards/prof.guard.js',
+        'guards/admin.guard.js'
     ],
     files: [
         'utils.js',
