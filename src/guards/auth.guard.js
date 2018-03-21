@@ -9,3 +9,8 @@ var ProfGuard = class extends Guard {
         return AuthService.isLoggedIn() && AuthService.getUserRole() === 'prof';
     }
 }
+var StudentGuard = class extends Guard {
+    canEnter() {
+        return true;
+    }
+}

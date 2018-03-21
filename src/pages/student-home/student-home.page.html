@@ -1,0 +1,63 @@
+<head>
+
+</head>
+
+<body>
+
+    <section>
+
+
+        <div class="username-class-parent">
+            <div class="username-class-child">
+                <p>
+                    <?= username ?>/
+                        <?= studentName ?>
+                </p>
+            </div>
+        </div>
+
+    </section>
+
+
+    <section>
+
+
+        <table class="student-table">
+
+
+            <? for(studentIndex=0;studentIndex<studentsNumber+1;studentIndex++) { ?>
+                <tr>
+                    <? for(columnIndex=0;columnIndex<numberOfColumns;columnIndex++) { ?>
+
+                        <? if(studentIndex===0)  { ?>
+                            <th class="table-header-class">
+                                <?= tableHeader[columnIndex] ?>
+                            </th>
+                            <? } else {?>
+
+                                <? if(username===info[studentIndex-1][0]) { ?>
+
+                                    <td class="chosen-student">
+                                        <?= info[studentIndex-1][columnIndex] ?>
+                                    </td>
+
+                                    <? } else { ?>
+
+                                        <td class="regular-student">
+                                            <?= info[studentIndex-1][columnIndex] ?>
+                                        </td>
+
+                                        <?}?>
+
+                                            <?}?>
+
+                                                <?}?>
+                </tr>
+                <?}?>
+
+
+
+        </table>
+        <section>
+
+</body>
