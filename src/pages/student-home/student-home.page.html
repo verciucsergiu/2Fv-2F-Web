@@ -2,7 +2,8 @@
     <div class="username-class-parent">
         <div class="username-class-child">
             <p>
-                <?= username ?>/<?= studentName ?>
+                <?= username ?>/
+                    <?= studentName ?>
             </p>
         </div>
     </div>
@@ -24,16 +25,16 @@
                         <th>
                             <?= column ?>
                         </th>
-                    <?}?>
+                        <?}?>
                 </tr>
             </thead>
             <tbody class="student-table-body">
-            <? for(let user of info) { ?>
+                <? for(let user of info) { ?>
                     <tr class="student-table-body-row 
                     <? if (user.username == username ) 
                         {?> chosen-student 
                             <?}else{?> 
-                                regular-student<?}?> "  >
+                                regular-student<?}?> ">
                         <td>
                             <?= user.username ?>
                         </td>
@@ -52,11 +53,47 @@
                         </td>
                     </tr>
                     <?}?>
-                </tbody>
+            </tbody>
         </table>
     </div>
-</section>
-<?if(showPopup){?>
-popup content
 
-<?}?>
+</section>
+
+<section>
+
+    <div class="attendance-class">
+        <p>
+            Prezente Curs/Laborator
+        </p>
+    </div>
+
+    <table class="attendance-table">
+
+        <thead class="attendance-table-head">
+            <tr class="attendance-table-head-row">
+                <? for(saptamana=1;saptamana<10;saptamana++) { ?>
+                    <th colspan="2">
+                        Saptamana
+                        <?= saptamana ?>
+                    </th>
+                    <?}?>
+            </tr>
+        </thead>
+        <tbody class="attendance-table-body">
+            <tr>
+                <? for(saptamana=1;saptamana<10;saptamana++) { ?>
+                    <td class="attendance-col">
+                        <?=attendance[saptamana]?>
+                    </td>
+                    <td class="attendance-col">
+                        <?=attendance[saptamana]?>
+                    </td>
+                    <?}?>
+            </tr>
+        </tbody>
+
+    </table>
+
+
+
+</section>

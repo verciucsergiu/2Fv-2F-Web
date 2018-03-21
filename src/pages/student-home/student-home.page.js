@@ -36,5 +36,7 @@
             ]
             this.tableHeader = ["Username", "Name", "Numar Prezente", "Observatii", "Sansa Promovare"];
             this.group="B6";
-        });
+            this.attendance=["*","-","*","*","*","-","*","*","-","*","-","*"]
+        },
+    );
 })();
