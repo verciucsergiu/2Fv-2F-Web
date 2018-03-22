@@ -17,7 +17,7 @@
 
 .adm-user-list {
     width: 600px;
-    height: 250px;
+    height: auto;
     margin: 20px;
     margin-top: 320px;
     background: rgba(228, 228, 228, 0.486);
@@ -47,6 +47,80 @@
 
 .adm-prof-req .btn-submit {
     margin-top: 30px;
+}
+
+
+.adm-user-list-header{
+color:black;
+text-align: center;
+}
+
+
+
+.adm-user-teacher-table
+{
+    background:#689ee4;
+    align-self: center;
+    border-radius: 3px;
+    border-collapse: collapse;
+    height: auto;
+    margin-top: 0px;
+    margin-left: 0;
+    max-width: auto;
+    padding-top: 5px;
+    width: 100%;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.adm-user-teacher-table-head {
+    padding: 20px 15px;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+}
+
+
+.adm-user-teacher-table-body-col:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.adm-user-teacher-table-body-row:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+
+
+.adm-user-students-table
+{
+    background:#689ee4;
+    align-self: center;
+    border-radius: 3px;
+    border-collapse: collapse;
+    height: auto;
+    margin-top: 0px;
+    margin-left: 0;
+    max-width: auto;
+    padding-top: 5px;
+    width: 100%;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.adm-user-students-table-head {
+    padding: 20px 15px;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+}
+
+.adm-user-students-table-body-col:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.adm-user-students-table-body-row:hover{
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 

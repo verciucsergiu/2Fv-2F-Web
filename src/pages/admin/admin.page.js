@@ -19,7 +19,7 @@
             }.bind(this));
             
 
-            this.studenti = [{
+            this.students = [{
                 username: "jack23",
                 grupa:"B6"
             },
@@ -33,9 +33,13 @@
             }
         ]
 
-        this.profesori = [{
-            username: "jack23",
-            grupe : [{g1:"B4",g2:"B6"}]
+        this.teachers = [{
+            username: "prof",
+            grupa : "B6"
+        },
+        {
+            username: "prof1",
+            grupa : "B6"
         }
     ]
        
