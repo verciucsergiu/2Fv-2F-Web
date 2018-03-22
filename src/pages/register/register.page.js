@@ -10,6 +10,6 @@
             }
         },
         function () {
-
+            AuthService.setupVision();
         });
 })();

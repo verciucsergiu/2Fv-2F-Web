@@ -22,11 +22,11 @@ var AuthService = class {
             this.addUsernameLocalStorage(loginObject.username);
             resolve();
         } else {
-            if (loginObject.password === '1qwer' && loginObject.username === 'prof123'){
+            if (loginObject.password === '1qwer' && loginObject.username === 'prof123') {
                 this.addTokenLocalStorage(this.profToken);
                 this.addUsernameLocalStorage(loginObject.username);
                 resolve();
-            } else if(loginObject.password === 'stud' && loginObject.username === 'stud') {
+            } else if (loginObject.password === 'stud' && loginObject.username === 'stud') {
                 this.addTokenLocalStorage(this.studToken);
                 this.addUsernameLocalStorage(loginObject.username);
                 resolve();
@@ -44,7 +44,7 @@ var AuthService = class {
         } else if (token == this.adminToken) {
             return 'admin';
         } else {
-            if(token == this.profToken){
+            if (token == this.profToken) {
                 return 'prof';
             }
             else {
@@ -60,7 +60,7 @@ var AuthService = class {
         }
         return false;
     }
-    
+
     static logout() {
         localStorage.removeItem(this.localStorageUserTokeItem);
         localStorage.removeItem('username');
@@ -70,16 +70,38 @@ var AuthService = class {
         localStorage.setItem(this.localStorageUserTokeItem, token);
     }
 
-    static addUsernameLocalStorage(username){
-        localStorage.setItem('username',username);
+    static addUsernameLocalStorage(username) {
+        localStorage.setItem('username', username);
     }
 
-    static getUsername(){
+    static getUsername() {
         let user = localStorage.getItem('username');
-        if(user){
+        if (user) {
             return user;
-        }else{
+        } else {
             return 'not logged in';
+        }
+    }
+
+    static setupVision() {
+        document.getElementById('nav-prof').style.display = "none";
+        document.getElementById('nav-admin').style.display = "none";
+        document.getElementById('nav-stud').style.display = "none";
+        if (this.isLoggedIn() == true) {
+            document.getElementById('nav-log').style.display = "none";
+            document.getElementById('nav-reg').style.display = "none";
+            if (this.getUserRole() == "admin") {
+                document.getElementById('nav-admin').style.display = "block";
+            }
+            if (this.getUserRole() == "prof") {
+                document.getElementById('nav-prof').style.display = "block";
+            }
+            if(this.getUserRole() == "user"){
+                document.getElementById('nav-stud').style.display = "block";
+            }
+        } else {
+            document.getElementById('nav-log').style.display = "block";
+            document.getElementById('nav-reg').style.display = "block";
         }
     }
 };

@@ -8,6 +8,7 @@
             }
         },
         function () {
+            AuthService.setupVision();
             this.username = "jack23";
             this.showPopup = false;
             this.studentName = "Jack Smith";

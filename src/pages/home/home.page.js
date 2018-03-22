@@ -9,6 +9,7 @@
             this.isLoggedIn = true;
             this.$onInit = function () {
                 this.isLoggedIn = AuthService.isLoggedIn();
+                AuthService.setupVision();
             };
             this.$on('#modify', 'click', function () {
                 this.demo ='Priviledge: ***' + AuthService.getUserRole() +'*** with name: ***' + AuthService.getUsername()+'***';
@@ -17,7 +18,7 @@
             this.$on('#logout', 'click', function () {
                 AuthService.logout();
                 this.isLoggedIn = AuthService.isLoggedIn();
-                this.$refresh();
+                location.reload(this);
             }.bind(this));
         });
 })();

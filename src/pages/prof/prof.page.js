@@ -12,6 +12,7 @@
             this.username = '';
             this.groups = ['B4', 'B6']
             this.$onInit = function () {
+                AuthService.setupVision();
                 this.username = AuthService.getUsername();
                 for (let group of this.groups) {
                     this.$on('#' + group, 'click', function () {

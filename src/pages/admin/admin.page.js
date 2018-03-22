@@ -9,6 +9,12 @@
             }
         },
         function () {
+            this.$onInit = function () {
+                AuthService.setupVision();
+            }
+            this.$on('#invite','click',function () {
+                alert('invited');
+            }.bind(this));
             
         });
 })();
