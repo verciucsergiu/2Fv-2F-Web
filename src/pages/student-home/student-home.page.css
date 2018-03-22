@@ -86,10 +86,12 @@ body {
 }
 
 .student-table {
+    align-self: center;
     border-radius: 3px;
     border-collapse: collapse;
     height: 320px;
     margin-top: 0px;
+    margin-left:70px;
     max-width: 1000px;
     padding-top: 5px;
     width: 100%;
@@ -187,6 +189,7 @@ body {
     border-collapse: collapse;
     height: 120px;
     margin-top: 0px;
+    margin-left:70px;
     max-width: 1000px;
     padding-top: 5px;
     width: 100%;
@@ -199,7 +202,7 @@ body {
     text-align: center;
     font-weight: 500;
     font-size: 12px;
-    color: #fff;
+    color: black;
 }
 
 .attendance-table .attendance-table-head .attendance-table-head-row {
@@ -211,4 +214,9 @@ body {
 .attendance-table .attendance-table-body .attendance-table-body.attendance-col
 {
     text-align: center;
+}
+
+
+.student-table-body-row:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }

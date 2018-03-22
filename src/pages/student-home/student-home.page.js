@@ -7,37 +7,49 @@
                 redirectTo: '/'
             }
         },
+
         function () {
             AuthService.setupVision();
             this.username = "jack23";
             this.showPopup = false;
             this.studentName = "Jack Smith";
-            this.info = [
-                {
-                    username: "jack23",
-                    nume: "Jack Smith",
-                    prezente: "3",
-                    obs: "nimic de remarcat",
-                    sanse: "NU"
+
+            this.computeChance = (prezente) => {
+                  //  alert(prezente);
+                    if (prezente > 2) return "DA";
+
+                    return "NU";
                 },
-                {
-                    username: "maria",
-                    nume: "Jack Smith",
-                    prezente: "3",
-                    obs: "nimic de remarcat",
-                    sanse: "NU"
-                },
-                {
-                    username: "test2",
-                    nume: "Jack Smith",
-                    prezente: "3",
-                    obs: "nimic de remarcat",
-                    sanse: "NU"
-                }
-            ]
+
+
+                this.info = [{
+                        username: "jack23",
+                        nume: "Jack Smith",
+                        prezente: 3,
+                        obs: "nimic de remarcat",
+                        sanse: this.computeChance(3)
+                    },
+                    {
+                        username: "maria",
+                        nume: "Jack Smith",
+                        prezente: 1,
+                        obs: "nimic de remarcat",
+                        sanse: this.computeChance(1)
+                    },
+                    {
+                        username: "test2",
+                        nume: "Jack Smith",
+                        prezente: 5,
+                        obs: "nimic de remarcat",
+                        sanse: this.computeChance(5)
+                    }
+                ]
             this.tableHeader = ["Username", "Name", "Numar Prezente", "Observatii", "Sansa Promovare"];
-            this.group="B6";
-            this.attendance=["*","-","*","*","*","-","*","*","-","*","-","*"]
+            this.group = "B6";
+            this.attendance = ["*", "-", "*", "*", "*", "-", "*", "*", "-", "*", "-", "*"]
+        
+        
+        
         },
     );
 })();
