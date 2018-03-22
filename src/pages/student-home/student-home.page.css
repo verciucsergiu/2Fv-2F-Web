@@ -42,7 +42,7 @@ body {
     text-align: center;
 }
 
-.regular-student > td {
+.regular-student>td {
     text-align: center;
     padding: 15px;
     font-weight: 300;
@@ -52,7 +52,8 @@ body {
     position: relative;
     opacity: 0.5;
 }
-.regular-student > td:hover:before {
+
+.regular-student>td:hover:before {
     content: "";
     position: absolute;
     left: 0;
@@ -63,7 +64,7 @@ body {
     z-index: -1;
 }
 
-.chosen-student > td {
+.chosen-student>td {
     text-align: center;
     padding: 15px;
     font-weight: 500;
@@ -73,8 +74,7 @@ body {
     position: relative;
 }
 
-
-.chosen-student > td:hover:before {
+.chosen-student>td:hover:before {
     content: "";
     position: absolute;
     left: 0;
@@ -91,7 +91,7 @@ body {
     border-collapse: collapse;
     height: 320px;
     margin-top: 0px;
-    margin-left:70px;
+    margin-left: 70px;
     max-width: 1000px;
     padding-top: 5px;
     width: 100%;
@@ -115,7 +115,6 @@ body {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-
 .popup {
     position: relative;
     display: inline-block;
@@ -127,6 +126,7 @@ body {
 }
 
 /* The actual popup */
+
 .popup .popuptext {
     visibility: hidden;
     width: 160px;
@@ -143,6 +143,7 @@ body {
 }
 
 /* Popup arrow */
+
 .popup .popuptext::after {
     content: "";
     position: absolute;
@@ -155,6 +156,7 @@ body {
 }
 
 /* Toggle this class - hide and show the popup */
+
 .popup .show {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
@@ -163,14 +165,23 @@ body {
 }
 
 /* Add animation (fade in the popup) */
+
 @-webkit-keyframes fadeIn {
-    from {opacity: 0;} 
-    to {opacity: 1;}
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity:1 ;}
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .attendance-class {
@@ -180,16 +191,14 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: 50px;
-
 }
 
-
-.attendance-table{
+.attendance-table {
     border-radius: 3px;
     border-collapse: collapse;
     height: 120px;
     margin-top: 0px;
-    margin-left:70px;
+    margin-left: 70px;
     max-width: 1000px;
     padding-top: 5px;
     width: 100%;
@@ -209,14 +218,47 @@ body {
     background-color: #689ee4;
 }
 
-
-
-.attendance-table .attendance-table-body .attendance-table-body.attendance-col
-{
+.attendance-table .attendance-table-body .attendance-table-body.attendance-col {
     text-align: center;
 }
 
-
-.student-table-body-row:hover {
+.attendance-table-body-row:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
+
+.attendance-col {
+    text-align: center;
+}
+
+.attendance-col:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.recommend-head{
+    text-align: center;
+    margin-top:50px;
+    margin-left:25px;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.recommend-line{
+    text-align: center;
+    margin-top:25px;
+    color:white;
+    overflow:auto;
+}
+
+.recommend-list
+{
+    list-style-type:none;
+    text-align: center;
+
+
+}
+
+
+
+
+

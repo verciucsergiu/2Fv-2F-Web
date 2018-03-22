@@ -27,7 +27,7 @@
                         nume: "Jack Smith",
                         prezente: 3,
                         obs: "nimic de remarcat",
-                        sanse: this.computeChance(3)
+                        sanse: this.computeChance(2)
                     },
                     {
                         username: "maria",
@@ -47,8 +47,8 @@
             this.tableHeader = ["Username", "Name", "Numar Prezente", "Observatii", "Sansa Promovare"];
             this.group = "B6";
             this.attendance = ["*", "-", "*", "*", "*", "-", "*", "*", "-", "*", "-", "*"]
-        
-        
+            this.recommendations=["https://www.w3schools.com/","google.com","TudorSorin PaginiWeb"];    
+                
         
         },
     );

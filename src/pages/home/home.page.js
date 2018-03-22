@@ -1,6 +1,6 @@
+
 (() => {
-    route('/',
-        {
+    route('/', {
             templateUrl: './src/pages/home/home.page.html',
             styleUrl: './src/pages/home/home.page.css'
         },
@@ -12,13 +12,14 @@
                 AuthService.setupVision();
             };
             this.$on('#modify', 'click', function () {
-                this.demo ='Priviledge: ***' + AuthService.getUserRole() +'*** with name: ***' + AuthService.getUsername()+'***';
+                this.demo = 'Priviledge: ***' + AuthService.getUserRole() + '*** with name: ***' + AuthService.getUsername() + '***';
                 this.$refresh()
             }.bind(this));
             this.$on('#logout', 'click', function () {
                 AuthService.logout();
                 this.isLoggedIn = AuthService.isLoggedIn();
-                location.reload(this);
+                this.$refresh();
+                AuthService.setupVision();
             }.bind(this));
         });
 })();
