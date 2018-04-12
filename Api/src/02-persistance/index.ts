@@ -1,2 +1,2 @@
 export * from './database-context';
-export * from './student.repository';
+export * from './professor.repository';

@@ -1,9 +1,9 @@
-import { StudentsController } from './01-controllers';
+import { ProfessorController } from './01-controllers';
 import { WebApi } from '../framework/core';
 
 @WebApi({
     controllers: [
-        StudentsController
+        ProfessorController
     ],
     settings: {
         port: 4200,

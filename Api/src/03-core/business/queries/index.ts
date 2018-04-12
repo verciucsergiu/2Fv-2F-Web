@@ -1,2 +1,1 @@
-export * from './get-student-by-id';
-export * from './get-students';
+export * from './get-professor-by-id';

@@ -1,6 +1,6 @@
 import { Connection, Repository } from 'typeorm';
 
-import { BaseEntity, Student } from '../03-core';
+import { BaseEntity } from '../03-core';
 import { DatabaseContext } from './database-context';
 
 export abstract class BaseRepository<T extends BaseEntity> {
