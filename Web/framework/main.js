@@ -139,8 +139,8 @@ var Framework = class {
 }
 
 var HttpResponse = class {
-    constructor(resonse) {
-        this.statusCode = resonse.status;
+    constructor(response) {
+        this.statusCode = response.status;
         this.rawText = response.responseText;
     }
 
@@ -157,31 +157,31 @@ var HttpHeader = class {
 
 var HttpClient = class {
 
-    static get(request, body, callback, error) {
-       request(request, 'get', body, null, callback, error);
+    static get(req, body, callback, error) {
+        this.request(req, 'get', body, null, callback, error);
     }
 
-    static post(request, body, callback, error) {
-        request(request, 'post', body, null, callback, error);
+    static post(req, body, callback, error) {
+        this.request(req, 'post', body, null, callback, error);
     }
 
-    static put(request, body, callback, error) {
-        request(request, 'put', body, null, callback, error);
+    static put(req, body, callback, error) {
+        this.request(req, 'put', body, null, callback, error);
     }
 
-    static delete(request, body, callback, error) {
-        request(request, 'delete', body, null, callback, error);
+    static delete(req, body, callback, error) {
+        this.request(req, 'delete', body, null, callback, error);
     }
 
-    static options(request, body, callback, error) {
-        request(request, 'options', body, null, callback, error);
+    static options(req, body, callback, error) {
+        this.request(req, 'options', body, null, callback, error);
     }
 
-    request(req, requestVerb, body, headers, callback, error) {
+    static request (req, requestVerb, body, headers, callback, error) {
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.onreadystatechange = () => {
             if (xmlHttp.readyState == 4) {
-                callback(new HttpResponse(xmlhttp));
+                callback(new HttpResponse(xmlHttp));
             }
         }
 
