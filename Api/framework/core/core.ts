@@ -15,7 +15,9 @@ export class WebApiBuilder {
         const settings: AppParams = AppContainer.settings;
         DecoratorHandler.handle();
         http.createServer((request: http.IncomingMessage, response: http.ServerResponse) => {
-            new RequestHandler(request, response);
+            this.handleCors(request, response, () => {
+                new RequestHandler(request, response);
+            });
         }).listen(settings.port);
 
         console.log('Server is up and running at : http://localhost:' + settings.port);
@@ -29,5 +31,18 @@ export class WebApiBuilder {
     public useDatabase(type: Function, database: any): WebApiBuilder {
         DependencyContainer.set({ global: true, value: database, type: type });
         return this;
+    }
+
+    private handleCors(request: http.IncomingMessage, response: http.ServerResponse, next: Function): void {
+        response.setHeader('Access-Control-Allow-Origin', '*');
+        response.setHeader('Access-Control-Request-Method', '*');
+        response.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+        response.setHeader('Access-Control-Allow-Headers', '*');
+        if (request.method === 'OPTIONS') {
+            response.writeHead(200);
+            response.end();
+        } else {
+            next();
+        }
     }
 }
