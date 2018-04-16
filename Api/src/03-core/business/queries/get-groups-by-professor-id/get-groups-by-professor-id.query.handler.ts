@@ -15,7 +15,7 @@ export class GetGroupsByProfessorIdQueryHandler implements IQueryHandler<GetGrou
 
     }
     public async retrieve(query: GetGroupsByProfessorIdQuery): Promise<GetGroupsByProfessorIdQueryResult> {
-        const result = await this.repository.getAllByOption(query.id);
+        const result = await this.repository.getAllByProfesorId(query.id);
         const mappedResult = result.map((st: GroupModel) => Object.assign(new GroupModel(), st));
         return new GetGroupsByProfessorIdQueryResult(mappedResult);
     }

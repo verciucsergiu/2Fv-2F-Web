@@ -17,17 +17,18 @@
             this.$onInit = function () {
 
                 AuthService.setupVision();
-                //this.username = AuthService.getUsername();
 
                 ProfessorService.getProfessor(this.profId, this.professorCallback, this.professorCallback);
                 GroupService.getGroupsOfProfessor(this.profId,this.groupCallback,this.groupCallback);
             };
 
-            this.professorCallback = (jsonResponse) => {
+            this.professorCallback = (response) => {
+                let jsonResponse = response.body;
                 this.username = jsonResponse.rank + ' ' + jsonResponse.firstName + ' ' + jsonResponse.lastName;
             }
 
-            this.groupCallback = (jsonResponse) => {
+            this.groupCallback = (response) => {
+                let jsonResponse = response.body;
                 for (let i in jsonResponse) {
                     this.groups.push(jsonResponse[i].name);
                 }

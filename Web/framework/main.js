@@ -144,7 +144,7 @@ var HttpResponse = class {
         this.rawText = response.responseText;
     }
 
-    get messageAsObject() {
+    get body() {
         return Framework.tryParse(this.rawText);
     }
 }
@@ -181,7 +181,7 @@ var HttpClient = class {
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.onreadystatechange = () => {
             if (xmlHttp.readyState == 4) {
-                callback(new HttpResponse(xmlHttp).messageAsObject);
+                callback(new HttpResponse(xmlHttp));
             }
         }
 
