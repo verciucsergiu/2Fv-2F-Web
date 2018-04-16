@@ -37,6 +37,10 @@ var AuthService = class {
         }
     }
 
+    static getUserID() {
+        return 8;
+    }
+
     static getUserRole() {
         let token = localStorage.getItem(this.localStorageUserTokeItem);
         if (!token) {
@@ -96,7 +100,7 @@ var AuthService = class {
             if (this.getUserRole() == "prof") {
                 document.getElementById('nav-prof').style.display = "block";
             }
-            if(this.getUserRole() == "user"){
+            if (this.getUserRole() == "user") {
                 document.getElementById('nav-stud').style.display = "block";
             }
         } else {

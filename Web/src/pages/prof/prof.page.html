@@ -1,11 +1,11 @@
 <div class="flex-container-center" id="prof-main">
     <div class="prof-box" id="prof-div">
 
-        <h3>prof. <?= username?></h3>
+        <h3 id="prof-name"><?= username?></h3>
         <h2>Groups</h2>
 
         <? for(let group of groups) { ?>
-            <h4  id=<?= group ?> onclick="clickGroup(group)"><?= group ?></h4>  
+            <h4  id=<?= group ?> ><?= group ?></h4>  
         <? } ?>
     </div>
 </div>

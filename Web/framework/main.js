@@ -181,7 +181,7 @@ var HttpClient = class {
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.onreadystatechange = () => {
             if (xmlHttp.readyState == 4) {
-                callback(new HttpResponse(xmlHttp));
+                callback(new HttpResponse(xmlHttp).messageAsObject);
             }
         }
 

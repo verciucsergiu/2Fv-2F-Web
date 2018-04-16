@@ -14,7 +14,7 @@ var StudentService = class {
             new Student('user4', 'Un doi Trei', 3, 'nici o obs', 'nu', 9, 3, 4, 10, 'M'),
             new Student('user5', 'Banda Continua', 3, 'nici o obs', 'nu', 9, 3, 4, 10, 'M'),
         ];
-        if(grupa == 'B4') {
+        if (grupa == 'B4') {
             return studsB4;
         } else {
             return studsB6;

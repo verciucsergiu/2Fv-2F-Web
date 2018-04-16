@@ -13,7 +13,9 @@ Framework.defineApp({
     ],
     services: [
         'services/authentication.service.js',
-        'services/student.service.js'
+        'services/student.service.js',
+        'services/professor.service.js',
+        'services/group.service.js'
     ],
     guards: [
         'guards/auth.guard.js',

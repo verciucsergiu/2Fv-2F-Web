@@ -13,7 +13,7 @@
             };
             this.$on('#modify', 'click', function () {
                 this.demo = 'Priviledge: ***' + AuthService.getUserRole() + '*** with name: ***' + AuthService.getUsername() + '***';
-                this.$refresh()
+                this.$refresh();
             }.bind(this));
             this.$on('#logout', 'click', function () {
                 AuthService.logout();
