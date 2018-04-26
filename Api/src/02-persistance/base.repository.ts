@@ -1,6 +1,6 @@
 import { Connection, Repository } from 'typeorm';
 
-import { BaseEntity } from '../03-core';
+import { BaseEntity, Professor } from '../03-core';
 import { DatabaseContext } from './database-context';
 
 export abstract class BaseRepository<T extends BaseEntity> {
@@ -25,16 +25,14 @@ export abstract class BaseRepository<T extends BaseEntity> {
         return dbSet.find({ where: { deleted: false } });
     }
 
-    // only for groups needs to be moved to groupRepository but dbSet is private?
-    // find all groups under professor : id
-    public async getAllByOption<TEntity extends BaseEntity>(id: string): Promise<Array<{}>> {
-        const dbSet = await this.dbSet();
-        return dbSet.find({ where: { professorId: id } });
-    }
-
     public async delete<TEntity extends BaseEntity>(entity: TEntity): Promise<void> {
         const dbSet = await this.dbSet();
         dbSet.deleteById(entity.id);
+    }
+
+    public async getProfessorWithGroupRelations<TEntity extends BaseEntity>(id: string): Promise<{}> {
+        const dbSet = await this.dbSet();
+        return dbSet.findOneById(id, { relations: ["groups"] });
     }
 
     public async update<TEntity extends BaseEntity>(entity: TEntity): Promise<TEntity> {

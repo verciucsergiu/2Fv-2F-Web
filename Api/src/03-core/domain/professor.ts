@@ -1,5 +1,6 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, ManyToMany, JoinTable } from 'typeorm';
 import { BaseEntity } from './base.entity';
+import { Group } from '.';
 
 @Entity()
 export class Professor extends BaseEntity {
@@ -18,6 +19,10 @@ export class Professor extends BaseEntity {
 
     @Column()
     private deleted?: boolean = false;
+
+    @ManyToMany((type) => Group)
+    @JoinTable()
+    public groups: Array<Group> = new Array<Group>();
 
     public markAsDeleted(): void {
         this.deleted = true;

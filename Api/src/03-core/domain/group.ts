@@ -1,14 +1,12 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, ManyToMany, JoinTable } from 'typeorm';
 import { BaseEntity } from './base.entity';
+import { Professor } from '.';
 
 @Entity()
 export class Group extends BaseEntity {
 
-    @Column()
-    private name: string = '';
-
-    @Column()
-    private professorId: string = '';
+    @Column({ unique: true })
+    private name: string;
 
     @Column()
     private deleted?: boolean = false;

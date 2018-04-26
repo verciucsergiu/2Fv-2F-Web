@@ -14,7 +14,7 @@ export class GetProfessorByIdQueryHandler implements IQueryHandler<GetProfessorB
     }
 
     public async retrieve(query: GetProfessorByIdQuery): Promise<GetProfessorByIdQueryResult> {
-        const professor: any = await this.repository.getById(query.id);
+        const professor: any = await this.repository.getProfessorWithGroupRelations(query.id);
         const professorMapped: ProfessorModel = Object.assign(new ProfessorModel(), professor);
 
         return new GetProfessorByIdQueryResult(professorMapped);
