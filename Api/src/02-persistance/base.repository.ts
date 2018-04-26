@@ -26,16 +26,8 @@ export abstract class BaseRepository<T extends BaseEntity> {
     }
 
     public async delete<TEntity extends BaseEntity>(entity: TEntity): Promise<void> {
-<<<<<<< HEAD
         const dbSet = await this.dbSet();
         dbSet.deleteById(entity.id);
-    }
-
-    public async getProfessorWithGroupRelations<TEntity extends BaseEntity>(id: string): Promise<{}> {
-=======
->>>>>>> master
-        const dbSet = await this.dbSet();
-        return dbSet.findOneById(id, { relations: ["groups"] });
     }
 
     public async update<TEntity extends BaseEntity>(entity: TEntity): Promise<TEntity> {
