@@ -31,13 +31,4 @@ export class Professor extends BaseEntity {
     public get fullName(): string {
         return `${this.firstName} ${this.lastName}`;
     }
-
-    public get profEmail(): string {
-        return `${this.email}`;
-    }
-
-    public get profRank(): string {
-        return `${this.rank}`;
-    }
-
 }

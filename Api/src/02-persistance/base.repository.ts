@@ -26,11 +26,14 @@ export abstract class BaseRepository<T extends BaseEntity> {
     }
 
     public async delete<TEntity extends BaseEntity>(entity: TEntity): Promise<void> {
+<<<<<<< HEAD
         const dbSet = await this.dbSet();
         dbSet.deleteById(entity.id);
     }
 
     public async getProfessorWithGroupRelations<TEntity extends BaseEntity>(id: string): Promise<{}> {
+=======
+>>>>>>> master
         const dbSet = await this.dbSet();
         return dbSet.findOneById(id, { relations: ["groups"] });
     }
@@ -40,7 +43,7 @@ export abstract class BaseRepository<T extends BaseEntity> {
         return dbSet.save(entity);
     }
 
-    private async dbSet(): Promise<Repository<{}>> {
+    protected async dbSet(): Promise<Repository<{}>> {
         const conn = await this.context.database;
         const repo = await conn.getRepository(this.type);
         return repo;
