@@ -10,7 +10,7 @@ export class ProfessorRepository extends BaseRepository<Professor> {
     constructor(@Inject(DatabaseContext) context: DatabaseContext) {
         super(context);
     }
- 
+
     public async getProfessorWithGroupRelations(id: string): Promise<{}> {
         const dbSet = await this.dbSet();
         return dbSet.findOneById(id, { relations: ["groups"] });

@@ -1,5 +1,5 @@
 var GroupService = class {
-    static getGroupsOfProfessor(idProfessor, callback, errorCallback) {
-        HttpClient.get('http://localhost:4200/api/groups/' + idProfessor, null, callback, errorCallback);
+    static getGroup(idGroup, callback, errorCallback) {
+        HttpClient.get('http://localhost:4200/api/groups/' + idGroup, null, callback, errorCallback);
     }
 }

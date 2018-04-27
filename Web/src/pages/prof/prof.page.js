@@ -10,7 +10,7 @@
         },
         function () {
             //this.profId = AuthService.getUserID();
-            this.profId = 3;
+            this.profId = 2;
             this.username = '';
             this.groups = [];
 
@@ -19,19 +19,17 @@
                 AuthService.setupVision();
 
                 ProfessorService.getProfessor(this.profId, this.professorCallback, this.professorCallback);
-                GroupService.getGroupsOfProfessor(this.profId,this.groupCallback,this.groupCallback);
             };
 
             this.professorCallback = (response) => {
                 let jsonResponse = response.body;
                 this.username = jsonResponse.rank + ' ' + jsonResponse.firstName + ' ' + jsonResponse.lastName;
-            }
 
-            this.groupCallback = (response) => {
-                let jsonResponse = response.body;
-                for (let i in jsonResponse) {
-                    this.groups.push(jsonResponse[i].name);
+                for (let i in jsonResponse.groups) {
+                    console.log(jsonResponse.groups[i]);
+                    this.groups.push(jsonResponse.groups[i].name);
                 }
+
                 this.groups.sort();
                 this._initButtons();
                 this.$refresh();
