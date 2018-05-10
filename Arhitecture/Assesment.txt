@@ -1,0 +1,2 @@
+Aceasta aplicatie este menita pentru a oferi studentilor un mod de a-si monitoriza situatia
+la Tehnologii Web, iar profesilor le ofera control deplin asupa grupelor de care sunt responsabili.
