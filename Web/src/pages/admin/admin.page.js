@@ -9,7 +9,7 @@
             }
         },
         function () {
-            this.$onInit = function () {
+            this.$onInit = () => {
                 AuthService.setupVision();
                 
             
@@ -17,7 +17,22 @@
             this.$on('#invite','click',function () {
                 alert('invited');
             }.bind(this));
-            
+
+            this.$on('#inviteButton', 'click', function () {
+                this.inviteButton(0);
+            }.bind(this));
+            this.$on('#overviewButton', 'click', function () {
+                this.inviteButton(1);
+            }.bind(this));
+            this.$on('#groupManagementButton', 'click', function () {
+                this.inviteButton(2);
+            }.bind(this));
+
+            this.control = 0;
+            this.inviteButton = function (id) {
+                this.control = id;
+                this.$refresh();
+            }
 
             this.students = [{
                 username: "jack23",

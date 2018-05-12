@@ -1,36 +1,34 @@
 .admin-container {
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .adm-prof-req {
     width: 350px;
-    height: 250px;
+    height: auto;
     margin: 20px;
-    padding: 10px;
+    padding: 20px;
     background: rgba(228, 228, 228, 0.486);
     -moz-box-shadow: 0 0 3px #535353;
     -webkit-box-shadow: 0 0 3px #535353;
     box-shadow: 0 0 3px #535353;
     text-align: center;
-    position: absolute;
 }
 
 .adm-user-list {
     width: 600px;
     height: auto;
     margin: 20px;
-    margin-top: 320px;
     background: rgba(228, 228, 228, 0.486);
     -moz-box-shadow: 0 0 3px #535353;
     -webkit-box-shadow: 0 0 3px #535353;
     box-shadow: 0 0 3px #535353;
     text-align: center;
-    position: absolute;
 }
 
-.adm-prof-req input{
+.adm-prof-req input {
     display: flex;
     margin-top: 20px;
+    margin-bottom: 20px;
     width: 100%;
     height: 50px;
     border-radius: 10px;
@@ -45,21 +43,17 @@
     padding: auto;
 }
 
-.adm-prof-req .btn-submit {
+.adm-prof-req .switcher-submit {
     margin-top: 30px;
 }
 
-
-.adm-user-list-header{
-color:black;
-text-align: center;
+.adm-user-list-header {
+    color: black;
+    text-align: center;
 }
 
-
-
-.adm-user-teacher-table
-{
-    background:#689ee4;
+.adm-user-teacher-table {
+    background: #689ee4;
     align-self: center;
     border-radius: 3px;
     border-collapse: collapse;
@@ -80,21 +74,16 @@ text-align: center;
     color: black;
 }
 
-
-.adm-user-teacher-table-body-col:hover{
+.adm-user-teacher-table-body-col:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.adm-user-teacher-table-body-row:hover{
+.adm-user-teacher-table-body-row:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-
-
-
-.adm-user-students-table
-{
-    background:#689ee4;
+.adm-user-students-table {
+    background: #689ee4;
     align-self: center;
     border-radius: 3px;
     border-collapse: collapse;
@@ -115,12 +104,121 @@ text-align: center;
     color: black;
 }
 
-.adm-user-students-table-body-col:hover{
+.adm-user-students-table-body-col:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.adm-user-students-table-body-row:hover{
+.adm-user-students-table-body-row:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
+.switcher {
+    position: fixed;
+    left: 0px;
+    width: 200px;
+    display: inline-block;
+    font-family: Helvetica;
+    -webkit-font-smoothing: antialiased;
+    padding: 13px;
+    border: none;
+    color: white;
+    transition: .2s;
+    font-size: 13px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 13px;
+    top: 50%;
+}
 
+.switcher.invite {
+    transform: translate(0, -200%);
+}
+
+.switcher.overview {
+    transform: translate(0%, -100%);
+}
+
+.switcher.group-mana {
+    transform: translate(0%, 100%);
+}
+
+.switcher:before, .switcher:after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    padding-top: inherit;
+    padding-bottom: inherit;
+    width: 1.4em;
+    font-size: 2.0em;
+    text-align: center;
+    transition: .2s;
+    transform-origin: 50% 60%;
+}
+
+.arrow {
+    background: rgb(86, 151, 194);
+}
+
+.arrow:hover {
+    background: #0047b3;
+}
+
+.switcher:focus {
+    outline: none;
+}
+
+.arrow:after {
+    content: ">";
+}
+
+.arrow:hover:after {
+    -webkit-animation: bounceright .3s alternate ease infinite;
+    animation: bounceright .3s alternate ease infinite;
+}
+
+@-webkit-keyframes bounceright {
+    from {
+        -webkit-transform: translateX(0);
+    }
+    to {
+        -webkit-transform: translateX(3px);
+    }
+}
+
+@-webkit-keyframes wiggle {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(30deg);
+    }
+}
+
+@keyframes bounceright {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(3px);
+    }
+}
+
+@keyframes wiggle {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(30deg);
+    }
+}
+
+.adm-group-container {
+    background: rgba(228, 228, 228, 0.486);
+    -moz-box-shadow: 0 0 3px #535353;
+    -webkit-box-shadow: 0 0 3px #535353;
+    box-shadow: 0 0 3px #535353;
+    margin-top: 20px;
+    padding: 20px;
+}

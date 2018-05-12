@@ -1,64 +1,71 @@
-<section>
-    <div class="flex-container-center admin-container">
+<div class="flex-container-center admin-container">
+    <div>
+        <button class="switcher invite arrow" id="inviteButton">Invite teacher</button>
+        <br>
+        <button class="switcher overview arrow" id="overviewButton">Accounts overview</button>
+        <br>
+        <button class="switcher group-management arrow" id="groupManagementButton">Group-Management</button>
+        <br>
+    </div>
+    <?if (control==0) {?>
         <div class="adm-prof-req">
             <h3>Invite a teacher!</h3>
             <input type="text" name="Email" placeholder="Email">
             <button id="invite" class="btn btn-submit">Send invitation</button>
         </div>
-        <div class="adm-user-list">
-
-            <section>
-                <h1 class="adm-user-list-header"> Registered teachers</h1>
-
-                <table class="adm-user-teacher-table">
-
-                    <thead class="adm-user-teacher-table-head">
-                        <tr class="adm-user-teacher-table-head-row">
-                            <td> Profesor </td>
-                            <td> Grupa </td>
-                        </tr>
-                    </thead>
-                    <tbody class="adm-user-teacher-table-body">
-                        <?for(let teacherline of teachers) {?>
-                            <tr class="adm-user-teacher-table-body-row">
-                                <td class="adm-user-teacher-table-body-col">
-                                    <?=teacherline.username ?>
-                                </td>
-                                <td class="adm-user-teacher-table-body-col">
-                                    <?=teacherline.grupa?>
-                                </td>
+        <? } ?>
+            <?if (control==1) {?>
+                <div class="adm-user-list">
+                    <h1 class="adm-user-list-header"> Registered teachers</h1>
+                    <table class="adm-user-teacher-table">
+                        <thead class="adm-user-teacher-table-head">
+                            <tr class="adm-user-teacher-table-head-row">
+                                <td> Profesor </td>
+                                <td> Grupa </td>
                             </tr>
-                            <? }?>
-                    </tbody>
-                </table>
-            </section>
-            <section>
-
-                <h1 class="adm-user-list-header"> Registered students</h1>
-
-                <table class="adm-user-students-table">
-
-                    <thead>
-                        <tr class="adm-user-students-table-head-row">
-                            <td> Student </td>
-                            <td> Grupa </td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?for(let studentline of students) {?>
-                            <tr class="adm-user-students-table-body-row">
-                                <td class="adm-user-students-table-body-col">
-                                    <?=studentline.username ?>
-                                </td>
-                                <td class="adm-user-students-table-body-col">
-                                    <?=studentline.grupa?>
-                                </td>
+                        </thead>
+                        <tbody class="adm-user-teacher-table-body">
+                            <?for(let teacherline of teachers) {?>
+                                <tr class="adm-user-teacher-table-body-row">
+                                    <td class="adm-user-teacher-table-body-col">
+                                        <?=teacherline.username ?>
+                                    </td>
+                                    <td class="adm-user-teacher-table-body-col">
+                                        <?=teacherline.grupa?>
+                                    </td>
+                                </tr>
+                                <? }?>
+                        </tbody>
+                    </table>
+                    <h1 class="adm-user-list-header"> Registered students</h1>
+                    <table class="adm-user-students-table">
+                        <thead>
+                            <tr class="adm-user-students-table-head-row">
+                                <td> Student </td>
+                                <td> Grupa </td>
                             </tr>
-                            <? }?>
-
-                    </tbody>
-                </table>
-            </section>
+                        </thead>
+                        <tbody>
+                            <?for(let studentline of students) {?>
+                                <tr class="adm-user-students-table-body-row">
+                                    <td class="adm-user-students-table-body-col">
+                                        <?=studentline.username ?>
+                                    </td>
+                                    <td class="adm-user-students-table-body-col">
+                                        <?=studentline.grupa?>
+                                    </td>
+                                </tr>
+                                <? }?>
+                        </tbody>
+                    </table>
+                </div>
+                <? } ?>
+    <?if (control==2) {?>
+        <div class="adm-group-container">
+            <h3>Group Management</h3>
+            <div>
+               wip
+            </div>
         </div>
-    </div>
-</section>
+        <? } ?>
+</div>

@@ -17,12 +17,12 @@ var AuthService = class {
     }
 
     static login(loginObject, resolve, reject) {
-        if (loginObject.password === '1q2w3e4' && loginObject.username === 'admin') {
+        if (loginObject.password === 'admin' && loginObject.username === 'admin') {
             this.addTokenLocalStorage(this.adminToken);
             this.addUsernameLocalStorage(loginObject.username);
             resolve();
         } else {
-            if (loginObject.password === '1qwer' && loginObject.username === 'prof123') {
+            if (loginObject.password === 'prof' && loginObject.username === 'prof') {
                 this.addTokenLocalStorage(this.profToken);
                 this.addUsernameLocalStorage(loginObject.username);
                 resolve();
