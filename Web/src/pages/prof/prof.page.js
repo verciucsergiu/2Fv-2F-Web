@@ -26,7 +26,6 @@
                 this.username = jsonResponse.rank + ' ' + jsonResponse.firstName + ' ' + jsonResponse.lastName;
 
                 for (let i in jsonResponse.groups) {
-                    console.log(jsonResponse.groups[i]);
                     this.groups.push(jsonResponse.groups[i].name);
                 }
 

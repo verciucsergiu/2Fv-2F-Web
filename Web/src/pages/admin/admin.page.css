@@ -215,10 +215,121 @@
 }
 
 .adm-group-container {
-    background: rgba(228, 228, 228, 0.486);
-    -moz-box-shadow: 0 0 3px #535353;
-    -webkit-box-shadow: 0 0 3px #535353;
-    box-shadow: 0 0 3px #535353;
+    background: rgba(228, 228, 228, 0.233);
+    -moz-box-shadow: 0 0 3px #5353536b;
+    -webkit-box-shadow: 0 0 3px #5353535d;
+    box-shadow: 0 0 3px #5353535e;
     margin-top: 20px;
-    padding: 20px;
+    padding: 40px;
+    padding-bottom: 50px;
+    padding-top: 10px;
+    height: auto;
+    text-align: center;
+    width: auto;
+}
+
+
+table.group-management-table {
+    font-family: "Helvetica";
+    border: 1px solid #1C6EA4;
+    background-color: #FFF;
+    color: #FFFFFF;
+    width: auto;
+    height: auto;
+    text-align: left;
+    border-collapse: collapse;
+    border: none;
+    overflow: hidden;
+}
+/*rgba(249, 249,249)*/
+.table-wrap{
+    border: 10px solid rgba(249, 249,249);
+    border-radius: 30px;
+    padding: 1px;
+    display: table;
+}
+
+table.group-management-table td, table.group-management-table th {
+    border: none;
+    padding: 3px 2px;
+    border-radius: 25px;
+}
+
+table.group-management-table thead {
+    background: #6c7ae0;
+}
+
+table.group-management-table thead th {
+    font-size: 18px;
+    font-weight: unset;
+    color: #FFFFFF;
+    text-align: left;
+    min-width: 350px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    padding-left: 25px;
+}
+
+table.group-management-table tr td:nth-child(3){
+    text-align: center;
+    padding-left: 10px;
+}
+
+table.group-management-table thead th:first-child {
+    border-left: none;
+}
+
+table.group-management-table thead th:nth-child(2) {
+    min-width: 250px;
+}
+
+table.group-management-table thead th:nth-child(3) {
+    min-width: 150px;
+}
+
+.cell {
+    font-family: "Helvetica";
+    font-size: 18px;
+    font-weight: normal;
+    color: #666666;
+    display: table-cell;
+    padding-top: 17px;
+    padding-bottom: 17px;
+    padding-left: 25px;
+    max-width: 250px;
+}
+
+.last {
+    min-width: 100px !important;
+    max-width: 100px !important;
+}
+
+table.group-management-table tr{
+    border-bottom: 1px solid #ececec;
+}
+
+table.group-management-table tr:hover {
+    background-color: #ececff;
+}
+
+table.group-management-table thead tr:hover {
+    background-color: #3c4bbd;
+}
+
+.cell:hover {
+    background-color: #ececff;
+    cursor: pointer;
+}
+
+.table-button{
+    font-family: "Helvetica";
+    font-size: 16px;
+    color: white;
+    height: 30px;
+    background: #6c7ae0;
+    border: none;
+    width: 75px;
+    box-shadow: 0 0 3px #333;
+    cursor: pointer;
+    outline: none;
 }

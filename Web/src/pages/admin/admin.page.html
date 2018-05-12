@@ -4,7 +4,7 @@
         <br>
         <button class="switcher overview arrow" id="overviewButton">Accounts overview</button>
         <br>
-        <button class="switcher group-management arrow" id="groupManagementButton">Group-Management</button>
+        <button class="switcher group-management arrow" id="groupManagementButton">Group Management</button>
         <br>
     </div>
     <?if (control==0) {?>
@@ -63,9 +63,25 @@
     <?if (control==2) {?>
         <div class="adm-group-container">
             <h3>Group Management</h3>
-            <div>
-               wip
-            </div>
+            <div class="table-wrap">
+            <table class="group-management-table">
+                <thead>
+                <tr>
+                <th>Teachers</th>
+                <th>Groups</th>
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <? for(let prof of professors) {?>
+                    <tr>
+                    <td><div class="cell"><?=prof.firstName + ' ' + prof.lastName ?></div></td>
+                    <td><div class="cell"><?=ProfessorService.groupsAsString(prof.groups) ?></div></td>
+                    <td><div class="cell last"><button id ="tableBtn<?=prof.id?>" class="table-button">Edit</button></div></td>
+                    </tr>
+                <? } ?>
+                </tbody>
+            </table></div>
         </div>
         <? } ?>
 </div>

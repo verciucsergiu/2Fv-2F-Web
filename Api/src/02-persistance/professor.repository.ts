@@ -15,4 +15,9 @@ export class ProfessorRepository extends BaseRepository<Professor> {
         const dbSet = await this.dbSet();
         return dbSet.findOneById(id, { relations: ["groups"] });
     }
+
+    public async getAllWithGroupRelations(): Promise<Array<{}>> {
+        const dbSet = await this.dbSet();
+        return dbSet.find({ relations: ["groups"] });
+    }
 }

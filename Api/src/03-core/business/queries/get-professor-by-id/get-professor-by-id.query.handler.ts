@@ -9,7 +9,6 @@ import { ProfessorModel } from "../..";
     resultType: GetProfessorByIdQueryResult
 })
 export class GetProfessorByIdQueryHandler implements IQueryHandler<GetProfessorByIdQuery, GetProfessorByIdQueryResult> {
-
     constructor(@Inject(ProfessorRepository) private repository: ProfessorRepository) {
     }
 
