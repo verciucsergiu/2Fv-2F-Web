@@ -63,6 +63,29 @@
     <?if (control==2) {?>
         <div class="adm-group-container">
             <h3>Group Management</h3>
+            <div id="modal" class="modal">
+                <div id="modalcontent" class="modal-content">
+                    <button id="modalclose" class="modal-close">x</button>
+                    <div class="modal-table-wrap">
+                        <table class="modal-management-table">
+                            <thead>
+                                <tr>
+                                    <th>Groups</th>
+                                    <th>Assigned</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <? for(let i in groups) { ?>
+                                <tr>
+                                    <td class="modal-cell"><?=groups[i] ?></td>
+                                    <td class="modal-cell"><button id="modalButton<?=i?>" class="modal-no">No</button></td>
+                                </tr>
+                                <? } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
             <div class="table-wrap">
             <table class="group-management-table">
                 <thead>
@@ -76,7 +99,7 @@
                 <? for(let prof of professors) {?>
                     <tr>
                     <td><div class="cell"><?=prof.firstName + ' ' + prof.lastName ?></div></td>
-                    <td><div class="cell"><?=ProfessorService.groupsAsString(prof.groups) ?></div></td>
+                    <td><div class="cell" id ="profGroups<?=prof.id?>" ><?=ProfessorService.groupsAsString(prof.groups) ?></div></td>
                     <td><div class="cell last"><button id ="tableBtn<?=prof.id?>" class="table-button">Edit</button></div></td>
                     </tr>
                 <? } ?>

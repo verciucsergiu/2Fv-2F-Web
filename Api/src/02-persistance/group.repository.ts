@@ -10,9 +10,10 @@ export class GroupRepository extends BaseRepository<Group> {
     constructor(@Inject(DatabaseContext) context: DatabaseContext) {
         super(context);
     }
-
+    /* //not needed
     public async getAllByProfesorId(id: string): Promise<Array<{}>> {
         const dbSet = await this.dbSet();
         return dbSet.find({ where: { professorId: id } });
     }
+    */
 }

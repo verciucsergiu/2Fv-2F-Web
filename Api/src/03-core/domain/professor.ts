@@ -22,7 +22,7 @@ export class Professor extends BaseEntity {
 
     @ManyToMany((type) => Group)
     @JoinTable()
-    public groups: Array<Group> = new Array<Group>();
+    private groups: Array<Group> = new Array<Group>();
 
     public markAsDeleted(): void {
         this.deleted = true;

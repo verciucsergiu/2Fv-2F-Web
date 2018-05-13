@@ -228,7 +228,6 @@
     width: auto;
 }
 
-
 table.group-management-table {
     font-family: "Helvetica";
     border: 1px solid #1C6EA4;
@@ -241,9 +240,11 @@ table.group-management-table {
     border: none;
     overflow: hidden;
 }
+
 /*rgba(249, 249,249)*/
-.table-wrap{
-    border: 10px solid rgba(249, 249,249);
+
+.table-wrap {
+    border: 10px solid rgba(249, 249, 249);
     border-radius: 30px;
     padding: 1px;
     display: table;
@@ -270,7 +271,7 @@ table.group-management-table thead th {
     padding-left: 25px;
 }
 
-table.group-management-table tr td:nth-child(3){
+table.group-management-table tr td:nth-child(3) {
     text-align: center;
     padding-left: 10px;
 }
@@ -304,7 +305,7 @@ table.group-management-table thead th:nth-child(3) {
     max-width: 100px !important;
 }
 
-table.group-management-table tr{
+table.group-management-table tr {
     border-bottom: 1px solid #ececec;
 }
 
@@ -321,7 +322,7 @@ table.group-management-table thead tr:hover {
     cursor: pointer;
 }
 
-.table-button{
+.table-button {
     font-family: "Helvetica";
     font-size: 16px;
     color: white;
@@ -329,6 +330,157 @@ table.group-management-table thead tr:hover {
     background: #6c7ae0;
     border: none;
     width: 75px;
+    box-shadow: 0 0 3px #333;
+    cursor: pointer;
+    outline: none;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    padding-top: 50px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #4e4e4e83;
+}
+
+.modal-content {
+    margin: 0 auto;
+    padding: 10px;
+    width: 60%;
+    background: rgb(249, 249, 249);
+    -moz-box-shadow: 0 0 3px #535353;
+    -webkit-box-shadow: 0 0 3px #535353;
+    box-shadow: 0 0 3px #535353;
+    display: flex;
+    justify-content: center;
+    text-align: left;
+}
+
+.modal-close {
+    color: #aaa;
+    float: right;
+    right: 21.5%;
+    width: 30px;
+    height: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    font-size: 15px;
+    line-height: 0;
+}
+
+.modal-close:hover, .modal-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-table-wrap {
+    border: 10px solid rgb(249, 249, 249);
+    border-radius: 30px;
+    padding: 1px;
+    display: table;
+    overflow: hidden;
+}
+
+.modal-cell {
+    font-family: "Helvetica";
+    font-size: 18px;
+    font-weight: normal;
+    color: #666666;
+    display: table-cell;
+    padding: 10px;
+}
+
+table.modal-management-table {
+    font-family: "Helvetica";
+    border: 1px solid #1C6EA4;
+    background-color: #FFF;
+    color: #FFFFFF;
+    width: auto;
+    height: auto;
+    text-align: center;
+    border-collapse: collapse;
+    border: none;
+    overflow: hidden;
+}
+
+table.modal-management-table td, table.modal-management-table th {
+    border: none;
+    padding: 13px;
+    border-radius: 25px;
+}
+
+table.modal-management-table thead {
+    background: #6c7ae0;
+}
+
+table.modal-management-table thead th {
+    font-size: 18px;
+    font-weight: unset;
+    color: #FFFFFF;
+    text-align: center;
+    min-width: 200px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    padding-left: 25px;
+}
+
+table.modal-management-table tr td:nth-child(3) {
+    text-align: left;
+    padding-left: 10px;
+}
+
+table.modal-management-table thead th:first-child {
+    border-left: none;
+}
+
+table.modal-management-table thead th:nth-child(2) {
+    min-width: 200px;
+}
+
+table.modal-management-table thead th:nth-child(3) {
+    min-width: 150px;
+}
+
+table.modal-management-table tr {
+    border-bottom: 1px solid #ececec;
+}
+
+table.modal-management-table tr:hover {
+    background-color: #ececff;
+}
+
+table.modal-management-table thead tr:hover {
+    background-color: #3c4bbd;
+}
+
+.modal-yes {
+    font-family: "Helvetica";
+    font-size: 14px;
+    color: white;
+    height: 20px;
+    background: #33b65e;
+    border: none;
+    width: 40px;
+    box-shadow: 0 0 3px #333;
+    cursor: pointer;
+    outline: none;
+}
+
+.modal-no {
+    font-family: "Helvetica";
+    font-size: 14px;
+    color: white;
+    height: 20px;
+    background: #f73232;
+    border: none;
+    width: 40px;
     box-shadow: 0 0 3px #333;
     cursor: pointer;
     outline: none;

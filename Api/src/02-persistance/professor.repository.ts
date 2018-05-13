@@ -18,6 +18,6 @@ export class ProfessorRepository extends BaseRepository<Professor> {
 
     public async getAllWithGroupRelations(): Promise<Array<{}>> {
         const dbSet = await this.dbSet();
-        return dbSet.find({ relations: ["groups"] });
+        return dbSet.find({ relations: ["groups"], where: { deleted: false } });
     }
 }
