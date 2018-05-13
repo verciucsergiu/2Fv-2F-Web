@@ -4,8 +4,13 @@ var GroupService = class {
     }
 
     static addGroupToProfessor(idGroup, idProfessor, callback, errorCallback) {
-        let body = "{}";
-        HttpClient.post('http://localhost:4200/api/groups/assign/' + idGroup + '/' + idProfessor, body, callback, errorCallback);
+        let body = JSON.stringify({ "groupId": idGroup });
+        HttpClient.post('http://localhost:4200/api/professors/' + idProfessor + '/groups', body, callback, errorCallback);
+    }
+
+    static removeGroupFromProfessor(idGroup,idProfessor,callback,errorCallback){
+        let body = JSON.stringify({ "groupId": idGroup });
+        HttpClient.delete('http://localhost:4200/api/professors/' + idProfessor + '/groups', body, callback, errorCallback);
     }
 
     static getAllGroups() {

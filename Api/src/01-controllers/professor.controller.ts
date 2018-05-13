@@ -1,9 +1,16 @@
-import { Controller, HttpGet, IActionResult, Ok, HttpPost, FromRoute, Created, FromBody } from "../../framework/core";
-import { ProfessorModel, GetAllProfessorsQuery, GetAllProfessorsQueryHandler, GetAllProfessorsQueryResult } from "../03-core/business";
+import { Controller, HttpGet, IActionResult, Ok, HttpPost, FromRoute, Created, FromBody, HttpDelete } from "../../framework/core";
+
+import {
+    ProfessorModel, AssignModel,
+    GetAllProfessorsQuery, GetAllProfessorsQueryHandler,
+    GetAllProfessorsQueryResult, AddGroupToProfessorCommand
+} from "../03-core/business";
+
 import { AddNewProfessorCommand } from "../03-core/business/commands/add-new-professor/add-new-professor.command";
 import { Inject } from "../../framework/injector";
 import { CommandDispatcher, QueryDispatcher } from "../../framework/CQRS";
 import { GetProfessorByIdQuery, GetProfessorByIdQueryResult } from "../03-core/business/queries/get-professor-by-id";
+import { RemoveGroupFromProfessor } from "../03-core/business/commands/remove-group-from-professor";
 
 @Controller('api/professors')
 export class ProfessorController {
@@ -33,5 +40,25 @@ export class ProfessorController {
         const command = new AddNewProfessorCommand(professor);
         await this.commandDispatcher.dispatchAsync(command);
         return new Created();
+    }
+
+    @HttpPost('{id}/groups')
+    public async assignGroupToProfessor(
+        @FromRoute('{id}') professorId: string,
+        @FromBody() assignModel: AssignModel): Promise<IActionResult> {
+
+        const command = new AddGroupToProfessorCommand(assignModel, professorId);
+        await this.commandDispatcher.dispatchAsync(command);
+        return new Created();
+    }
+
+    @HttpDelete('{id}/groups')
+    public async deleteGroupFromProfessor(
+        @FromRoute('{id}') professorId: string,
+        @FromBody() assignModel: AssignModel): Promise<IActionResult> {
+
+        const command = new RemoveGroupFromProfessor(assignModel, professorId);
+        await this.commandDispatcher.dispatchAsync(command);
+        return new Ok();
     }
 }

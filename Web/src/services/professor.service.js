@@ -7,6 +7,16 @@ var ProfessorService = class {
         HttpClient.get('http://localhost:4200/api/professors/all',null,callback,errorCallback);
     }
 
+    static addGroupToProfessor(idGroup, idProfessor, callback, errorCallback) {
+        let body = JSON.stringify({ "groupId": idGroup });
+        HttpClient.post('http://localhost:4200/api/professors/' + idProfessor + '/groups', body, callback, errorCallback);
+    }
+
+    static removeGroupFromProfessor(idGroup,idProfessor,callback,errorCallback){
+        let body = JSON.stringify({ "groupId": idGroup });
+        HttpClient.delete('http://localhost:4200/api/professors/' + idProfessor + '/groups', body, callback, errorCallback);
+    }
+
     //return a ProfessorModel from object
     static parseProfessor(professor){
         return new ProfessorModel(

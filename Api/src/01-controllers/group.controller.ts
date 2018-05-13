@@ -27,13 +27,4 @@ export class GroupController {
         await this.commandDispatcher.dispatchAsync(command);
         return new Created();
     }
-
-    @HttpPost('assign/{idGroup}/{idProfessor}')
-    public async assignGroupToProfessor(@FromRoute('{idGroup}') idGroup: string,
-                                        @FromRoute('{idProfessor}') idProfessor: string): Promise<IActionResult> {
-
-        const command = new AddGroupToProfessorCommand(idGroup, idProfessor);
-        await this.commandDispatcher.dispatchAsync(command);
-        return new Created();
-    }
 }

@@ -42,8 +42,8 @@
                 this.$refresh();
             }
 
+            //initialize modal and table buttons
             this.initTableButtons = () => {
-                // gives undefined error
                 for (let prof of this.professors) {
                     this.$on('#tableBtn' + prof.id, 'click', function () {
                         this.tableClick(prof.id);
@@ -57,8 +57,8 @@
                 }
             }
 
+            //?
             this.students = StudentService.getStudents("B6");
-
             this.teachers = [{
                 username: "prof",
                 grupa: "B6"
@@ -66,8 +66,8 @@
             {
                 username: "prof1",
                 grupa: "B6"
-            }
-            ]
+            }]
+            //?
 
             this.professorsCallback = (response) => {
                 let jr = response.body;
@@ -83,6 +83,7 @@
                 this.triggerModal(id - 1);
             }
 
+            //on modal window opening, update every button according to the teachers groups
             this.triggerModal = (id) => {
                 this.teacherClicked = id;
                 for (let group of this.professors[id].groups) {
@@ -104,21 +105,30 @@
                     btn.classList.add('modal-no');
                     btn.textContent = "No";
                 }
-                route.navigate('/admin');
+                // after the admin is done, update the professor with the latest version on the server
+                ProfessorService.getProfessor(parseInt(this.teacherClicked) + 1, this.professorUpdate, this.errCallback);
             }
 
+            //add a group
             this.assignGroup = (id) => {
                 let profId = this.professors[this.teacherClicked].id;
                 let groupId = parseInt(id) + 1; //adding +1 to match API start from 1
-                GroupService.addGroupToProfessor(groupId, profId, this.postCallback, this.postCallback);
-                document.getElementById("profGroups" + profId).innerHTML += " " + this.groups[id];
-                //console.log("Updating "+profId + " group "+ groupId); 
+                ProfessorService.addGroupToProfessor(groupId, profId, this.errCallback, this.errCallback);
+            }
+
+            this.deleteGroup = (id) => {
+                let profId = this.professors[this.teacherClicked].id;
+                let groupId = parseInt(id) + 1; //adding +1 to match API start from 1
+                ProfessorService.removeGroupFromProfessor(groupId, profId, this.errCallback, this.errCallback);
             }
 
             this.modalTableClick = (id) => {
                 let btn = document.getElementById("modalButton" + id);
                 switch (btn.textContent) {
-                    case "Yes": { btn.classList.remove('modal-yes'); btn.classList.add('modal-no'); btn.textContent = "No"; break; }
+                    case "Yes": {
+                        btn.classList.remove('modal-yes'); btn.classList.add('modal-no'); btn.textContent = "No";
+                        this.deleteGroup(id); break;
+                    }
                     case "No": {
                         btn.classList.remove('modal-no'); btn.classList.add('modal-yes'); btn.textContent = "Yes";
                         this.assignGroup(id); break;
@@ -126,8 +136,20 @@
                 }
             }
 
-            this.postCallback = (response) => {
-                console.log(response);
+            this.errCallback = (response) => {
+                if (response.statusCode > 299) {
+                    console.log(response);
+                }
+            }
+
+            //single professor update
+            this.professorUpdate = (response) => {
+                let jsonResponse = response.body;
+                let jsId = parseInt(jsonResponse.id) - 1;
+                this.professors[jsId].groups = jsonResponse.groups;
+                this.$refresh();
+                console.log(this.professors);
+                console.log(jsonResponse);
             }
         });
 })();

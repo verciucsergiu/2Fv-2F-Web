@@ -12,10 +12,9 @@ export class AddGroupToProfessorCommandHandler implements ICommandHandler<AddGro
 
     public async handle(command: AddGroupToProfessorCommand): Promise<void> {
 
-        const group: any = await this.groupRepository.getById(command.idGroup);
-        const professor: any = await this.professorRepository.getProfessorWithGroupRelations(command.idProfessor);
+        const group: any = await this.groupRepository.getById(command.assignModel.groupId);
+        const professor: any = await this.professorRepository.getProfessorWithGroupRelations(command.professorId);
         professor.groups.push(group);
         await this.professorRepository.add(professor);
-
     }
 }
