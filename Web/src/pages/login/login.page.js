@@ -9,9 +9,6 @@
             }
         },
         function () {
-            this.$onInit = function () {
-                AuthService.setupVision();
-            }
             
             this.username = '';
             this.password = '';

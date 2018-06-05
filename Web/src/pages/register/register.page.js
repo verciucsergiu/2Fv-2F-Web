@@ -10,6 +10,5 @@
             }
         },
         function () {
-            AuthService.setupVision();
         });
 })();

@@ -9,7 +9,6 @@
             this.isLoggedIn = true;
             this.$onInit = function () {
                 this.isLoggedIn = AuthService.isLoggedIn();
-                AuthService.setupVision();
             };
             this.$on('#modify', 'click', function () {
                 this.demo = 'Priviledge: ***' + AuthService.getUserRole() + '*** with name: ***' + AuthService.getUsername() + '***';

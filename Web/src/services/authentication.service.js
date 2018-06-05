@@ -86,26 +86,4 @@ var AuthService = class {
             return 'not logged in';
         }
     }
-
-    static setupVision() {
-        document.getElementById('nav-prof').style.display = "none";
-        document.getElementById('nav-admin').style.display = "none";
-        document.getElementById('nav-stud').style.display = "none";
-        if (this.isLoggedIn() == true) {
-            document.getElementById('nav-log').style.display = "none";
-            document.getElementById('nav-reg').style.display = "none";
-            if (this.getUserRole() == "admin") {
-                document.getElementById('nav-admin').style.display = "block";
-            }
-            if (this.getUserRole() == "prof") {
-                document.getElementById('nav-prof').style.display = "block";
-            }
-            if (this.getUserRole() == "user") {
-                document.getElementById('nav-stud').style.display = "block";
-            }
-        } else {
-            document.getElementById('nav-log').style.display = "block";
-            document.getElementById('nav-reg').style.display = "block";
-        }
-    }
 };

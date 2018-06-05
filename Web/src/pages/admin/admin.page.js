@@ -14,7 +14,6 @@
             this.professors = [];
 
             this.$onInit = () => {
-                AuthService.setupVision();
                 ProfessorService.getAllProfessors(this.professorsCallback, null);
             }
             //----------------------buttons

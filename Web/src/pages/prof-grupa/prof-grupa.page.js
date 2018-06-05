@@ -13,7 +13,6 @@
             this.idGrupa = idGrupa;
             this.students = [];
             this.$onInit = () => {
-                AuthService.setupVision();
                 this.students = StudentService.getStudents(this.idGrupa);
             }
 

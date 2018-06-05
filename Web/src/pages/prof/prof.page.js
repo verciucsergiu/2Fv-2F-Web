@@ -9,15 +9,11 @@
             }
         },
         function () {
-            //this.profId = AuthService.getUserID();
             this.profId = 2;
             this.username = '';
             this.groups = [];
 
             this.$onInit = function () {
-
-                AuthService.setupVision();
-
                 ProfessorService.getProfessor(this.profId, this.professorCallback, this.professorCallback);
             };
 
