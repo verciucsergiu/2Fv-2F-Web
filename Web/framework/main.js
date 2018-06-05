@@ -157,8 +157,8 @@ var HttpHeader = class {
 
 var HttpClient = class {
 
-    static get(req, body, callback, error) {
-        this.request(req, 'get', body, null, callback, error);
+    static get(req, callback, error) {
+        this.request(req, 'get', null, null, callback, error);
     }
 
     static post(req, body, callback, error) {
@@ -181,12 +181,16 @@ var HttpClient = class {
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.onreadystatechange = () => {
             if (xmlHttp.readyState == 4) {
-                callback(new HttpResponse(xmlHttp));
+                if (callback) {
+                    callback(new HttpResponse(xmlHttp));
+                }
             }
         }
 
         xmlHttp.onerror = () => {
-            error(new HttpResponse(xmlHttp));
+            if(error) {
+                error(new HttpResponse(xmlHttp));
+            }
         }
 
         xmlHttp.open(requestVerb, req, true);

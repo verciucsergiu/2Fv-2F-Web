@@ -1,10 +1,10 @@
 var ProfessorService = class {
     static getProfessor(idProfessor, callback, errorCallback) {
-        HttpClient.get('http://localhost:4200/api/professors/' + idProfessor, null, callback, errorCallback);
+        HttpClient.get('http://localhost:4200/api/professors/' + idProfessor, callback, errorCallback);
     }
 
     static getAllProfessors(callback,errorCallback) {
-        HttpClient.get('http://localhost:4200/api/professors/all',null,callback,errorCallback);
+        HttpClient.get('http://localhost:4200/api/professors/all', callback, errorCallback);
     }
 
     static addGroupToProfessor(idGroup, idProfessor, callback, errorCallback) {

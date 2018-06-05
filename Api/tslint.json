@@ -10,7 +10,7 @@
             ]
         },
         "array-type": [
-            true,
+            false,
             "generic"
         ],
         "quotemark": [

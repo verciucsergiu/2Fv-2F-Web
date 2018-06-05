@@ -18,7 +18,6 @@
                 AuthService.logout();
                 this.isLoggedIn = AuthService.isLoggedIn();
                 this.$refresh();
-                AuthService.setupVision();
             }.bind(this));
         });
 })();

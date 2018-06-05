@@ -10,11 +10,14 @@
         },
         function () {
 
-            this.groups = GroupService.getAllGroups();
             this.professors = [];
+            this.groups = [];
 
             this.$onInit = () => {
                 ProfessorService.getAllProfessors(this.professorsCallback, null);
+                GroupService.getAllGroups((groups) => {
+                    this.groups = groups;
+                });
             }
             //----------------------buttons
             this.$on('#invite', 'click', function () {

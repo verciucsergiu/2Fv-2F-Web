@@ -24,6 +24,7 @@ Framework.defineApp({
         'guards/admin.guard.js'
     ],
     files: [
+        'services/app.config.js',
         'utils.js',
         'models/login.model.js',
         'models/user.model.js',
