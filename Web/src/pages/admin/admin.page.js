@@ -12,12 +12,18 @@
 
             this.professors = [];
             this.groups = [];
+            this.teacherClickedUID;
+            this.teacherClickedID = 0;
+            this.control = 2;
 
             this.$onInit = () => {
-                ProfessorService.getAllProfessors(this.professorsCallback, null);
                 GroupService.getAllGroups((groups) => {
-                    this.groups = groups;
+                    this.groups = groups.body;
+                    this.groups.sort((a,b) => {
+                        return a.name.localeCompare(b.name);
+                    })
                 });
+                ProfessorService.getAllProfessors(this.professorsCallback, null);
             }
             //----------------------buttons
             this.$on('#invite', 'click', function () {
@@ -36,9 +42,6 @@
                 this.closeModal();
             }.bind(this));
             //---------------------
-
-            this.teacherClicked = 0;
-            this.control = 2;
             this.controlButton = (id) => {
                 this.control = id;
                 this.$refresh();
@@ -52,9 +55,9 @@
                     }.bind(this));
                 }
 
-                for (let i in this.groups) {
-                    this.$on('#modalButton' + i, 'click', function () {
-                        this.modalTableClick(i);
+                for (let group of this.groups) {
+                    this.$on('#modalButton' + group.id, 'click', function () {
+                        this.modalTableClick(group.id);
                     }.bind(this));
                 }
             }
@@ -82,15 +85,20 @@
 
             this.tableClick = (id) => {
                 //javascript starts with i=0, API gives i starting from 1
-                this.triggerModal(id - 1);
+
+                for (let i in this.professors) {
+                    if (this.professors[i].id == id) {
+                        this.triggerModal(id, i);
+                    }
+                }
             }
 
             //on modal window opening, update every button according to the teachers groups
-            this.triggerModal = (id) => {
-                this.teacherClicked = id;
+            this.triggerModal = (uid, id) => {
+                this.teacherClickedUID = uid;
+                this.teacherClickedID = id;
                 for (let group of this.professors[id].groups) {
-                    ;
-                    let btn = document.getElementById("modalButton" + parseInt(group.id - 1));
+                    let btn = document.getElementById("modalButton" + group.id);
                     btn.classList.remove('modal-no');
                     btn.classList.add('modal-yes');
                     btn.textContent = "Yes";
@@ -99,28 +107,29 @@
                 modal.style.display = "block";
             }
 
+
             this.closeModal = () => {
                 document.getElementById("modal").style.display = "none";
-                for (i in this.groups) {
-                    let btn = document.getElementById("modalButton" + i);
+                for (group of this.groups) {
+                    let btn = document.getElementById("modalButton" + group.id);
                     btn.classList.remove('modal-yes');
                     btn.classList.add('modal-no');
                     btn.textContent = "No";
                 }
                 // after the admin is done, update the professor with the latest version on the server
-                ProfessorService.getProfessor(parseInt(this.teacherClicked) + 1, this.professorUpdate, this.errCallback);
+                ProfessorService.getProfessor(this.teacherClickedUID, this.professorUpdate, this.errCallback);
             }
 
             //add a group
             this.assignGroup = (id) => {
-                let profId = this.professors[this.teacherClicked].id;
-                let groupId = parseInt(id) + 1; //adding +1 to match API start from 1
+                let profId = this.teacherClickedUID;
+                let groupId = id;
                 ProfessorService.addGroupToProfessor(groupId, profId, this.errCallback, this.errCallback);
             }
 
             this.deleteGroup = (id) => {
-                let profId = this.professors[this.teacherClicked].id;
-                let groupId = parseInt(id) + 1; //adding +1 to match API start from 1
+                let profId = this.teacherClickedUID;
+                let groupId = id;
                 ProfessorService.removeGroupFromProfessor(groupId, profId, this.errCallback, this.errCallback);
             }
 
@@ -146,12 +155,8 @@
 
             //single professor update
             this.professorUpdate = (response) => {
-                let jsonResponse = response.body;
-                let jsId = parseInt(jsonResponse.id) - 1;
-                this.professors[jsId].groups = jsonResponse.groups;
+                this.professors[this.teacherClickedID] = response.body;
                 this.$refresh();
-                console.log(this.professors);
-                console.log(jsonResponse);
             }
         });
 })();
