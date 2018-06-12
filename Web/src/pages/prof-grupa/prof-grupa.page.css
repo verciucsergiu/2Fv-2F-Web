@@ -1,5 +1,5 @@
 .group-box {
-    width: 800px;
+    width: 100%;
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 20px;
@@ -8,11 +8,21 @@
     -moz-box-shadow: 0 0 3px #535353;
     -webkit-box-shadow: 0 0 3px #535353;
     box-shadow: 0 0 3px #535353;
+    align-items: center;
 }
 
-.group-box .btn-submit {
-    margin-bottom: 10px;
-    margin-left: 120px;
+.back {
+    margin-top: -1%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-110%, 0%);
+}
+
+.save {
+    margin-top: -1%;
+    position: absolute;
+    left: 50%;
+    transform: translate(10%, 0%);
 }
 
 .flex-container-center h3 {
@@ -23,45 +33,70 @@
 }
 
 .flex-container-center h3::after {
-    content:' ';
+    content: ' ';
     width: 100%;
     display: block;
     height: 2px;
     border: 5px;
     margin-top: 5px;
-    background: radial-gradient(rgb(109, 109, 109),rgba(228, 228, 228, 0.9),rgba(255, 255, 255, 0.5));
+    background: radial-gradient(rgb(109, 109, 109), rgba(228, 228, 228, 0.9), rgba(255, 255, 255, 0.5));
 }
 
 table.students-table {
-    font-family: "Arial", Gadget, sans-serif;
-    border: 1px solid #FFFFFF;
-    background-color: #F4F4F4;
+    margin-top: 90px;
+    font-family: "Helvetica";
+    border: 1px solid #1C6EA4;
+    background-color: #FFF;
+    color: #FFFFFF;
     width: 100%;
+    height: auto;
     text-align: left;
     border-collapse: collapse;
+    border: none;
+    overflow: hidden;
 }
+
 table.students-table td, table.students-table th {
-    border: 1px solid #AAAAAA;
-    padding: 4px 6px;
+    border: none;
+    padding: 3px 2px;
+    border-radius: 25px;
 }
+
 table.students-table tbody td {
-    font-size: 15px;
+    font-family: "Helvetica";
+    font-size: 17px;
+    font-weight: normal;
+    color: #666666;
+    display: table-cell;
+    padding-top: 17px;
+    padding-bottom: 17px;
+    padding-left: 25px;
+    max-width: 250px;
 }
+
+table.students-table tbody tr:hover {
+    background-color: #ececff;
+}
+
 table.students-table tr:nth-child(even) {
-    background: #E7E7E7;    
+    background: #E7E7E7;
 }
+
 table.students-table thead {
-    background: #CFCFCF;
-    background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
-    background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
-    background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
-    border-bottom: 3px solid #727272;
+    background: #6c7ae0;
 }
+
 table.students-table thead th {
-    font-size: 15px;
-    color: #000000;
+    font-size: 18px;
+    font-weight: unset;
+    color: #FFFFFF;
     text-align: left;
+    min-width: 100px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    padding-left: 25px;
 }
+
 table.students-table tfoot td {
     font-size: 14px;
 }
