@@ -86,4 +86,10 @@ var AuthService = class {
             return 'not logged in';
         }
     }
+
+    static requestLogin(loginModel, callback, errorCallback) {
+        console.log(loginModel);
+        let body = JSON.stringify({ "userName": loginModel.username, "passowrd": loginModel.password });
+        HttpClient.post(AppConfig.apiUri + 'api/auth/login', body, callback, errorCallback);
+    }
 };
