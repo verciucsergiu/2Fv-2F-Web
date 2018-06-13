@@ -4,7 +4,7 @@
 
 .register-box {
     width: 360px;
-    height: 500px;   
+    height: auto;   
     /*background: rgba(246, 246, 246, 0.52);*/
     background: rgba(228, 228, 228, 0.486);
     -moz-box-shadow: 0 0 3px #535353;
@@ -19,6 +19,13 @@
     text-align: center;
     font-weight: bold;
     font-size: 35px;
+}
+
+.regendgreen {
+    color: green;
+    font-size: 20px;
+    font-family: Helvetica;
+    text-align: center;
 }
 
 .register-box h3::after {

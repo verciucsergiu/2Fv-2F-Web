@@ -10,6 +10,7 @@
         },
         function () {
 
+            this.requestedEmail;
             this.professors = [];
             this.groups = [];
             this.teacherClickedUID;
@@ -19,7 +20,7 @@
             this.$onInit = () => {
                 GroupService.getAllGroups((groups) => {
                     this.groups = groups.body;
-                    this.groups.sort((a,b) => {
+                    this.groups.sort((a, b) => {
                         return a.name.localeCompare(b.name);
                     })
                 });
@@ -40,6 +41,9 @@
             }.bind(this));
             this.$on('#modalclose', 'click', function () {
                 this.closeModal();
+            }.bind(this));
+            this.$on('#inviteteacher', 'click', function () {
+                this.inviteProfessor();
             }.bind(this));
             //---------------------
             this.controlButton = (id) => {
@@ -157,6 +161,10 @@
             this.professorUpdate = (response) => {
                 this.professors[this.teacherClickedID] = response.body;
                 this.$refresh();
+            }
+
+            this.inviteProfessor = () => {
+                ProfessorService.inviteProfessor(this.requestedEmail, null, null);
             }
         });
 })();

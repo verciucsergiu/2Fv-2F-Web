@@ -87,9 +87,32 @@ var AuthService = class {
         }
     }
 
+    //----------------------------------------------------------------------------------------------------------------------------
     static requestLogin(loginModel, callback, errorCallback) {
+        this.postLogin(loginModel, callback, errorCallback);
+    }
+
+    static postLogin(loginModel, callback, errorCallback) {
         console.log(loginModel);
-        let body = JSON.stringify({ "userName": loginModel.username, "passowrd": loginModel.password });
+        let body = JSON.stringify({ "username": loginModel.username, "password": loginModel.password });
         HttpClient.post(AppConfig.apiUri + 'api/auth/login', body, callback, errorCallback);
     }
+    //----------------------------------------------------------------------------------------------------------------------------
+
+    //----------------------------------------------------------------------------------------------------------------------------
+    static requestRegister(registerModel, callback, errorCallback) {
+        this.postRegister(registerModel, callback, errorCallback);
+    }
+
+    static postRegister(registerModel, callback, errorCallback) {
+        console.log(registerModel);
+        let body = JSON.stringify({
+            "username": registerModel.username,
+            "password": registerModel.password,
+            "email": registerModel.email,
+            "cnp": registerModel.cnp
+        });
+        HttpClient.post(AppConfig.apiUri + 'api/auth/register', body, callback, errorCallback);
+    }
+    //----------------------------------------------------------------------------------------------------------------------------
 };

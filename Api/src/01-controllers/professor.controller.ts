@@ -3,7 +3,7 @@ import { Controller, HttpGet, IActionResult, Ok, HttpPost, FromRoute, Created, F
 import {
     ProfessorModel, AssignModel,
     GetAllProfessorsQuery, GetAllProfessorsQueryHandler,
-    GetAllProfessorsQueryResult, AddGroupToProfessorCommand
+    GetAllProfessorsQueryResult, AddGroupToProfessorCommand, InviteProfessorCommand, EmailModel
 } from "../03-core/business";
 
 import { AddNewProfessorCommand } from "../03-core/business/commands/add-new-professor/add-new-professor.command";
@@ -59,6 +59,14 @@ export class ProfessorController {
 
         const command = new RemoveGroupFromProfessor(assignModel, professorId);
         await this.commandDispatcher.dispatchAsync(command);
+        return new Ok();
+    }
+
+    @HttpPost('invite')
+    public inviteProfessor(@FromBody() emailModel: EmailModel): IActionResult {
+
+        const command = new InviteProfessorCommand(emailModel);
+        this.commandDispatcher.dispatch(command);
         return new Ok();
     }
 }

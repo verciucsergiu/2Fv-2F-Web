@@ -29,7 +29,8 @@ Framework.defineApp({
         'models/login.model.js',
         'models/user.model.js',
         'models/student.model.js',
-        'models/professor.model.js'
+        'models/professor.model.js',
+        'models/register.model.js'
     ]
 });
 

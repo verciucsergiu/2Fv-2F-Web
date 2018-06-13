@@ -1,6 +1,6 @@
 export class RegisterModel {
-    public userName: String;
-    public password: String;
-    public email: String;
-    public cnp: String;
+    public username: string;
+    public password: string;
+    public email: string;
+    public cnp: string;
 }
