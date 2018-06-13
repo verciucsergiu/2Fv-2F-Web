@@ -19,7 +19,7 @@ var ProfessorService = class {
 
     static inviteProfessor(email, callback, errorCallback) {
         let body = JSON.stringify({ "email": email });
-        HttpClient.post(AppConfig.apiUri + 'api/professors/invite', body, callback, errorCallback);
+        HttpClient.post(AppConfig.apiUri + 'api/invitations/invite', body, callback, errorCallback);
     }
 
     //return a ProfessorModel from object

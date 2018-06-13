@@ -3,4 +3,5 @@ export class RegisterModel {
     public password: string;
     public email: string;
     public cnp: string;
+    public role: string;
 }

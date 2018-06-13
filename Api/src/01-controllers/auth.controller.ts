@@ -21,11 +21,8 @@ export class AuthController {
 
     @HttpPost('register')
     public async registerAs(@FromBody() registerModel: RegisterModel): Promise<IActionResult> {
-        console.log(registerModel);
-
         const command = new RegisterUserCommand(registerModel);
         await this.commandDispatcher.dispatchAsync(command);
-
         return new Ok();
     }
 }

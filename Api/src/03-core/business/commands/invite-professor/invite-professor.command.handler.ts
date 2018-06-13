@@ -10,7 +10,7 @@ import { PendingInvites } from "../../..";
 export class InviteProfessorCommandHandler implements ICommandHandler<InviteProfessorCommand> {
     constructor(@Inject(PendingInvitesRepository) private pendingInvitesRepository: PendingInvitesRepository) { }
 
-    public async handle(command: InviteProfessorCommand) {
+    public async handle(command: InviteProfessorCommand): Promise<void> {
 
         let invite: PendingInvites = Object.assign(new PendingInvites(), command.emailModel);
         invite = await this.pendingInvitesRepository.add(invite);
@@ -23,7 +23,7 @@ export class InviteProfessorCommandHandler implements ICommandHandler<InviteProf
         });
 
         const message = {
-            text: invite.id,
+            text: "http://localhost:3000/#/register/professors/" + invite.id,
             from: "2Fv.2FWeb@gmail.com",
             to: "ratzoiu2000@gmail.com",
             cc: "",
@@ -33,7 +33,5 @@ export class InviteProfessorCommandHandler implements ICommandHandler<InviteProf
         server.send(message, (err, msg) => {
             console.log(err || msg);
         });
-
-        console.log(command.emailModel.email);
     }
 }

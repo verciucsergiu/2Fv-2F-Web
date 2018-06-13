@@ -10,4 +10,9 @@ export class PendingInvitesRepository extends BaseRepository<PendingInvites> {
     constructor(@Inject(DatabaseContext) context: DatabaseContext) {
         super(context);
     }
+
+    public async deleteInvite(pemail: string): Promise<void> {
+        const dbSet = await this.dbSet();
+        dbSet.deleteById({ where: { email: pemail } });
+    }
 }

@@ -110,7 +110,8 @@ var AuthService = class {
             "username": registerModel.username,
             "password": registerModel.password,
             "email": registerModel.email,
-            "cnp": registerModel.cnp
+            "cnp": registerModel.cnp,
+            "role": registerModel.role
         });
         HttpClient.post(AppConfig.apiUri + 'api/auth/register', body, callback, errorCallback);
     }

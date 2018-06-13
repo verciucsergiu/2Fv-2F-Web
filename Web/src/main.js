@@ -9,13 +9,15 @@ Framework.defineApp({
         'pages/prof/prof.page.js',
         'pages/student-home/student-home.page.js',
         'pages/prof-grupa/prof-grupa.page.js',
-        'pages/admin/admin.page.js'
+        'pages/admin/admin.page.js',
+        'pages/prof-register/register.page.js'
     ],
     services: [
         'services/authentication.service.js',
         'services/student.service.js',
         'services/professor.service.js',
-        'services/group.service.js'
+        'services/group.service.js',
+        'services/invitation.service.js'
     ],
     guards: [
         'guards/auth.guard.js',

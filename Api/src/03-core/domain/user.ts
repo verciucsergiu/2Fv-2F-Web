@@ -28,4 +28,8 @@ export class User extends BaseEntity {
     public markAsDeleted(): void {
         this.deleted = true;
     }
+
+    public setFK(fk: string) {
+        this.foreignid = fk;
+    }
 }
