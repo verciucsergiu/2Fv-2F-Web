@@ -62,11 +62,4 @@ export class ProfessorController {
         return new Ok();
     }
 
-    @HttpPost('invite')
-    public inviteProfessor(@FromBody() emailModel: EmailModel): IActionResult {
-
-        const command = new InviteProfessorCommand(emailModel);
-        this.commandDispatcher.dispatch(command);
-        return new Ok();
-    }
 }

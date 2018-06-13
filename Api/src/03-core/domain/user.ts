@@ -1,6 +1,7 @@
 import { BaseEntity } from ".";
-import { Column, OneToOne } from "typeorm";
+import { Column, OneToOne, Entity } from "typeorm";
 
+@Entity()
 export class User extends BaseEntity {
 
     @Column()

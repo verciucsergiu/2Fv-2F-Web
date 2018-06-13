@@ -1,11 +1,11 @@
-import { Injectable, Inject } from "../../framework/injector";
-import { Group } from "../03-core";
 import { BaseRepository } from "./base.repository";
+import { User } from "../03-core";
+import { Injectable, Inject } from "../../framework/injector";
 import { DatabaseContext } from ".";
 
 @Injectable()
-export class GroupRepository extends BaseRepository<Group> {
-    protected type: Function = Group;
+export class UserRepository extends BaseRepository<User> {
+    protected type: Function = User;
 
     constructor(@Inject(DatabaseContext) context: DatabaseContext) {
         super(context);
