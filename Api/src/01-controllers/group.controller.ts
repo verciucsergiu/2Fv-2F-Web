@@ -5,6 +5,8 @@ import {
     GroupModel, AddNewGroupCommand,
     AddGroupToProfessorCommand, GetGroupByIdQuery, GetGroupByIdQueryResult, GetGroupsQuery, GetGroupsQueryResult
 } from "../03-core/business";
+import { Authorize } from "../../framework/core/authorization/authorize.decorator";
+import { UserRole } from "../03-core/domain/user-role.enum";
 
 @Controller('api/groups')
 export class GroupController {
@@ -30,6 +32,7 @@ export class GroupController {
     }
 
     @HttpPost('')
+    @Authorize({ role : UserRole[UserRole.Admin] })
     public async addGroup(@FromBody() group: GroupModel): Promise<IActionResult> {
         const command = new AddNewGroupCommand(group);
         await this.commandDispatcher.dispatchAsync(command);

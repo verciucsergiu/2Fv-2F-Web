@@ -21,8 +21,6 @@ export class InviteProfessorCommandHandler implements ICommandHandler<InviteProf
         } else {
             const invite: PendingInvites = Object.assign(new PendingInvites(), command.emailModel);
             const inviteVer = await this.pendingInvitesRepository.add(invite);
-            console.log(inviteVer);
-
             const server = emailer.server.connect({
                 user: "2Fv.2FWeb@gmail.com",
                 password: "ProiectTW2018",

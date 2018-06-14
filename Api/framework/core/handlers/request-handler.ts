@@ -1,10 +1,11 @@
-import { ServerRequest, ServerResponse } from 'http';
+import { ServerRequest, ServerResponse, IncomingMessage } from 'http';
 import { ResponseHandler } from './response-handler';
 import { NotFoundException } from '../server-exceptions/not-found.exception';
 import { PayloadTooLargeException } from '../server-exceptions/payload-too-large.exception';
-import { NotFound, InternalServerError } from '../http-responses';
+import { NotFound, InternalServerError, Unauthorized } from '../http-responses';
 import { Action } from '../app-container/types/action';
 import { AppContainer } from '../app-container/app-container';
+import { UnauthorizedException } from '../server-exceptions/unauthorized.exception';
 
 export class RequestHandler {
     private body: any = null;
@@ -17,18 +18,23 @@ export class RequestHandler {
         const requestUrl: string = this.request.url.slice(1).toLowerCase();
         const verb: string = this.request.method.toUpperCase();
         const responseHandler: ResponseHandler = new ResponseHandler(this.response);
-        process.on('unhandledRejection', (error) => {
-            console.log(error);
-            // responseHandler.handle(new InternalServerError());
-        });
+
+        const token: string = this.getTokenFromHeader(this.request.headers);
+
+        // process.on('unhandledRejection', (error) => {
+        //     console.log(error);
+        //     // responseHandler.handle(new InternalServerError());
+        // });
         console.log(verb + ' : ' + requestUrl);
         this.getRequestBody(() => {
             try {
-                const action: Action = AppContainer.getAction(requestUrl, verb, this.body);
+                const action: Action = AppContainer.getAction(requestUrl, verb, this.body, token);
                 responseHandler.handle(action.executeAction());
             } catch (e) {
                 if (e instanceof NotFoundException) {
                     responseHandler.handle(new NotFound());
+                } else if (e instanceof UnauthorizedException) {
+                    responseHandler.handle(new Unauthorized());
                 } else {
                     responseHandler.handle(new InternalServerError());
                 }
@@ -56,5 +62,13 @@ export class RequestHandler {
         } else {
             callback();
         }
+    }
+
+    private getTokenFromHeader(headers: any): string {
+        if (headers.authorization) {
+            return headers.authorization;
+        }
+
+        return '';
     }
 }

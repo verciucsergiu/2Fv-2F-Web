@@ -6,6 +6,7 @@ import { LoginModel } from "../03-core/business/models/login.model";
 import { RegisterModel } from "../03-core/business/models/register.model";
 import { RegisterProfessorCommand, RegisterUserCommand } from "../03-core/business";
 import { LoginUserCommand } from "../03-core/business/commands/login-user/login-user.command";
+import { UserRole } from "../03-core/domain/user-role.enum";
 
 @Controller('api/auth')
 export class AuthController {

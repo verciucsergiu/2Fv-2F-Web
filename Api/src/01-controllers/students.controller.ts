@@ -1,9 +1,10 @@
-import { HttpGet, IActionResult, Ok, Controller, FromRoute, HttpPost, NotFound, FromBody, Created } from "../../framework/core";
+import { HttpGet, IActionResult, Ok, Controller, FromRoute, HttpPost, NotFound, FromBody, Created, Authorize } from "../../framework/core";
 import { GetStudentsByGroupQuery, GetStudentsByGroupQueryResult } from "../03-core/business/queries/get-students-by-group";
 import { GetStudentsQuery, GetStudentsQueryResult } from "../03-core/business/queries/get-students";
 import { CommandDispatcher, QueryDispatcher } from "../../framework/CQRS";
 import { Inject } from "../../framework/injector";
 import { StudentModel, AddNewStudentCommand } from "../03-core/business";
+import { UserRole } from "../03-core/domain/user-role.enum";
 
 @Controller('api/students')
 export class StudentsController {
@@ -13,6 +14,7 @@ export class StudentsController {
     }
 
     @HttpPost('create')
+    @Authorize({ role: UserRole[UserRole.Admin] })
     public async addNewStudent(@FromBody() studentModel: StudentModel): Promise<IActionResult> {
         const command = new AddNewStudentCommand(studentModel);
         await this.commandDispatcher.dispatchAsync(command);

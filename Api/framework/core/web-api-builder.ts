@@ -4,6 +4,7 @@ import { RequestHandler } from './handlers/request-handler';
 import { DecoratorHandler } from './decorators/decorators-handler';
 import { AppContainer } from './app-container/app-container';
 import { AppParams } from './decorators/models/app-params.model';
+import { JwtAuthorizationOptions } from './authorization';
 
 export class WebApiBuilder {
     private startupClass: any;
@@ -30,6 +31,11 @@ export class WebApiBuilder {
 
     public useDatabase(type: Function, database: any): WebApiBuilder {
         DependencyContainer.set({ global: true, value: database, type: type });
+        return this;
+    }
+
+    public useJwtAuthorization(jwtOptions: JwtAuthorizationOptions): WebApiBuilder {
+        AppContainer.jwtSigningKey = jwtOptions.signingKey;
         return this;
     }
 

@@ -179,6 +179,7 @@ var HttpClient = class {
 
     static request (req, requestVerb, body, headers, callback, error) {
         var xmlHttp = new XMLHttpRequest();
+
         xmlHttp.onreadystatechange = () => {
             if (xmlHttp.readyState == 4) {
                 if (xmlHttp.status >= 400) {
@@ -201,6 +202,10 @@ var HttpClient = class {
         }
 
         xmlHttp.open(requestVerb, req, true);
+        const token = localStorage.getItem('userToken');
+        if(token) {
+            xmlHttp.setRequestHeader('authorization', token);
+        }
         xmlHttp.send(body);
     }
 }

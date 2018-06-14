@@ -18,5 +18,8 @@ const options: DbOptions = databaseOptions
 
 const core: WebApiBuilder = new WebApiBuilder();
 core.useStartupClass(Startup)
+    .useJwtAuthorization({
+        signingKey: 'c1b05003-6218-488c-876f-ee819c7461ef'
+    })
     .useDatabase(DatabaseContext, new DatabaseContext(options))
     .run();

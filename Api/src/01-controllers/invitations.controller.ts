@@ -5,6 +5,8 @@ import { InviteProfessorCommand, EmailModel } from "../03-core/business";
 import { GetInvitationQuery } from "../03-core/business/queries/get-invitation/get-invitation.query";
 import { GetInvitationQueryResult } from "../03-core/business/queries/get-invitation/get-invitation.query.result";
 import { InviteStatus } from "../03-core/business/commands/invite-professor/invite-status.enum";
+import { Authorize } from "../../framework/core/authorization/authorize.decorator";
+import { UserRole } from "../03-core/domain/user-role.enum";
 
 @Controller("api/invitations")
 export class InvitationsController {
@@ -14,6 +16,7 @@ export class InvitationsController {
     }
 
     @HttpPost('invite')
+    @Authorize({ role: UserRole[UserRole.Admin] })
     public async inviteProfessor(@FromBody() emailModel: EmailModel): Promise<IActionResult> {
         const command = new InviteProfessorCommand(emailModel);
         await this.commandDispatcher.dispatchAsync(command);

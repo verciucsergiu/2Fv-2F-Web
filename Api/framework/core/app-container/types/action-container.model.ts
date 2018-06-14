@@ -1,10 +1,13 @@
 import { ActionParameter } from './action-parameter.model';
 import { ParameterType } from './parameter.type';
 import { UrlParser } from '../url-parser.helper';
+import { JwtAuthorizationAttributeMetadata } from '../../authorization/jwt-authorization-attribute.metadata';
+import { JwtHelper } from '../..';
 
 export class ActionContainer {
     private routes: Array<string> = new Array<string>();
     private actionParams: Array<ActionParameter> = new Array<ActionParameter>();
+    private authorizedRole: Array<string> = new Array<string>();
 
     constructor(
         route: string,
@@ -36,6 +39,10 @@ export class ActionContainer {
         this.actionParams.push(actionParameter);
     }
 
+    public addAutorization(metadata: JwtAuthorizationAttributeMetadata): void {
+        this.authorizedRole.push(metadata.role);
+    }
+
     public isCurrentRoute(routes: Array<string>, verb: string): boolean {
         if (this.verb !== verb) {
             return false;
@@ -60,6 +67,27 @@ export class ActionContainer {
 
         return true;
 
+    }
+
+    public isUserAuthorized(token: string): boolean {
+        if (this.authorizedRole.length === 0) {
+            return true;
+        }
+
+        if (token === '') {
+            return false;
+        }
+
+        if (JwtHelper.verify(token)) {
+
+            const decodeToken: any = JwtHelper.getPrincipal(token);
+
+            if (this.authorizedRole.some((x: string) => x === decodeToken['role'])) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private getParamsFromRoute(routes: Array<string>): Array<string> {

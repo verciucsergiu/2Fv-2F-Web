@@ -1,4 +1,10 @@
-import { Controller, HttpGet, IActionResult, Ok, HttpPost, FromRoute, Created, FromBody, HttpDelete } from "../../framework/core";
+import {
+    Controller,
+    HttpGet, IActionResult,
+    Ok, HttpPost, FromRoute,
+    Created, FromBody,
+    HttpDelete, Authorize
+} from "../../framework/core";
 
 import {
     ProfessorModel, AssignModel,
@@ -11,6 +17,7 @@ import { Inject } from "../../framework/injector";
 import { CommandDispatcher, QueryDispatcher } from "../../framework/CQRS";
 import { GetProfessorByIdQuery, GetProfessorByIdQueryResult } from "../03-core/business/queries/get-professor-by-id";
 import { RemoveGroupFromProfessor } from "../03-core/business/commands/remove-group-from-professor";
+import { UserRole } from "../03-core/domain/user-role.enum";
 
 @Controller('api/professors')
 export class ProfessorController {
@@ -20,6 +27,7 @@ export class ProfessorController {
     }
 
     @HttpGet('{id}')
+    @Authorize({ role: UserRole[UserRole.Admin] })
     public async getById(@FromRoute('{id}') id: string): Promise<IActionResult> {
         const query: GetProfessorByIdQuery = new GetProfessorByIdQuery(id);
         const result: GetProfessorByIdQueryResult =
@@ -28,6 +36,7 @@ export class ProfessorController {
     }
 
     @HttpGet('all')
+    @Authorize({ role: UserRole[UserRole.Admin] })
     public async getAll(): Promise<IActionResult> {
         const query: GetAllProfessorsQuery = new GetAllProfessorsQuery();
         const result: GetAllProfessorsQueryResult =
@@ -43,6 +52,7 @@ export class ProfessorController {
     }
 
     @HttpPost('{id}/groups')
+    @Authorize({ role: UserRole[UserRole.Admin] })
     public async assignGroupToProfessor(
         @FromRoute('{id}') professorId: string,
         @FromBody() assignModel: AssignModel): Promise<IActionResult> {
@@ -53,6 +63,7 @@ export class ProfessorController {
     }
 
     @HttpDelete('{id}/groups')
+    @Authorize({ role: UserRole[UserRole.Admin] })
     public async deleteGroupFromProfessor(
         @FromRoute('{id}') professorId: string,
         @FromBody() assignModel: AssignModel): Promise<IActionResult> {

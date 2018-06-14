@@ -5,6 +5,8 @@ import { UrlParser } from './url-parser.helper';
 import { Action } from './types/action';
 import { NotFoundException } from '../server-exceptions/not-found.exception';
 import { AppParams } from '../decorators/models/app-params.model';
+import { JwtAuthorizationAttributeMetadata } from '../authorization/jwt-authorization-attribute.metadata';
+import { UnauthorizedException } from '../server-exceptions/unauthorized.exception';
 
 export class AppContainer {
 
@@ -12,6 +14,8 @@ export class AppContainer {
      * App settings.
      */
     public static settings: AppParams;
+
+    public static jwtSigningKey: string;
 
     /**
      * All controlles declared into the @WebApi decorator and are decorated with @Controller as well.
@@ -50,7 +54,18 @@ export class AppContainer {
         method.addActionParameter(parameter);
     }
 
-    public static getAction(requestUrl: string, verb: string, requestBody: any): Action {
+    public static addAuthorizationToControllerMethod(
+        controllerName: string,
+        methodName: string,
+        metadata: JwtAuthorizationAttributeMetadata): void {
+        const ctrl: ControllerContainerModel =
+            this.controllers.find((c: ControllerContainerModel) => c.controllerName === controllerName);
+
+        const method = ctrl.getActionByName(methodName);
+        method.addAutorization(metadata);
+    }
+
+    public static getAction(requestUrl: string, verb: string, requestBody: any, token: string): Action {
         const parsedUrl: Array<string> = UrlParser.parse(requestUrl);
 
         let ctrl: ControllerContainerModel;
@@ -69,6 +84,9 @@ export class AppContainer {
 
                 method = ctrl.getAction(remaingUrl, verb);
                 if (method) {
+                    if (!method.isUserAuthorized(token)) {
+                        throw new UnauthorizedException("Unauthorized");
+                    }
                     const actionParams: Array<any> = method.getActionParams(remaingUrl, requestBody);
                     return new Action(ctrl, method.method[method.propKey], actionParams);
                 } else {

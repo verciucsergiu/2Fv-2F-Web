@@ -37,4 +37,8 @@ export class User extends BaseEntity {
     public getRoleAsString(): string {
         return UserRole[this.role];
     }
+
+    public getForeignid(): string {
+        return this.foreignid;
+    }
 }

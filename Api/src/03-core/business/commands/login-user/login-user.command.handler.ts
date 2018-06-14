@@ -27,7 +27,10 @@ export class LoginUserCommandHandler implements ICommandHandler<LoginUserCommand
             command.success = true;
             const user: any = await this.userRepository.getByUsername(command.loginModel.username);
             const userAsEntity: User = Object.assign(new User(), user);
-            const token = this.jwtFactory.getToken(userAsEntity.id, command.loginModel.username, userAsEntity.getRoleAsString());
+            const token = this.jwtFactory.getToken(
+                userAsEntity.id,
+                command.loginModel.username, userAsEntity.getRoleAsString(),
+                userAsEntity.getForeignid());
             command.token = token;
         }
     }
