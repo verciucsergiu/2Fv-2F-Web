@@ -6,3 +6,4 @@ export * from './decorators/controller.decorator';
 export * from './decorators/from-body.decorator';
 export * from './decorators/from-route.decorator';
 export * from './authorization';
+export * from './http-client';
