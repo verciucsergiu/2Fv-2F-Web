@@ -3,7 +3,6 @@ import { RegisterUserCommand } from "./register-user.command";
 import * as bcrypt from "bcrypt";
 import { UserRepository } from "../../../../02-persistance/user.repository";
 import { Inject } from "../../../../../framework/injector";
-import { ProfessorRepository, PendingInvitesRepository } from "../../../../02-persistance";
 import { User, Professor } from "../../..";
 import { ProfessorModel } from "../..";
 
@@ -12,9 +11,7 @@ import { ProfessorModel } from "../..";
 })
 export class RegisterUserCommandHandler implements ICommandHandler<RegisterUserCommand> {
     constructor(
-        @Inject(UserRepository) private userRepository: UserRepository,
-        @Inject(ProfessorRepository) private professorRepository: ProfessorRepository,
-        @Inject(PendingInvitesRepository) private pendingInvitesRepository: PendingInvitesRepository
+        @Inject(UserRepository) private userRepository: UserRepository
     ) { }
 
     public async handle(command: RegisterUserCommand): Promise<void> {
@@ -23,21 +20,10 @@ export class RegisterUserCommandHandler implements ICommandHandler<RegisterUserC
         const hash = bcrypt.hashSync(command.registerModel.password, saltRounds);
         command.registerModel.password = hash;
         // ---------------------------------------------------------------------
-
+        command.registerModel.role = "user";
         const user: User = Object.assign(new User(), command.registerModel);
-        if (command.registerModel.role === "prof") {
-            const profModel = new ProfessorModel();
-            profModel.firstName = command.registerModel.username;
-            profModel.lastName = command.registerModel.username;
-            profModel.rank = "Lect.";
-            profModel.email = command.registerModel.email;
-
-            console.log("PROF MODEL -> " + profModel);
-            let prof: any = Object.assign(new Professor(), profModel);
-            prof = await this.professorRepository.add(prof);
-            user.setFK(prof.id);
-            await this.pendingInvitesRepository.deleteInvite(command.registerModel.email);
-        }
+        user.setFK("0");
+        console.log(command);
         await this.userRepository.add(user);
     }
 }
