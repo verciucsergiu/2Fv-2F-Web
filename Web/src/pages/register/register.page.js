@@ -39,7 +39,7 @@
 
             this.registerCallback = (response) => {
                 this.regend = true;
-                console.log(response);
+                Router.navigate('');
                 this.$refresh();
             }
 

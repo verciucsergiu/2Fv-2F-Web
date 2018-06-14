@@ -7,7 +7,10 @@ export class JwtHelper {
     }
 
     public static getPrincipal(token: string): any {
-        return jwt.decode(token);
+        if (this.verify(token)) {
+            return jwt.decode(token);
+        }
+        return { };
     }
 
     public static verify(token: string): boolean {

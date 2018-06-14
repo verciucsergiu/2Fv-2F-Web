@@ -21,15 +21,11 @@ export class RequestHandler {
 
         const token: string = this.getTokenFromHeader(this.request.headers);
 
-        // process.on('unhandledRejection', (error) => {
-        //     console.log(error);
-        //     // responseHandler.handle(new InternalServerError());
-        // });
         console.log(verb + ' : ' + requestUrl);
         this.getRequestBody(() => {
             try {
                 const action: Action = AppContainer.getAction(requestUrl, verb, this.body, token);
-                responseHandler.handle(action.executeAction());
+                responseHandler.handle(action.executeAction(token));
             } catch (e) {
                 if (e instanceof NotFoundException) {
                     responseHandler.handle(new NotFound());

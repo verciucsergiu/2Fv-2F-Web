@@ -44,19 +44,20 @@
                         <? }?>
                 </tbody>
             </table>
-            <h1 class="adm-user-list-header"> Registered students</h1>
+            <h1 class="adm-user-list-header"> Registered students </h1>
+            <button class="btn btn-submit" id="add-student">Add student</button>
             <table class="adm-user-students-table">
-                <thead>
-                    <tr class="adm-user-students-table-head-row">
+                <thead class="adm-user-teacher-table-head">
+                    <tr class="adm-user-teacher-table-head-row">
                         <td> Student </td>
                         <td> Grupa </td>
                     </tr>
                 </thead>
                 <tbody>
-                    <?for(let studentline of students) {?>
+                    <? for(let studentline of students) {?>
                         <tr class="adm-user-students-table-body-row">
                             <td class="adm-user-students-table-body-col">
-                                <?=studentline.firstName ?> <?=studentLine.lastName ?>
+                                <?=studentline.firstName ?> <?=studentline.lastName ?>
                             </td>
                             <td class="adm-user-students-table-body-col">
                                 <?=studentline.group?>
@@ -84,7 +85,7 @@
                             <tbody>
                                 <? for(let group of groups) { ?>
                                 <tr>
-                                    <td class="modal-cell"><?=group.name ?></td>
+                                    <td class="modal-cell"><?= group.name ?></td>
                                     <td class="modal-cell"><button id="modalButton<?=group.id?>" class="modal-no">No</button></td>
                                 </tr>
                                 <? } ?>
@@ -111,7 +112,33 @@
                     </tr>
                 <? } ?>
                 </tbody>
-            </table></div>
+            </table>
+            <button class="btn btn-submit" id="add-group">Add group</button>
         </div>
+        </div>
+        <? } ?>
+        <?if (control==3) {?>
+            <div class="adm-prof-req">
+                <h3>Add group!</h3>
+                <input type="text" name="name" placeholder="Name" data-bind="groupToAdd">
+                <button id="submit-add-group" class="btn btn-submit">Submit</button>             
+            </div>
+        <? } ?>
+        <?if (control==4) {?>
+            <div class="adm-prof-req">
+                <h3>Add group!</h3>
+                <input type="text" name="firstname" placeholder="First name" data-bind="studentFirstName">
+                <input type="text" name="lastname" placeholder="Last name" data-bind="studentLastName">
+                <input type="text" name="cnp" placeholder="CNP" data-bind="studentCnp">
+                <label>Group</label>
+                <select id="student-group">
+                    <?for(let group of groups) {?>
+                    <option value="<?= group.name ?>"><?= group.name?></option>    
+                    <?}?>
+                </select>
+                <br>
+                <br>
+                <button id="submit-add-student" class="btn btn-submit">Submit</button>
+            </div>
         <? } ?>
 </div>

@@ -17,7 +17,6 @@
             this.attendanceArray = [];
             this.id = 1;
             this.computeChance = (prezente) => {
-                //  alert(prezente)
                 if (prezente > 2) return "DA";
                 return "NU";
             }
@@ -45,8 +44,6 @@
             }
 
             this.lookuperr = () => {
-                alert("Server Error");
-                Router.navigate('#');
             }
 
 

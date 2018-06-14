@@ -3,11 +3,12 @@ import { RegisterUserCommand } from "./register-user.command";
 import * as bcrypt from "bcrypt";
 import { UserRepository } from "../../../../02-persistance/user.repository";
 import { Inject } from "../../../../../framework/injector";
-import { User, Professor, UserService } from "../../..";
+import { User, Professor } from "../../..";
 import { ProfessorModel, StudentModel } from "../..";
 import { StudentRepository } from "../../../../02-persistance";
 import { Student } from "../../../domain/student";
 import { UserRole } from "../../../domain/user-role.enum";
+import { UserService } from '../../utils/user.service';
 
 @CommandHandler({
     commandType: RegisterUserCommand

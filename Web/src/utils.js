@@ -13,7 +13,7 @@
             if (AuthService.getUserRole() == "prof") {
                 document.getElementById('nav-prof').style.display = "block";
             }
-            if (AuthService.getUserRole() == "user") {
+            if (AuthService.getUserRole() == "student") {
                 document.getElementById('nav-stud').style.display = "block";
             }
         } else {

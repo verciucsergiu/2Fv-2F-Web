@@ -17,7 +17,7 @@
             this.teacherClickedUID;
             this.teacherClickedID = 0;
             this.control = 2;
-            
+
             this.inviteErrorMessage = '';
             this.inviteError = false;
 
@@ -26,9 +26,10 @@
                     this.groups = groups.body;
                     this.groups.sort((a, b) => {
                         return a.name.localeCompare(b.name);
-                    })
+                    });
+                    ProfessorService.getAllProfessors(this.professorsCallback, null);
                 });
-                ProfessorService.getAllProfessors(this.professorsCallback, null);
+                              
             }
             //----------------------buttons
             this.$on('#invite', 'click', function () {
@@ -49,9 +50,26 @@
             this.$on('#inviteteacher', 'click', function () {
                 this.inviteProfessor();
             }.bind(this));
+
+            this.$on('#add-group', 'click', function () {
+                this.controlButton(3);
+            }.bind(this));
+
+            this.$on('#submit-add-group', 'click', function () {
+                this.addGroup();
+            }.bind(this));
+
+            this.$on('#add-student', 'click', function () {
+                this.controlButton(4);
+            }.bind(this));
+
+            this.$on('#submit-add-student', 'click', function () {
+                this.addStudent();
+            }.bind(this));
             //---------------------
             this.controlButton = (id) => {
                 this.control = id;
+                console.log('refresh contorl buttons');
                 this.$refresh();
             }
 
@@ -70,30 +88,28 @@
                 }
             }
 
-            //?
-            StudentService.getStudents("B4",(students) => { this.students = students},null);
-            this.teachers = [{
-                username: "prof",
-                grupa: "B4"
-            },
-            {
-                username: "prof1",
-                grupa: "B4"
-            }]
-            //?
-
             this.professorsCallback = (response) => {
                 let jr = response.body;
                 for (let prof of jr.professors) {
                     this.professors.push(ProfessorService.parseProfessor(prof));
                 }
-                this.initTableButtons();
-                this.$refresh();
+                StudentService.getStudents((response) => {
+                    this.students = response.body;
+                    this.initTableButtons();
+                    this.$refresh();
+                }, null);
+                this.teachers = [{
+                    username: "prof",
+                    grupa: "B4"
+                },
+                {
+                    username: "prof1",
+                    grupa: "B4"
+                }]
             }
 
             this.tableClick = (id) => {
                 //javascript starts with i=0, API gives i starting from 1
-
                 for (let i in this.professors) {
                     if (this.professors[i].id == id) {
                         this.triggerModal(id, i);
@@ -179,5 +195,48 @@
                     this.$refresh();
                 });
             }
+
+
+            this.groupToAdd = '';
+
+            this.addGroup = () => {
+                GroupService.addGroup({
+                    name: this.groupToAdd
+                },
+                    () => {
+                        this.groupToAdd = '';
+                        this.controlButton(2);
+                        GroupService.getAllGroups((groups) => {
+                            this.groups = groups.body;
+                            this.groups.sort((a, b) => {
+                                return a.name.localeCompare(b.name);
+                            });
+                            this.$refresh();
+                        });
+
+                    });
+            };
+
+            this.studentFirstName = '';
+            this.studentLastName = '';
+            this.studentCnp = '';
+            this.studentGroup = '';
+
+            this.addStudent = () => {
+                this.studentGroup = document.getElementById('student-group').value;
+                StudentService.addStudent({
+                    firstName: this.studentFirstName,
+                    lastName: this.studentLastName,
+                    group: this.studentGroup,
+                    cnp: this.studentCnp
+                },
+                    () => {
+                        StudentService.getStudents((response) => {
+                            this.students = response.body
+                            this.controlButton(1);
+                            // this.$refresh();
+                        });
+                    });
+            };
         });
 })();

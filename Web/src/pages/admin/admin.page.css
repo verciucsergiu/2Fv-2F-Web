@@ -485,3 +485,11 @@ table.modal-management-table thead tr:hover {
     cursor: pointer;
     outline: none;
 }
+
+#add-group {
+    margin-top: 20px;
+}
+
+#add-student {
+    margin-bottom: 20px;
+}

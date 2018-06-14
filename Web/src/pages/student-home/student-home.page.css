@@ -3,20 +3,6 @@
     background: rgba('red', green, blue, alpha);
 }
 
-body {
-    background-color: #3e94ec;
-    font-family: "Roboto", helvetica, arial, sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    text-rendering: optimizeLegibility;
-    background: -webkit-linear-gradient(right, #3924b3, #71b1fa);
-    background: -o-linear-gradient(right, #3924b3, #71b1fa);
-    background: -moz-linear-gradient(right, #3924b3, #71b1fa);
-    background: linear-gradient(right, #3924b3, #71b1fa);
-    height: auto;
-    width: auto;
-}
-
 .username-class-parent {
     text-align: center;
     font-weight: bold;
