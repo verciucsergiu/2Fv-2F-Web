@@ -67,14 +67,14 @@
             }
 
             //?
-            this.students = StudentService.getStudents("B6");
+            this.students = StudentService.getStudents("B4",null,null);
             this.teachers = [{
                 username: "prof",
-                grupa: "B6"
+                grupa: "B4"
             },
             {
                 username: "prof1",
-                grupa: "B6"
+                grupa: "B4"
             }]
             //?
 

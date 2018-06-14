@@ -16,4 +16,8 @@ export class StudentRepository extends BaseRepository<Student> {
        // return dbSet.find({ where: { deleted: false, group: receivedGroup}});
         return dbSet.find({ relations: ["attendanceComments"], where: { deleted: false, group: receivedGroup}});
     }
+    public async getStudents(recievedGroup : string): Promise<Array<{}>> {
+        const dbSet = await this.dbSet();
+        return dbSet.find({where: {deleted : false, group: recievedGroup}});
+    }
 }
