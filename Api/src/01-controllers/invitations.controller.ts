@@ -14,15 +14,13 @@ export class InvitationsController {
 
     @HttpPost('invite')
     public async inviteProfessor(@FromBody() emailModel: EmailModel): Promise<IActionResult> {
-
         const command = new InviteProfessorCommand(emailModel);
-        this.commandDispatcher.dispatchAsync(command);
+        await this.commandDispatcher.dispatchAsync(command);
         return new Created();
     }
 
     @HttpGet('uids/{uid}')
     public async checkExistence(@FromRoute('{uid}') uid: string): Promise<IActionResult> {
-
         const query = new GetInvitationQuery(uid);
         const result: GetInvitationQueryResult =
             await this.queryDispatcher.dispatchAsync<GetInvitationQuery, GetInvitationQueryResult>(query);

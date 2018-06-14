@@ -11,9 +11,11 @@ export class InviteProfessorCommandHandler implements ICommandHandler<InviteProf
     constructor(@Inject(PendingInvitesRepository) private pendingInvitesRepository: PendingInvitesRepository) { }
 
     public async handle(command: InviteProfessorCommand): Promise<void> {
+        console.log(command);
 
-        let invite: PendingInvites = Object.assign(new PendingInvites(), command.emailModel);
-        invite = await this.pendingInvitesRepository.add(invite);
+        const invite: PendingInvites = Object.assign(new PendingInvites(), command.emailModel);
+        const inviteVer = await this.pendingInvitesRepository.add(invite);
+        console.log(inviteVer);
 
         const server = emailer.server.connect({
             user: "2Fv.2FWeb@gmail.com",
@@ -23,9 +25,9 @@ export class InviteProfessorCommandHandler implements ICommandHandler<InviteProf
         });
 
         const message = {
-            text: "http://localhost:3000/#/register/professors/" + invite.id,
+            text: "http://localhost:3000/#/register/professor/" + inviteVer.id,
             from: "2Fv.2FWeb@gmail.com",
-            to: "ratzoiu2000@gmail.com",
+            to: command.emailModel.email,
             cc: "",
             subject: "Invitation"
         };
