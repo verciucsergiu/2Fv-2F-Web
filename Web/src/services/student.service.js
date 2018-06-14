@@ -12,4 +12,9 @@ var StudentService = class {
     {
         HttpClient.post(AppConfig.apiUri+'api/students/', JSON.stringify(student), callback,errorCallback);
     }
+
+    static getStudentDetails(callback, errorCallback)
+    {
+        HttpClient.get(AppConfig.apiUri + 'api/students/details', callback, errorCallback);
+    }
 }

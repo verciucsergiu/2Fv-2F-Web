@@ -1,6 +1,6 @@
 import { IQueryResult } from "../../../../../framework/CQRS";
 import { StudentModel } from "../..";
 
-export class GetAllStudentQueryResult implements IQueryResult {
+export class GetAllStudentsQueryResult implements IQueryResult {
     constructor(public students: StudentModel[]) { }
 }

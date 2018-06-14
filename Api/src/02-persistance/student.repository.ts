@@ -27,9 +27,9 @@ export class StudentRepository extends BaseRepository<Student> {
         const dbSet = await this.dbSet();
         return dbSet.findOne({ where: { deleted: false, cnp: targetcnp } });
     }
-	
-	 public async getStudentWithAttendance(uuid : string): Promise<{}> {
+
+    public async getStudentWithAttendance(uuid: string): Promise<{}> {
         const dbSet = await this.dbSet();
-        return dbSet.findOne({ relations: ["attendanceComments"], where: { deleted: false, id: uuid}});
+        return dbSet.findOne({ relations: ["attendanceComments"], where: { deleted: false, id: uuid } });
     }
 }

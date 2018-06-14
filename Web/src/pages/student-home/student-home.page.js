@@ -1,17 +1,17 @@
 (() => {
     route('/student-home', {
-            templateUrl: './src/pages/student-home/student-home.page.html',
-            styleUrl: './src/pages/student-home/student-home.page.css',
-            guard: {
-                canEnter: [StudentGuard],
-                redirectTo: '/'
-            }
-        },
+        templateUrl: './src/pages/student-home/student-home.page.html',
+        styleUrl: './src/pages/student-home/student-home.page.css',
+        guard: {
+            canEnter: [StudentGuard],
+            redirectTo: '/'
+        }
+    },
 
         function () {
             this.group = "b4";
             this.username = "jack23";
-            this.studentName="";
+            this.studentName = "";
             this.showPopup = false;
             this.info = [];
             this.attendanceArray = [];
@@ -21,6 +21,9 @@
                 return "NU";
             }
             this.$onInit = () => {
+                StudentService.getStudentDetails((response) => {
+                    console.log(response.body);
+                });
                 StudentService.getStudentsFromGroup(this.group, this.callback, this.lookuperr);
             }
 
