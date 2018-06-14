@@ -6,7 +6,7 @@ export class HttpClient {
         uri: string,
         headers: any,
         successCallback: (response: HttpResponse) => void,
-        errorCallback: (response: HttpResponse) => void): void {
+        errorCallback?: (response: HttpResponse) => void): void {
 
         return this.request('GET', uri, null, headers, successCallback, errorCallback);
     }
@@ -16,9 +16,9 @@ export class HttpClient {
         body: any,
         headers: any,
         successCallback: (response: HttpResponse) => void,
-        errorCallback: (response: HttpResponse) => void): void {
+        errorCallback?: (response: HttpResponse) => void): void {
 
-        return this.request('GET', uri, null, headers, successCallback, errorCallback);
+        return this.request('POST', uri, body, headers, successCallback, errorCallback);
     }
 
     public put(
@@ -26,9 +26,9 @@ export class HttpClient {
         body: any,
         headers: any,
         successCallback: (response: HttpResponse) => void,
-        errorCallback: (response: HttpResponse) => void): void {
+        errorCallback?: (response: HttpResponse) => void): void {
 
-        return this.request('GET', uri, null, headers, successCallback, errorCallback);
+        return this.request('PUT', uri, body, headers, successCallback, errorCallback);
     }
 
     public patch(
@@ -36,9 +36,9 @@ export class HttpClient {
         body: any,
         headers: any,
         successCallback: (response: HttpResponse) => void,
-        errorCallback: (response: HttpResponse) => void): void {
+        errorCallback?: (response: HttpResponse) => void): void {
 
-        return this.request('GET', uri, null, headers, successCallback, errorCallback);
+        return this.request('PATCH', uri, body, headers, successCallback, errorCallback);
     }
 
     private request(
