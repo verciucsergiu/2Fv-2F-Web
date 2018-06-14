@@ -25,6 +25,6 @@ export class StudentRepository extends BaseRepository<Student> {
 
     public async getStudentByCNP(targetcnp: string): Promise<{}> {
         const dbSet = await this.dbSet();
-        return dbSet.find({ where: { deleted: false, cnp: targetcnp } });
+        return dbSet.findOne({ where: { deleted: false, cnp: targetcnp } });
     }
 }

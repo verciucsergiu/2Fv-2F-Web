@@ -1,60 +1,27 @@
 var AuthService = class {
 
-    static get adminToken() {
-        return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTE2MjM5MDIyfQ.nN67GfxbNqRbd0AD09Jl-VcK0Q9SExX9NR0XloBnENI';
-    }
-
-    static get profToken() {
-        return '123';
-    }
-
-    static get studToken() {
-        return '1234';
-    }
-
     static get localStorageUserTokeItem() {
         return 'userToken';
     }
 
     static login(loginObject, resolve, reject) {
-        if (loginObject.password === 'admin' && loginObject.username === 'admin') {
-            this.addTokenLocalStorage(this.adminToken);
-            this.addUsernameLocalStorage(loginObject.username);
+        this.requestLogin(loginObject, (response) => {
+            const token = response.body.auth_token;
+            this.addTokenLocalStorage(token);
             resolve();
-        } else {
-            if (loginObject.password === 'prof' && loginObject.username === 'prof') {
-                this.addTokenLocalStorage(this.profToken);
-                this.addUsernameLocalStorage(loginObject.username);
-                resolve();
-            } else if (loginObject.password === 'stud' && loginObject.username === 'stud') {
-                this.addTokenLocalStorage(this.studToken);
-                this.addUsernameLocalStorage(loginObject.username);
-                resolve();
-            }
-            else {
-                reject();
-            }
-        }
+        },
+        () => {
+            reject();
+        })
     }
 
     static getUserID() {
-        return 8;
+        return this.getDecodedToken().id;
     }
 
     static getUserRole() {
-        let token = localStorage.getItem(this.localStorageUserTokeItem);
-        if (!token) {
-            return null;
-        } else if (token == this.adminToken) {
-            return 'admin';
-        } else {
-            if (token == this.profToken) {
-                return 'prof';
-            }
-            else {
-                return 'user';
-            }
-        }
+        let role = this.getDecodedToken().role;
+        return role.toLowerCase();
     }
 
     static isLoggedIn() {
@@ -65,6 +32,17 @@ var AuthService = class {
         return false;
     }
 
+    static getDecodedToken() {
+        let token = localStorage.getItem(this.localStorageUserTokeItem);
+        return this.parseJwt(token);
+    }
+
+    static parseJwt (token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace('-', '+').replace('_', '/');
+        return JSON.parse(window.atob(base64));
+    };
+
     static logout() {
         localStorage.removeItem(this.localStorageUserTokeItem);
         localStorage.removeItem('username');
@@ -74,12 +52,8 @@ var AuthService = class {
         localStorage.setItem(this.localStorageUserTokeItem, token);
     }
 
-    static addUsernameLocalStorage(username) {
-        localStorage.setItem('username', username);
-    }
-
     static getUsername() {
-        let user = localStorage.getItem('username');
+        let user = this.getDecodedToken().username;
         if (user) {
             return user;
         } else {
@@ -93,7 +67,6 @@ var AuthService = class {
     }
 
     static postLogin(loginModel, callback, errorCallback) {
-        console.log(loginModel);
         let body = JSON.stringify({ "username": loginModel.username, "password": loginModel.password });
         HttpClient.post(AppConfig.apiUri + 'api/auth/login', body, callback, errorCallback);
     }

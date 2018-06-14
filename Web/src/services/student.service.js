@@ -5,6 +5,6 @@ var StudentService = class {
     }
     static getStudents(group,callback,errorCallback)
     {
-        HttpClient.get(AppConfig.apiUri+'api/students/group'+ group,callback,errorCallback);
+        HttpClient.get(AppConfig.apiUri+'api/students/group/'+ group,callback,errorCallback);
     }
 }

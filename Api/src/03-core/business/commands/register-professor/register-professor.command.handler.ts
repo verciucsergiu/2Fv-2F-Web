@@ -5,7 +5,9 @@ import { ProfessorRepository, PendingInvitesRepository } from "../../../../02-pe
 import { Inject } from "../../../../../framework/injector";
 import * as bcrypt from "bcrypt";
 import { User, Professor } from "../../..";
+import { UserService } from '../../utils/user.service';
 import { ProfessorModel } from "../..";
+import { UserRole } from "../../../domain/user-role.enum";
 
 @CommandHandler({
     commandType: RegisterProfessorCommand
@@ -14,16 +16,13 @@ export class RegisterProfessorCommandHandler implements ICommandHandler<Register
     constructor(
         @Inject(UserRepository) private userRepository: UserRepository,
         @Inject(ProfessorRepository) private professorRepository: ProfessorRepository,
-        @Inject(PendingInvitesRepository) private pendingInvitesRepository: PendingInvitesRepository
+        @Inject(PendingInvitesRepository) private pendingInvitesRepository: PendingInvitesRepository,
+        @Inject(UserService) private userService: UserService
     ) { }
 
     public async handle(command: RegisterProfessorCommand): Promise<void> {
-        // ---------------------------------------------------------------------
-        const saltRounds = 8;
-        const hash = bcrypt.hashSync(command.registerModel.password, saltRounds);
-        command.registerModel.password = hash;
-        // ---------------------------------------------------------------------
-        command.registerModel.role = "prof";
+        command.registerModel.password = this.userService.getPasswordHash(command.registerModel.password);
+        command.registerModel.role = UserRole.Prof;
         const user: User = Object.assign(new User(), command.registerModel);
 
         const profModel = new ProfessorModel();
@@ -32,10 +31,9 @@ export class RegisterProfessorCommandHandler implements ICommandHandler<Register
         profModel.rank = "Lect.";
         profModel.email = command.registerModel.email;
 
-        console.log("PROF MODEL -> " + profModel);
-        let prof: any = Object.assign(new Professor(), profModel);
-        prof = await this.professorRepository.add(prof);
-        user.setFK(prof.id);
+        const prof: Professor = Object.assign(new Professor(), profModel);
+        const addedProf = await this.professorRepository.add(prof);
+        user.setFK(addedProf.id);
         await this.pendingInvitesRepository.deleteInvite(command.registerModel.email);
 
         await this.userRepository.add(user);

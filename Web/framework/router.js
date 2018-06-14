@@ -75,7 +75,7 @@ var BindHandler = class {
     };
 
     function route(path, page, controller) {
-        if (!page.templateUrl) {
+        if (!page.templateUrl && !page.template === undefined) {
             Framework.printError('Route: ' + path + ' doesn\'t have a template');
             return;
         }

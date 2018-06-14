@@ -4,6 +4,7 @@ import { GetStudentsQuery, GetStudentsQueryResult } from "../03-core/business/qu
 import { CommandDispatcher, QueryDispatcher } from "../../framework/CQRS";
 import { Inject } from "../../framework/injector";
 import { StudentModel, AddNewStudentCommand } from "../03-core/business";
+
 @Controller('api/students')
 export class StudentsController {
     constructor(

@@ -169,6 +169,7 @@
 
             this.inviteProfessor = () => {
                 this.invitationWasSuccess = false;
+                this.$refresh();
                 ProfessorService.inviteProfessor(this.requestedEmail, () => {
                     this.invitationWasSuccess = true;
                     this.$refresh();

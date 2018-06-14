@@ -23,6 +23,6 @@ export class ProfessorRepository extends BaseRepository<Professor> {
 
     public async getByEmail(email: string): Promise<{}> {
         const dbSet = await this.dbSet();
-        return dbSet.find({ where: { email: email }});
+        return dbSet.findOne({ where: { email: email }});
     }
 }

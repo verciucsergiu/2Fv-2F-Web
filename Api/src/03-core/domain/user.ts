@@ -1,5 +1,6 @@
 import { BaseEntity } from ".";
 import { Column, OneToOne, Entity } from "typeorm";
+import { UserRole } from "./user-role.enum";
 
 @Entity()
 export class User extends BaseEntity {
@@ -17,7 +18,7 @@ export class User extends BaseEntity {
     private cnp: string;
 
     @Column()
-    private role: string;
+    private role: UserRole;
 
     @Column()
     private foreignid: string;
@@ -31,5 +32,9 @@ export class User extends BaseEntity {
 
     public setFK(fk: string) {
         this.foreignid = fk;
+    }
+
+    public getRoleAsString(): string {
+        return UserRole[this.role];
     }
 }

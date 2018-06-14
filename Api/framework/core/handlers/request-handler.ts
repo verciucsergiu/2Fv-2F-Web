@@ -18,7 +18,8 @@ export class RequestHandler {
         const verb: string = this.request.method.toUpperCase();
         const responseHandler: ResponseHandler = new ResponseHandler(this.response);
         process.on('unhandledRejection', (error) => {
-            responseHandler.handle(new InternalServerError());
+            console.log(error);
+            // responseHandler.handle(new InternalServerError());
         });
         console.log(verb + ' : ' + requestUrl);
         this.getRequestBody(() => {

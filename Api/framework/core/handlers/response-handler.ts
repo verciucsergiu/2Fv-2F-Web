@@ -16,15 +16,17 @@ export class ResponseHandler {
     }
 
     private sendResponse(result: IActionResult): void {
-        this.response.writeHead(result.statusCode, { 'Content-Type': 'application/json' });
-        let responseMessage: string = '';
-        try {
-            responseMessage = JSON.stringify(result.message);
-        } catch {
-            responseMessage = '{ "message" : "' + result.message + '" }';
+        if (!this.response.headersSent) {
+            this.response.writeHead(result.statusCode, { 'Content-Type': 'application/json' });
+            let responseMessage: string = '';
+            try {
+                responseMessage = JSON.stringify(result.message);
+            } catch {
+                responseMessage = '{ "message" : "' + result.message + '" }';
+            }
+            this.response.end(responseMessage);
+            this.response.end();
         }
-        this.response.end(responseMessage);
-        this.response.end();
     }
 
     private isActionResult(arg: any): arg is IActionResult {

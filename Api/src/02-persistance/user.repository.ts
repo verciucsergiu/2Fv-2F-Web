@@ -10,4 +10,9 @@ export class UserRepository extends BaseRepository<User> {
     constructor(@Inject(DatabaseContext) context: DatabaseContext) {
         super(context);
     }
+
+    public async getByUsername(username: string): Promise<{}> {
+        const dbSet = await this.dbSet();
+        return dbSet.findOne({ where: { username: username }});
+    }
 }

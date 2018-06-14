@@ -16,7 +16,6 @@
             this.loginError = false;
             this.$on('#submit', 'click', function () {
                 let loginModel = new LoginModel(this.username, this.password);
-                AuthService.requestLogin(loginModel, null, null);
                 AuthService.login(loginModel,
                     () => {
                         Router.navigate('/');

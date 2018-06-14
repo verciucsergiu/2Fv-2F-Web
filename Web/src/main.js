@@ -10,7 +10,8 @@ Framework.defineApp({
         'pages/student-home/student-home.page.js',
         'pages/prof-grupa/prof-grupa.page.js',
         'pages/admin/admin.page.js',
-        'pages/prof-register/register.page.js'
+        'pages/prof-register/register.page.js',
+        'pages/logout/logout.page.js'
     ],
     services: [
         'services/authentication.service.js',
