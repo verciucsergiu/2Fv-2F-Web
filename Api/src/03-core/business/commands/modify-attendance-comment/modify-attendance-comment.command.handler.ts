@@ -14,10 +14,10 @@ export class ModifyAttendanceCommentCommandHandler implements ICommandHandler<Mo
 
     public async handle(command: ModifyAttendanceCommentCommand): Promise<void> {
         const attendance: any =
-        await this.attendanceCommentsRepository.getAttendance(command.uuid, command.attendanceCommentModel.weekNumber);
-      //  attendance.weekNumber = command.attendanceCommentModel.weekNumber;
-     //   attendance.value = command.attendanceCommentModel.value;
-     //   attendance.comment = command.attendanceCommentModel.comment;
-      //  await this.attendanceCommentsRepository.update(attendance);
+            await this.attendanceCommentsRepository.getAttendance(command.uuid, command.attendanceCommentModel.weekNumber);
+        attendance.weekNumber = command.attendanceCommentModel.weekNumber;
+        attendance.value = command.attendanceCommentModel.value;
+        attendance.comment = command.attendanceCommentModel.comment;
+        await this.attendanceCommentsRepository.update(attendance);
     }
 }

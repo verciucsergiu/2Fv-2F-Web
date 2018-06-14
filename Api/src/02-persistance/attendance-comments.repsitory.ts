@@ -9,6 +9,7 @@ export class AttendanceCommentsRepository extends BaseRepository<AttendanceComme
     constructor(@Inject(DatabaseContext) context: DatabaseContext) {
         super(context);
     }
+
     public async getAttendance(uuid: string, week: number): Promise<{}> {
         const dbSet = await this.dbSet();
         return dbSet.findOne({ where: { deleted: false, studentId: uuid, weekNumber: week } });

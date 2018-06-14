@@ -3,3 +3,4 @@ export * from './professor.repository';
 export * from './group.repository';
 export * from './pending-invites.repository';
 export * from './student.repository';
+export * from './attendance-comments.repsitory';
