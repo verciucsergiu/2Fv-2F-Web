@@ -6,3 +6,5 @@ export * from './invite-professor';
 export * from './register-professor';
 export * from './add-new-student';
 export * from './login-user';
+export * from './add-attendance-comment';
+export * from './modify-attendance-comment';
