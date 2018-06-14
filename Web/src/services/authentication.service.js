@@ -104,16 +104,28 @@ var AuthService = class {
         this.postRegister(registerModel, callback, errorCallback);
     }
 
+    static requestProfessorRegister(registerModel, callback, errorCallback) {
+        this.postProfessorRegister(registerModel, callback, errorCallback);
+    }
+
     static postRegister(registerModel, callback, errorCallback) {
-        console.log(registerModel);
         let body = JSON.stringify({
             "username": registerModel.username,
             "password": registerModel.password,
             "email": registerModel.email,
-            "cnp": registerModel.cnp,
-            "role": registerModel.role
+            "cnp": registerModel.cnp
         });
         HttpClient.post(AppConfig.apiUri + 'api/auth/register', body, callback, errorCallback);
+    }
+
+    static postProfessorRegister(registerModel,callback,errorCallback) {
+        let body = JSON.stringify({
+            "username": registerModel.username,
+            "password": registerModel.password,
+            "email": registerModel.email,
+            "cnp": registerModel.cnp
+        });
+        HttpClient.post(AppConfig.apiUri + 'api/auth/register/professor', body, callback, errorCallback);
     }
     //----------------------------------------------------------------------------------------------------------------------------
 };

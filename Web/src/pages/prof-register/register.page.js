@@ -50,7 +50,7 @@
                 if (registerModel.password === this.regpasswordCheck && registerModel.password != null)
                     if (registerModel.cnp != null && registerModel.username != null && registerModel.email != null)
                         if (registerModel.email.includes("@") == true) {
-                            AuthService.requestRegister(registerModel, this.registerCallback, this.errRegisterCallback);
+                            AuthService.requestProfessorRegister(registerModel, this.registerCallback, this.errRegisterCallback);
                             return;
                         }
                 this.registerError = true;
