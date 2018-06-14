@@ -3,7 +3,8 @@ import { AddNewStudentCommand } from ".";
 import { StudentModel } from "../..";
 import { Inject } from "../../../../../framework/injector";
 import { Student } from "../../../domain/student";
-import { StudentRepository } from "../../../../02-persistance";
+import { StudentRepository, AttendanceCommentsRepository } from "../../../../02-persistance";
+import { AttendanceComments } from '../../../domain/attendance-comments';
 
 @CommandHandler({
     commandType: AddNewStudentCommand
@@ -13,6 +14,13 @@ export class AddNewStudentCommandHandler implements ICommandHandler<AddNewStuden
 
     public async handle(command: AddNewStudentCommand): Promise<void> {
         const student: Student = Object.assign(new Student(), command.studentModel);
+        for (let i = 0; i < 13; i++) {
+            const attendance: AttendanceComments = Object.assign(new AttendanceComments());
+            attendance.student = student;
+            await attendance.setWeekNumber(i);
+            await attendance.setComment("");
+            await attendance.setValue("");
+        }
         await this.studentRepository.add(student);
     }
 }

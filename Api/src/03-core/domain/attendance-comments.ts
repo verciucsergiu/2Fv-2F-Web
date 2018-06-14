@@ -17,6 +17,15 @@ export class AttendanceComments extends BaseEntity {
     @Column()
     private deleted?: boolean = false;
     @ManyToOne((type) => Student, (student) => student.attendanceComments)
-    public student : Student;
+    public student: Student;
 
+    public async setWeekNumber(week: number) : Promise<void> {
+        this.weekNumber = week;
+    }
+    public async setComment(comm: string) : Promise<void> {
+        this.comment = comm;
+    }
+    public async setValue(val: string) : Promise<void> {
+        this.value = val;
+    }
 }
