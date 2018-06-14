@@ -91,7 +91,7 @@ table.students-table thead th {
     font-weight: unset;
     color: #FFFFFF;
     text-align: left;
-    min-width: 100px;
+    min-width: 50px;
     padding-top: 18px;
     padding-bottom: 18px;
     padding-left: 25px;

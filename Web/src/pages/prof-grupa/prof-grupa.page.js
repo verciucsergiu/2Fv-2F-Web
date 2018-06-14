@@ -16,6 +16,7 @@
                 StudentService.getStudentsFromGroup(idGrupa, (response) => {
                     this.students = response.body;
                     console.log(this.students);
+                    this.$refresh();
                 }, (response) => {
                     console.log("err");
                 })
