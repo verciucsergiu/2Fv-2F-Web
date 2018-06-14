@@ -19,6 +19,10 @@ var AuthService = class {
         return this.getDecodedToken().id;
     }
 
+    static getFK() {
+        return this.getDecodedToken().foreignid;
+    }
+
     static getUserRole() {
         let role = this.getDecodedToken().role;
         return role.toLowerCase();

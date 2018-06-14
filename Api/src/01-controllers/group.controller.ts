@@ -16,6 +16,7 @@ export class GroupController {
     }
 
     @HttpGet('{id}')
+    @Authorize({ role: UserRole[UserRole.Admin] })
     public async getGroupById(@FromRoute('{id}') id: string): Promise<IActionResult> {
         const query: GetGroupByIdQuery = new GetGroupByIdQuery(id);
         const result: GetGroupByIdQueryResult =
@@ -24,6 +25,7 @@ export class GroupController {
     }
 
     @HttpGet('')
+    @Authorize({ role: UserRole[UserRole.Admin] })
     public async getGroups(): Promise<IActionResult> {
         const query: GetGroupsQuery = new GetGroupsQuery();
         const result: GetGroupsQueryResult =
@@ -32,7 +34,7 @@ export class GroupController {
     }
 
     @HttpPost('')
-    @Authorize({ role : UserRole[UserRole.Admin] })
+    @Authorize({ role: UserRole[UserRole.Admin] })
     public async addGroup(@FromBody() group: GroupModel): Promise<IActionResult> {
         const command = new AddNewGroupCommand(group);
         await this.commandDispatcher.dispatchAsync(command);

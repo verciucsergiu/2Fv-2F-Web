@@ -13,7 +13,13 @@
             this.idGrupa = idGrupa;
             this.students = [];
             this.$onInit = () => {
-                this.students = StudentService.getStudents(this.idGrupa);
+                StudentService.getStudentsFromGroup(idGrupa, (response) => {
+                    this.students = response.body;
+                    console.log(this.students);
+                    this.$refresh();
+                }, (response) => {
+                    console.log("err");
+                })
             }
 
             this.$on('#group-back', 'click', function () {
