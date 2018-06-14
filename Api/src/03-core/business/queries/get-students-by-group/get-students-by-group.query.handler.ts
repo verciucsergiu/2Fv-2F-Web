@@ -14,8 +14,7 @@ export class GetStudentsByGroupQueryHandler implements IQueryHandler<GetStudents
 
     public async retrieve(query: GetStudentsByGroupQuery): Promise<GetStudentsByGroupQueryResult> {
         const students: any = await this.repository.getStudentsWithAttendance(query.group);
-        const studentsMapped: Array<StudentModel> = students.map((pf: StudentModel) => Object.assign(new StudentModel(), pf));
-        console.log(students.firstName);
+        const studentsMapped: Array<StudentModel> = students.map((stud: StudentModel) => Object.assign(new StudentModel(), stud));
         return new GetStudentsByGroupQueryResult(studentsMapped);
     }
 }

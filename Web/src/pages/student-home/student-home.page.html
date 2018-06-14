@@ -2,7 +2,6 @@
     <div class="username-class-parent">
         <div class="username-class-child">
             <p>
-                <?= username ?>/
                     <?= studentName ?>
             </p>
         </div>
@@ -36,20 +35,13 @@
                             <?}else{?> 
                                 regular-student<?}?> ">
                         <td>
-                            <?= user.username ?>
-                        </td>
-
-                        <td>
-                            <?= user.nume ?>
+                            <?= user.firstName ?>
                         </td>
                         <td>
-                            <?= user.prezente ?>
+                            <?= user.lastName?>
                         </td>
                         <td>
-                            <?= user.obs ?>
-                        </td>
-                        <td>
-                            <?= user.sanse ?>
+                            <?= user.cnp ?>
                         </td>
                     </tr>
                     <?}?>
@@ -82,13 +74,15 @@
         <tbody class="attendance-table-body">
             <tr class="attendance-table-body-row">
                 <? for(saptamana=1;saptamana<10;saptamana++) { ?>
+                    <? if(attendanceArray[saptamana]!=null) { ?>
                     <td class="attendance-col">
-                        <?=attendance[saptamana]?>
+                        <?=attendanceArray[saptamana].value?>
                     </td>
                     <td class="attendance-col">
-                        <?=attendance[saptamana]?>
+                        <?=attendanceArray[saptamana].value?>
                     </td>
                     <?}?>
+                <?}?>
             </tr>
         </tbody>
 

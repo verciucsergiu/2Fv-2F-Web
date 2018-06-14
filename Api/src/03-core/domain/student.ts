@@ -14,6 +14,9 @@ export class Student extends BaseEntity {
     private group: string;
 
     @Column()
+    private cnp : string;
+
+    @Column()
     private deleted?: boolean = false;
 
     @OneToMany((type) => AttendanceComments, (attendanceComments) => attendanceComments.student)

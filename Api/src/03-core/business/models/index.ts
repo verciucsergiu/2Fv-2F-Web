@@ -5,3 +5,4 @@ export * from './assign-group.model';
 export * from './email.model';
 export * from './register.model';
 export * from './login.model';
+export * from './attendance-comments.model';
