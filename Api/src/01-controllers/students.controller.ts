@@ -14,7 +14,7 @@ export class StudentsController extends ApiController {
     constructor(
         @Inject(CommandDispatcher) private commandDispatcher: CommandDispatcher,
         @Inject(QueryDispatcher) private queryDispatcher: QueryDispatcher) {
-            super();
+        super();
     }
 
     @HttpPost('')
@@ -34,7 +34,7 @@ export class StudentsController extends ApiController {
     }
 
     @HttpGet('details')
-    @Authorize({ role: UserRole[UserRole.Student]})
+    @Authorize({ role: UserRole[UserRole.Student] })
     public async getStudentDetails(): Promise<IActionResult> {
         const query = new GetStudentDetailsQuery(this.principal.id);
         const result = await this.queryDispatcher.dispatchAsync<GetStudentDetailsQuery, GetStudentDetailsQueryResult>(query);
@@ -42,7 +42,7 @@ export class StudentsController extends ApiController {
     }
 
     @HttpGet('groups/{groups}')
-    @Authorize({ role: UserRole[UserRole.Student] })    
+    @Authorize({ role: UserRole[UserRole.Student] })
     @Authorize({ role: UserRole[UserRole.Admin] })
     @Authorize({ role: UserRole[UserRole.Prof] })
     public async getAllFromGroup(@FromRoute('{groups}') group: string): Promise<IActionResult> {
@@ -55,7 +55,7 @@ export class StudentsController extends ApiController {
     }
 
     @HttpGet('group/{group}')
-    @Authorize({ role: UserRole[UserRole.Student] })    
+    @Authorize({ role: UserRole[UserRole.Student] })
     @Authorize({ role: UserRole[UserRole.Admin] })
     @Authorize({ role: UserRole[UserRole.Prof] })
     public async getFromGroup(@FromRoute('{group}') group: string): Promise<IActionResult> {
