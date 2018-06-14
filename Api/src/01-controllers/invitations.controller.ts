@@ -1,9 +1,10 @@
-import { Controller, HttpPost, Ok, IActionResult, FromBody, HttpGet, FromRoute, NotFound, Created } from "../../framework/core";
+import { Controller, HttpPost, Ok, IActionResult, FromBody, HttpGet, FromRoute, NotFound, Created, BadRequest } from "../../framework/core";
 import { QueryDispatcher, CommandDispatcher } from "../../framework/CQRS";
 import { Inject } from "../../framework/injector";
 import { InviteProfessorCommand, EmailModel } from "../03-core/business";
 import { GetInvitationQuery } from "../03-core/business/queries/get-invitation/get-invitation.query";
 import { GetInvitationQueryResult } from "../03-core/business/queries/get-invitation/get-invitation.query.result";
+import { InviteStatus } from "../03-core/business/commands/invite-professor/invite-status.enum";
 
 @Controller("api/invitations")
 export class InvitationsController {
@@ -16,6 +17,10 @@ export class InvitationsController {
     public async inviteProfessor(@FromBody() emailModel: EmailModel): Promise<IActionResult> {
         const command = new InviteProfessorCommand(emailModel);
         await this.commandDispatcher.dispatchAsync(command);
+        if (command.status === InviteStatus.UserExists) {
+            return new BadRequest("Email is already used!");
+        }
+
         return new Created();
     }
 

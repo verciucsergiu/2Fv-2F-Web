@@ -181,8 +181,15 @@ var HttpClient = class {
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.onreadystatechange = () => {
             if (xmlHttp.readyState == 4) {
-                if (callback) {
-                    callback(new HttpResponse(xmlHttp));
+                if (xmlHttp.status >= 400) {
+                    if(error) {
+                        error(new HttpResponse(xmlHttp));
+                    }
+                } else {
+
+                    if (callback) {
+                        callback(new HttpResponse(xmlHttp));
+                    }
                 }
             }
         }

@@ -20,4 +20,9 @@ export class ProfessorRepository extends BaseRepository<Professor> {
         const dbSet = await this.dbSet();
         return dbSet.find({ relations: ["groups"], where: { deleted: false } });
     }
+
+    public async getByEmail(email: string): Promise<{}> {
+        const dbSet = await this.dbSet();
+        return dbSet.find({ where: { email: email }});
+    }
 }

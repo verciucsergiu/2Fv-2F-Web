@@ -12,6 +12,13 @@
             <h3>Invite a teacher!</h3>
             <input type="text" name="Email" placeholder="Email" data-bind="requestedEmail">
             <button id="inviteteacher" class="btn btn-submit">Send invitation</button>
+            <? if(invitationWasSuccess) {?>
+                <p>Invitations was sent successfully!</p>
+            <? } ?>
+            <? if(inviteError) {?>
+                <p><?= inviteErrorMessage ?></p>
+            <? } ?>
+            
         </div>
     <? } ?>
     <?if (control==1) {?>

@@ -9,13 +9,17 @@
             }
         },
         function () {
-
+            this.invitationWasSuccess = false;
             this.requestedEmail;
             this.professors = [];
             this.groups = [];
+            this.students = [];
             this.teacherClickedUID;
             this.teacherClickedID = 0;
             this.control = 2;
+            
+            this.inviteErrorMessage = '';
+            this.inviteError = false;
 
             this.$onInit = () => {
                 GroupService.getAllGroups((groups) => {
@@ -67,7 +71,7 @@
             }
 
             //?
-            this.students = StudentService.getStudents("B4",null,null);
+            StudentService.getStudents("B4",(students) => { this.students = students},null);
             this.teachers = [{
                 username: "prof",
                 grupa: "B4"
@@ -164,7 +168,15 @@
             }
 
             this.inviteProfessor = () => {
-                ProfessorService.inviteProfessor(this.requestedEmail, null, null);
+                this.invitationWasSuccess = false;
+                ProfessorService.inviteProfessor(this.requestedEmail, () => {
+                    this.invitationWasSuccess = true;
+                    this.$refresh();
+                }, (response) => {
+                    this.inviteError = true;
+                    this.inviteErrorMessage = response.body;
+                    this.$refresh();
+                });
             }
         });
 })();

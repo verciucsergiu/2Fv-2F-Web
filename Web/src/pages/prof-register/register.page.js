@@ -2,7 +2,7 @@
     route('/register/professor/:registerid',
         {
             templateUrl: './src/pages/prof-register/register.page.html',
-            styleUrl: './src/pages/prof-register/register.page.css',
+            styleUrl: './src/pages/register/register.page.css',
             guard:
                 {
                     canEnter: [AuthGuard],
@@ -13,33 +13,40 @@
 
             this.registerid = registerid;
 
-            this.regusername;
-            this.regpassword;
-            this.regpasswordCheck;
-            this.regemail;
-            this.regcnp;
+            this.regusername = '';
+            this.regpassword = '';
+            this.regpasswordCheck = '';
+            this.regemail = '';
+            this.regcnp = '';
             this.role = "prof";
 
             this.registerError = false;
             this.regend = false;
-            this.t = 'dsa0';
 
             this.$onInit = () => {
+                if (AuthService.isLoggedIn()) {
+                    Router.navigate('');
+                    this.$refresh();
+                }
+                
                 InvitationService.lookup(this.registerid, this.lookupcb, this.lookuperr)
             }
 
             this.lookupcb = (response) => {
+                
                 if (response.statusCode == 200) {
                     this.regemail = response.body.emailModel.email;
                 } else {
                     alert("Invite Expired")
-                    Router.navigate('#');
+                    Router.navigate('');
                 }
+
+                this.$refresh();
             }
 
             this.lookuperr = () => {
-                alert("Server Error");
-                Router.navigate('#');
+                alert("Something went wrong. Please try again later or contact an admin!");
+                Router.navigate('');
             }
 
             this.$on('#regsubmit', 'click', function () {
@@ -59,7 +66,7 @@
 
             this.registerCallback = (response) => {
                 this.regend = true;
-                console.log(response);
+                Router.navigate('');
                 this.$refresh();
             }
 
