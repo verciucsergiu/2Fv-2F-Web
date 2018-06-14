@@ -23,7 +23,6 @@ export class RegisterUserCommandHandler implements ICommandHandler<RegisterUserC
         command.registerModel.role = "user";
         const user: User = Object.assign(new User(), command.registerModel);
         user.setFK("0");
-        console.log(command);
         await this.userRepository.add(user);
     }
 }

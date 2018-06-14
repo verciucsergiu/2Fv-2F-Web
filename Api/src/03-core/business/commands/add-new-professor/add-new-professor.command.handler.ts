@@ -7,8 +7,7 @@ import { Professor } from '../../../domain';
 @CommandHandler({ commandType: AddNewProfessorCommand })
 export class AddNewProfessorCommandHandler implements ICommandHandler<AddNewProfessorCommand> {
 
-    constructor(@Inject(ProfessorRepository) private repository: ProfessorRepository) {
-    }
+    constructor(@Inject(ProfessorRepository) private repository: ProfessorRepository) { }
 
     public async handle(command: AddNewProfessorCommand): Promise<void> {
         const professor: Professor = Object.assign(new Professor(), command.professorModel);
