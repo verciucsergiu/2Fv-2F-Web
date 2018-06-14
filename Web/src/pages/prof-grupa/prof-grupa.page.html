@@ -3,8 +3,8 @@
         <h3>
             <?= idGrupa?>
         </h3>
-            <button id="group-back" class="btn btn-submit back">Back</button>
-            <button id="group-save-changes" class="btn btn-submit save">Save Changes</button>
+        <button id="group-back" class="btn btn-submit back">Back</button>
+        <button id="group-save-changes" class="btn btn-submit save">Save Changes</button>
         <table class="students-table">
             <thead>
                 <th>Nume</th>
@@ -12,32 +12,28 @@
                 <th>P</th>
                 <th>A</th>
                 <th>S</th>
-                <th>Examen</th>
                 <th>Observatii</th>
             </thead>
             <tbody>
                 <? for(let stud of students) { ?>
                     <tr>
                         <td>
-                            <?= stud.nume ?>
+                            <?= stud.firstName + ' ' + stud.lastName ?>
                         </td>
                         <td>
                             <?= stud.tipProiect ?>
                         </td>
                         <td contenteditable="true">
-                            <?= stud.notaP ?>
+                            <?= stud.attendanceComments[4].value ?>
                         </td>
                         <td contenteditable="true">
-                            <?= stud.notaA ?>
+                            <?= stud.attendanceComments[8].value ?>
                         </td>
                         <td contenteditable="true">
-                            <?= stud.notaS ?>
+                            <?= stud.attendanceComments[12].value ?>
                         </td>
                         <td contenteditable="true">
-                            <?= stud.notaE ?>
-                        </td>
-                        <td contenteditable="true">
-                            <?= stud.obs ?>
+                            No Comment
                         </td>
                     </tr>
                     <? } ?>

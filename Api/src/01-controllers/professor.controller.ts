@@ -28,6 +28,7 @@ export class ProfessorController {
 
     @HttpGet('{id}')
     @Authorize({ role: UserRole[UserRole.Admin] })
+    @Authorize({ role: UserRole[UserRole.Prof] })
     public async getById(@FromRoute('{id}') id: string): Promise<IActionResult> {
         const query: GetProfessorByIdQuery = new GetProfessorByIdQuery(id);
         const result: GetProfessorByIdQueryResult =
