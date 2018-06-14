@@ -16,8 +16,8 @@ export class Student extends BaseEntity {
     @Column()
     private deleted?: boolean = false;
 
-    @OneToMany((type) => AttendanceComments, (attendanceCommets) => attendanceCommets.id)
-    private attendanceComments: Array<AttendanceComments> = new Array<AttendanceComments>();
+    @OneToMany((type) => AttendanceComments, (attendanceComments) => attendanceComments.student)
+    public attendanceComments: Array<AttendanceComments> = new Array<AttendanceComments>();
     public markAsDeleted(): void {
         this.deleted = true;
     }

@@ -16,8 +16,7 @@ export class AttendanceComments extends BaseEntity {
 
     @Column()
     private deleted?: boolean = false;
-
-    @ManyToOne((type) => Student, (student) => student.id)
-    private student : Student;
+    @ManyToOne((type) => Student, (student) => student.attendanceComments)
+    public student : Student;
 
 }
