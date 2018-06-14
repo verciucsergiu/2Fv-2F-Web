@@ -21,7 +21,7 @@ export class UserService {
         if (!user) {
             return false;
         }
-        if (userAsEntity.password !== this.getPasswordHash(loginModel.password)) {
+        if (userAsEntity.password === this.getPasswordHash(loginModel.password)) {
             return true;
         }
 
