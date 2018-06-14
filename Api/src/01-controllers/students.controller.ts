@@ -31,6 +31,9 @@ export class StudentsController {
     }
 
     @HttpGet('groups/{groups}')
+    @Authorize({ role: UserRole[UserRole.Student] })    
+    @Authorize({ role: UserRole[UserRole.Admin] })
+    @Authorize({ role: UserRole[UserRole.Prof] })
     public async getAllFromGroup(@FromRoute('{groups}') group: string): Promise<IActionResult> {
         const query: GetStudentsByGroupQuery = new GetStudentsByGroupQuery(group);
         const result: GetStudentsByGroupQueryResult =
@@ -41,6 +44,9 @@ export class StudentsController {
     }
 
     @HttpGet('group/{group}')
+    @Authorize({ role: UserRole[UserRole.Student] })    
+    @Authorize({ role: UserRole[UserRole.Admin] })
+    @Authorize({ role: UserRole[UserRole.Prof] })
     public async getFromGroup(@FromRoute('{group}') group: string): Promise<IActionResult> {
         const query: GetStudentsQuery = new GetStudentsQuery(group);
         const result: GetStudentsQueryResult =

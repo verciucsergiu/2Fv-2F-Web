@@ -4,3 +4,4 @@ export * from './get-all-professors';
 export * from './get-groups';
 export * from './get-invitation';
 export * from './get-all-students';
+export * from './get-students-by-group';
