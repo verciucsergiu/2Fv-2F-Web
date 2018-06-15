@@ -100,3 +100,7 @@ table.students-table thead th {
 table.students-table tfoot td {
     font-size: 14px;
 }
+
+.edit-student-box {
+    font-size: 15px;
+}

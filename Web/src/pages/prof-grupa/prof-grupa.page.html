@@ -1,11 +1,12 @@
 <div class="flex-container-center">
-    <div class="group-box">
+    <? if(!clicked) {?>
+    <div id="group-div" class="group-box">
         <h3>
             <?= idGrupa?>
         </h3>
         <button id="group-back" class="btn btn-submit back">Back</button>
         <button id="group-save-changes" class="btn btn-submit save">Save Changes</button>
-        <table class="students-table">
+        <table id="value-table" class="students-table">
             <thead>
                 <th>Nume</th>
                 <th>W1</th>
@@ -33,15 +34,15 @@
                             <td>
                                 <?= attendance.value ?>
                             </td>
-                        <? } ?>
-                        <td>
-                            <button>Edit</button>
-                        </td>
+                            <? } ?>
+                                <td>
+                                    <button id="editstudent<?=stud.id?>" </button>Edit</button>
+                                </td>
                     </tr>
                     <? } ?>
             </tbody>
 
-            <table class="students-table">
+            <table id="obs-table" class="students-table">
                 <thead>
                     <th>Nume</th>
                     <th>Obs1</th>
@@ -69,12 +70,31 @@
                                 <td>
                                     <?= attendance.comment ?>
                                 </td>
-                            <? } ?>
-                            <td>
-                                <button>Edit</button>
-                            </td>
+                                <? } ?>
+                                    <td>
+                                        <button id="editstudentobs<?=stud.id?>" </button>Edit</button>
+                                    </td>
                         </tr>
                         <? } ?>
                 </tbody>
     </div>
+    <? } ?>
+
+    <? if(clicked) {?>
+        <div id="edit-div" class="edit-student-box">
+            <label>
+                <p>Student <?= studentToEdit.firstName + ' ' + studentToEdit.lastName ?> </p>
+                <button id="edit-save">
+                    save
+                </button>
+                <? for(let [index,attendance] of studentToEdit.attendanceComments.entries()) { ?>
+                    <h4>Week <?= attendance.weekNumber + 1 ?></h4>
+                    <label>Observatii</label>
+                    <input id="editC<?=index?>" value="<?= attendance.comment?>">
+                    <label>Nota</label>
+                    <input id="editV<?=index?>" value="<?= attendance.value?>">
+                <? } ?>
+            </label>
+        </div>
+    <? } ?>
 </div>
