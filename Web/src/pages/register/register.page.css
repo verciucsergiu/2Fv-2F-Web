@@ -2,19 +2,6 @@
     margin-top: 20px;
 }
 
-.register-box {
-    width: 360px;
-    height: auto;   
-    /*background: rgba(246, 246, 246, 0.52);*/
-    background: rgba(228, 228, 228, 0.486);
-    -moz-box-shadow: 0 0 3px #535353;
-    -webkit-box-shadow: 0 0 3px #535353;
-    box-shadow: 0 0 3px #535353;
-    box-sizing: border-box;
-    padding: 30px;
-    padding-top: 0px;  
-}
-
 .register-box h3 {
     text-align: center;
     font-weight: bold;
@@ -26,25 +13,4 @@
     font-size: 20px;
     font-family: Helvetica;
     text-align: center;
-}
-
-.register-box input{
-    display: flex;
-    margin-top: 30px;
-    width: 100%;
-    height: 50px;
-    border-radius: 10px;
-}
-
-.register-box input[type="text"],input[type="password"] {
-    background: rgb(255, 254, 254);
-    box-shadow: 1px 1px 10px rgba(42, 44, 65, 0.22) inset;
-    font-size: 15px;
-    text-align: center;
-    border: none;
-    padding: auto;
-}
-
-.register-box .btn-submit {
-    width: 100%;
 }

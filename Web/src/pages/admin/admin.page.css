@@ -15,9 +15,8 @@
 }
 
 .adm-user-list {
-    width: 600px;
+    min-width: 600px;
     height: auto;
-    margin: 20px;
     background: rgba(228, 228, 228, 0.486);
     -moz-box-shadow: 0 0 3px #535353;
     -webkit-box-shadow: 0 0 3px #535353;
@@ -158,11 +157,11 @@
 }
 
 .arrow {
-    background: rgb(86, 151, 194);
+    background: #3f51b5;
 }
 
 .arrow:hover {
-    background: #0047b3;
+    background: #0D5A9E;
 }
 
 .switcher:focus {
@@ -228,7 +227,7 @@
     width: auto;
 }
 
-table.group-management-table {
+table.management-table {
     font-family: "Helvetica";
     border: 1px solid #1C6EA4;
     background-color: #FFF;
@@ -244,23 +243,20 @@ table.group-management-table {
 /*rgba(249, 249,249)*/
 
 .table-wrap {
-    border: 10px solid rgba(249, 249, 249);
-    border-radius: 30px;
     padding: 1px;
     display: table;
 }
 
-table.group-management-table td, table.group-management-table th {
+table.management-table td, table.management-table th {
     border: none;
     padding: 3px 2px;
-    border-radius: 25px;
 }
 
-table.group-management-table thead {
-    background: #6c7ae0;
+table.management-table thead {
+    background: #3f51b5;
 }
 
-table.group-management-table thead th {
+table.management-table thead th {
     font-size: 18px;
     font-weight: unset;
     color: #FFFFFF;
@@ -271,20 +267,20 @@ table.group-management-table thead th {
     padding-left: 25px;
 }
 
-table.group-management-table tr td:nth-child(3) {
+table.management-table tr td:nth-child(3) {
     text-align: center;
     padding-left: 10px;
 }
 
-table.group-management-table thead th:first-child {
+table.management-table thead th:first-child {
     border-left: none;
 }
 
-table.group-management-table thead th:nth-child(2) {
+table.management-table thead th:nth-child(2) {
     min-width: 250px;
 }
 
-table.group-management-table thead th:nth-child(3) {
+table.management-table thead th:nth-child(3) {
     min-width: 150px;
 }
 
@@ -305,16 +301,16 @@ table.group-management-table thead th:nth-child(3) {
     max-width: 100px !important;
 }
 
-table.group-management-table tr {
+table.management-table tr {
     border-bottom: 1px solid #ececec;
 }
 
-table.group-management-table tr:hover {
+table.management-table tr:hover {
     background-color: #ececff;
 }
 
-table.group-management-table thead tr:hover {
-    background-color: #3c4bbd;
+table.management-table thead tr:hover {
+    background-color: #0D5A9E;
 }
 
 .cell:hover {
@@ -327,10 +323,9 @@ table.group-management-table thead tr:hover {
     font-size: 16px;
     color: white;
     height: 30px;
-    background: #6c7ae0;
+    background: #3f51b5;
     border: none;
     width: 75px;
-    box-shadow: 0 0 3px #333;
     cursor: pointer;
     outline: none;
 }
@@ -365,13 +360,14 @@ table.group-management-table thead tr:hover {
     color: #aaa;
     float: right;
     right: 21.5%;
-    width: 30px;
-    height: 20px;
-    font-size: 28px;
+    width: 50px;
+    height: 35px;
+    font-size: 20px;
     font-weight: bold;
     position: absolute;
-    font-size: 15px;
     line-height: 0;
+    border: none;
+    background-color: #fff;
 }
 
 .modal-close:hover, .modal-close:focus {
@@ -381,8 +377,6 @@ table.group-management-table thead tr:hover {
 }
 
 .modal-table-wrap {
-    border: 10px solid rgb(249, 249, 249);
-    border-radius: 30px;
     padding: 1px;
     display: table;
     overflow: hidden;
@@ -413,11 +407,10 @@ table.modal-management-table {
 table.modal-management-table td, table.modal-management-table th {
     border: none;
     padding: 13px;
-    border-radius: 25px;
 }
 
 table.modal-management-table thead {
-    background: #6c7ae0;
+    background: #3f51b5;
 }
 
 table.modal-management-table thead th {
@@ -492,4 +485,9 @@ table.modal-management-table thead tr:hover {
 
 #add-student {
     margin-bottom: 20px;
+}
+
+.box-container {
+    margin-top: 20px;
+    text-align: center;
 }

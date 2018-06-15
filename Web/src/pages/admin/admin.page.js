@@ -29,7 +29,7 @@
                     });
                     ProfessorService.getAllProfessors(this.professorsCallback, null);
                 });
-                              
+
             }
             //----------------------buttons
             this.$on('#invite', 'click', function () {
@@ -98,14 +98,6 @@
                     this.initTableButtons();
                     this.$refresh();
                 }, null);
-                this.teachers = [{
-                    username: "prof",
-                    grupa: "B4"
-                },
-                {
-                    username: "prof1",
-                    grupa: "B4"
-                }]
             }
 
             this.tableClick = (id) => {
@@ -185,15 +177,32 @@
 
             this.inviteProfessor = () => {
                 this.invitationWasSuccess = false;
+                this.inviteError = false;
                 this.$refresh();
-                ProfessorService.inviteProfessor(this.requestedEmail, () => {
-                    this.invitationWasSuccess = true;
-                    this.$refresh();
-                }, (response) => {
+                if (!this.requestedEmail) {
                     this.inviteError = true;
-                    this.inviteErrorMessage = response.body;
+                    this.inviteErrorMessage = "Input is required!";
                     this.$refresh();
-                });
+                    return;
+                } else {
+                    const passwordPattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    if (!this.requestedEmail.match(passwordPattern)) {
+                        this.inviteError = true;
+                        this.inviteErrorMessage = "Input email is not an email!";
+                        this.$refresh();
+                        return;
+                    }
+                    ProfessorService.inviteProfessor(this.requestedEmail, () => {
+                        this.invitationWasSuccess = true;
+                        this.requestedEmail = '';
+                        Router.navigate('/admin');
+                        this.$refresh();
+                    }, (response) => {
+                        this.inviteError = true;
+                        this.inviteErrorMessage = response.body;
+                        this.$refresh();
+                    });
+                }
             }
 
 
@@ -221,22 +230,29 @@
             this.studentLastName = '';
             this.studentCnp = '';
             this.studentGroup = '';
+            this.invalidAddStudent = false;
 
             this.addStudent = () => {
                 this.studentGroup = document.getElementById('student-group').value;
-                StudentService.addStudent({
-                    firstName: this.studentFirstName,
-                    lastName: this.studentLastName,
-                    group: this.studentGroup,
-                    cnp: this.studentCnp
-                },
-                    () => {
-                        StudentService.getStudents((response) => {
-                            this.students = response.body
-                            this.controlButton(1);
-                            // this.$refresh();
+                this.invalidAddStudent = true;
+                if (this.studentFirstName && this.studentLastName && this.studentCnp) {
+                    StudentService.addStudent({
+                        firstName: this.studentFirstName,
+                        lastName: this.studentLastName,
+                        group: this.studentGroup,
+                        cnp: this.studentCnp
+                    },
+                        () => {
+                            StudentService.getStudents((response) => {
+                                this.students = response.body
+                                this.controlButton(1);
+                                // this.$refresh();
+                            });
                         });
-                    });
+                } else {
+                    this.invalidAddStudent = true;
+                    this.$refresh();
+                }
             };
         });
 })();
