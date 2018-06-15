@@ -31,7 +31,7 @@ export class AttendanceCommentsController {
         return new Created();
     }
     @HttpPut('{uuid}')
-    @Authorize({ role: UserRole[UserRole.Student] })
+    @Authorize({ role: UserRole[UserRole.Prof] })
     public async updateAttendanceComment(
         @FromBody() attendanceComment: AttendanceCommentsModel[],
         @FromRoute('{uuid}') uuid: string): Promise<IActionResult> {

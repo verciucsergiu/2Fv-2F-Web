@@ -14,11 +14,7 @@ export class ModifyAttendanceCommentCommandHandler implements ICommandHandler<Mo
 
     public async handle(command: ModifyAttendanceCommentCommand): Promise<void> {
         for (const model of command.attendanceCommentModel) {
-            const attendance: any =
-                await this.attendanceCommentsRepository.getAttendance(command.uuid, model.weekNumber);
-            attendance.weekNumber = model.weekNumber;
-            attendance.value = model.value;
-            attendance.comment = model.comment;
+            const attendance = Object.assign(new AttendanceComments(), model);
             await this.attendanceCommentsRepository.update(attendance);
         }
     }

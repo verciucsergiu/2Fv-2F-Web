@@ -42,10 +42,6 @@
                     this.$on('#editstudent' + student.id, 'click', function () {
                         this.valuesTableClicked(student.id);
                     }.bind(this));
-
-                    this.$on('#editstudentobs' + student.id, 'click', function () {
-                        this.obsTableClicked(student.id);
-                    }.bind(this));
                 }
 
                 this.$on('#edit-save', 'click', function () {
@@ -73,7 +69,6 @@
                 for (let [index, stud] of this.students.entries()) {
                     if (stud.id == id) {
                         this.studentToEditID = index;
-
                         return stud;
                     }
                 }
@@ -90,12 +85,18 @@
                 this.students[this.studentToEditID] = this.studentToEdit;
 
                 this.updateStudentAttendance();
-
                 this.$refresh();
             }
 
             this.updateStudentAttendance = () => {
-                
+                StudentService.updateAttendance(this.students[this.studentToEditID].id, this.students[this.studentToEditID].attendanceComments, 
+                    (response) => {
+                        if(response.statusCode == 204){
+                            this.$refresh();
+                        }
+                },  (response) => {
+                        alert(response.statusCode);
+                });
             }
         });
 })();

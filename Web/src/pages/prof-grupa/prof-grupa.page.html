@@ -58,7 +58,6 @@
                     <th>Obs11</th>
                     <th>Obs12</th>
                     <th>Obs13</th>
-                    <th>Edit</th>
                 </thead>
                 <tbody>
                     <? for(let stud of students) { ?>
@@ -71,9 +70,6 @@
                                     <?= attendance.comment ?>
                                 </td>
                                 <? } ?>
-                                    <td>
-                                        <button id="editstudentobs<?=stud.id?>" </button>Edit</button>
-                                    </td>
                         </tr>
                         <? } ?>
                 </tbody>
