@@ -16,7 +16,7 @@
     position: absolute;
     left: 50%;
     width: auto !important;
-    transform: translate(-110%, 0%);
+    transform: translate(-50%, 0%);
 }
 
 .save {
@@ -24,7 +24,6 @@
     position: absolute;
     left: 50%;
     width: auto !important;
-    transform: translate(10%, 0%);
 }
 
 .flex-container-center h3 {
@@ -114,4 +113,16 @@ table.students-table tfoot td {
 
 .edit-save-btn {
     margin-top: 10px;
+}
+
+.edit-btn {
+    font-size: 14px;
+    color: white;
+    height: 20px;
+    background: #545ccf;
+    border: none;
+    width: 40px;
+    box-shadow: 0 0 3px #333;
+    cursor: pointer;
+    outline: none;
 }
