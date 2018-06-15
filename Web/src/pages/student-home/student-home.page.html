@@ -58,8 +58,7 @@
         
             <div class="attendance-class">
                 <p>
-                        <?= maxAttendances?>
-                    Prezente/Activitate Laborator
+                    Note Laborator
                 </p>
             </div>
         
@@ -67,7 +66,7 @@
                 <thead class="attendance-table-head">
                     <tr class="attendance-table-head-row">
                         <? for(saptamana=0;saptamana<13;saptamana++) { ?>
-                            <th colspan="2">
+                            <th colspan="1">
                                 W
                                 <?= saptamana+1 ?>
                             </th>
@@ -79,15 +78,52 @@
                         <? for(saptamana=0;saptamana<13;saptamana++) { ?>
                             <td class="attendance-col">
                             <?= attendanceArray[saptamana].value ?>
-                            </td>
-                            <td class="attendance-col">
-                            <?= attendanceArray[saptamana].comment ?>
-                            </td>   
+                            </td>  
                         <?}?>
                     </tr>
                 </tbody>
         
             </table>
+        </section>
+
+
+        <section>
+        
+                <div class="attendance-class">
+                    <p>
+                           
+                        Prezente/Observatii Laborator
+                    </p>
+                </div>
+            
+                <table class="attendance-table">
+                    <thead class="attendance-table-head">
+                        <tr class="attendance-table-head-row">
+                            <? for(saptamana=0;saptamana<13;saptamana++) { ?>
+                                <th colspan="1">
+                                    W
+                                    <?= saptamana+1 ?>
+                                </th>
+                                <?}?>
+                        </tr>
+                    </thead>
+                    <tbody class="attendance-table-body">
+                        <tr class="attendance-table-body-row">
+                            <? for(saptamana=0;saptamana<13;saptamana++) { ?>
+                                <td class="attendance-col">
+                                <?= attendanceArray[saptamana].comment ?>
+                                </td>   
+                            <?}?>
+                        </tr>
+                    </tbody>
+            
+                </table>
+            </section>
+
+
+
+
+
 
             <!-- <button class="btn btn-submit">Add/Update GitHub token</button> -->
             <section>
