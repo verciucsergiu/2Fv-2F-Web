@@ -38,7 +38,11 @@ var AuthService = class {
 
     static getDecodedToken() {
         let token = localStorage.getItem(this.localStorageUserTokeItem);
-        return this.parseJwt(token);
+        if(token) {
+            return this.parseJwt(token);
+        }
+        
+        return {};
     }
 
     static parseJwt(token) {
@@ -101,8 +105,7 @@ var AuthService = class {
             "firstname": registerModel.firstname,
             "lastname": registerModel.lastname,
             "password": registerModel.password,
-            "email": registerModel.email,
-            "cnp": registerModel.cnp
+            "email": registerModel.email
         });
         HttpClient.post(AppConfig.apiUri + 'api/auth/register/professor', body, callback, errorCallback);
     }

@@ -42,7 +42,7 @@ export class WebApiBuilder {
     private handleCors(request: http.IncomingMessage, response: http.ServerResponse, next: Function): void {
         response.setHeader('Access-Control-Allow-Origin', '*');
         response.setHeader('Access-Control-Request-Method', '*');
-        response.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+        response.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS, PATCH');
         response.setHeader('Access-Control-Allow-Headers', 'Content-Type, authorization');
         if (request.method === 'OPTIONS') {
             response.writeHead(200);

@@ -19,7 +19,6 @@
             this.regpassword = '';
             this.regpasswordCheck = '';
             this.regemail = '';
-            this.regcnp = '';
             this.role = "prof";
 
             this.registerError = false;
@@ -52,12 +51,12 @@
             }
 
             this.$on('#regsubmit', 'click', function () {
-                this.startRegister(new ProfRegisterModel(this.regusername, this.regfirstname, this.reglastname, this.regpassword, this.regemail, this.regcnp, this.role));
+                this.startRegister(new ProfRegisterModel(this.regusername, this.regfirstname, this.reglastname, this.regpassword, this.regemail, this.role));
             }.bind(this));
 
             this.startRegister = (registerModel) => {
                 if (registerModel.password === this.regpasswordCheck && registerModel.password != null)
-                    if (registerModel.cnp != null && registerModel.username != null && registerModel.email != null)
+                    if (registerModel.username != null && registerModel.email != null)
                         if (registerModel.email.includes("@") == true) {
                             AuthService.requestProfessorRegister(registerModel, this.registerCallback, this.errRegisterCallback);
                             return;

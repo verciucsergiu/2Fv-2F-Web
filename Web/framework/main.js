@@ -169,6 +169,10 @@ var HttpClient = class {
         this.request(req, 'put', body, null, callback, error);
     }
 
+    static patch(req, body, callback, error) {
+        this.request(req, 'patch', body, null, callback, error);
+    }
+
     static delete(req, body, callback, error) {
         this.request(req, 'delete', body, null, callback, error);
     }

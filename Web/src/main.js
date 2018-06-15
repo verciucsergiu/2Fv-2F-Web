@@ -11,7 +11,8 @@ Framework.defineApp({
         'pages/prof-grupa/prof-grupa.page.js',
         'pages/admin/admin.page.js',
         'pages/prof-register/register.page.js',
-        'pages/logout/logout.page.js'
+        'pages/logout/logout.page.js',
+        'pages/student-git/student-git.page.js'
     ],
     services: [
         'services/authentication.service.js',

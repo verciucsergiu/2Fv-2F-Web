@@ -19,10 +19,20 @@ export class Student extends BaseEntity {
     @Column()
     private deleted?: boolean = false;
 
+    @Column()
+    private token: string = '';
+
     @OneToMany((type) => AttendanceComments, (attendanceComments) => attendanceComments.student)
     public attendanceComments: Array<AttendanceComments> = new Array<AttendanceComments>();
     public markAsDeleted(): void {
         this.deleted = true;
     }
 
+    public setGitToken(token: string): void {
+        this.token = token;
+    }
+
+    public getGitToken(): string {
+        return this.token;
+    }
 }

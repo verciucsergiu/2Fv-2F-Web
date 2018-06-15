@@ -15,7 +15,7 @@ export class User extends BaseEntity {
     private email: string;
 
     @Column()
-    private cnp: string;
+    private cnp: string = '';
 
     @Column()
     private role: UserRole;

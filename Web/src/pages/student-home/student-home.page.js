@@ -24,6 +24,11 @@
             this.chances=[];
             this.promovare="";
             this.currentAttendancies=0;
+
+            this.$on('#add-git-token', 'click', function () {
+                Router.navigate('/student-add-git');
+            }.bind(this));
+
             this.$onInit = () => {
                 StudentService.getStudentDetails((response) => {
                     console.log(response.body);

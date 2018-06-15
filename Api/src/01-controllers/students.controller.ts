@@ -1,4 +1,10 @@
-import { HttpGet, IActionResult, Ok, Controller, FromRoute, HttpPost, NotFound, FromBody, Created, Authorize } from "../../framework/core";
+import {
+    HttpGet,
+    IActionResult,
+    Ok, Controller, FromRoute, HttpPost,
+    NotFound, FromBody, Created,
+    Authorize, HttpPatch
+} from "../../framework/core";
 import { GetStudentsByGroupQuery, GetStudentsByGroupQueryResult } from "../03-core/business/queries/get-students-by-group";
 import { GetStudentsQuery, GetStudentsQueryResult } from "../03-core/business/queries/get-students";
 import { CommandDispatcher, QueryDispatcher } from "../../framework/CQRS";
@@ -8,6 +14,9 @@ import { UserRole } from "../03-core/domain/user-role.enum";
 import { ApiController } from "../../framework/core/api-controller";
 import { GetStudentDetailsQuery } from "../03-core/business/queries/get-student-details/get-student-details.query";
 import { GetStudentDetailsQueryResult } from "../03-core/business/queries/get-student-details/get-student-details.query.result";
+import { AddGitTokenCommand } from "../03-core/business/commands/add-git-token-student/add-git-token-student.command";
+import { GitTokenModel } from "../03-core/business/models/git-token.model";
+import { GetGitStatusQuery } from "../03-core/business/queries/get-git-status/get-git-status.query";
 
 @Controller('api/students')
 export class StudentsController extends ApiController {
@@ -18,7 +27,6 @@ export class StudentsController extends ApiController {
     }
 
     @HttpPost('')
-    @Authorize({ role: UserRole[UserRole.Admin] })
     public async addNewStudent(@FromBody() studentModel: StudentModel): Promise<IActionResult> {
         const command = new AddNewStudentCommand(studentModel);
         await this.commandDispatcher.dispatchAsync(command);
@@ -67,4 +75,19 @@ export class StudentsController extends ApiController {
         return new Ok(result.students);
     }
 
+    @HttpPost('git')
+    @Authorize({ role: UserRole[UserRole.Student] })
+    public async attachGit(@FromBody() gitToken: GitTokenModel): Promise<IActionResult> {
+        const command = new AddGitTokenCommand(gitToken, this.principal.foreignid);
+        await this.commandDispatcher.dispatchAsync(command);
+        return new Ok();
+    }
+
+    @HttpGet('git')
+    @Authorize({ role: UserRole[UserRole.Student] })
+    public async getGitStatus(): Promise<IActionResult> {
+        const query = new GetGitStatusQuery(this.principal.foreignid);
+        await this.queryDispatcher.dispatchAsync<GetGitStatusQuery, GetStudentsQueryResult>(query);
+        return new Ok();
+    }
 }

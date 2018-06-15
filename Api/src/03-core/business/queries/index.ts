@@ -6,3 +6,4 @@ export * from './get-invitation';
 export * from './get-all-students';
 export * from './get-student-details';
 export * from './get-students-by-group';
+export * from './get-git-status';

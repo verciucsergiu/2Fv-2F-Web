@@ -9,11 +9,11 @@
             }
         },
         function () {
-            this.profId = AuthService.getFK();
             this.username = '';
             this.groups = [];
-
+            
             this.$onInit = function () {
+                this.profId = AuthService.getFK();
                 ProfessorService.getProfessor(this.profId, this.professorCallback, this.professorCallback);
             };
 

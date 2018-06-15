@@ -6,6 +6,5 @@ export class ProfRegisterModel {
     public lastname: string;
     public password: string;
     public email: string;
-    public cnp: string;
     public role: UserRole;
 }
