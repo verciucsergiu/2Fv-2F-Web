@@ -225,7 +225,7 @@
 .recommend-line{
     text-align: center;
     margin-top:25px;
-    color:white;
+    color:black;
     overflow:auto;
 }
 
@@ -233,9 +233,12 @@
 {
     list-style-type:none;
     text-align: center;
+    color:black;
 }
 
 .box-container {
     width: 80%;
     margin-top: 25px;
+    display: flex;
+    flex-direction: column;
 }

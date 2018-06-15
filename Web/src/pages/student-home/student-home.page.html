@@ -31,7 +31,7 @@
                         </tr>
                     </thead>
                     <tbody class="student-table-body">
-                        <? for(let user of info) { ?>
+                        <? for(let [index, user] of info.entries()) { ?>
                             <tr class="student-table-body-row 
                             <? if (user.username == username ) 
                                 {?> chosen-student 
@@ -44,7 +44,7 @@
                                     <?= user.lastName?>
                                 </td>
                                 <td>
-                                    <?= user.cnp ?>
+                                    <?= chances[index]?>
                                 </td>
                             </tr>
                             <?}?>
@@ -58,12 +58,12 @@
         
             <div class="attendance-class">
                 <p>
+                        <?= maxAttendances?>
                     Prezente/Activitate Laborator
                 </p>
             </div>
         
             <table class="attendance-table">
-        
                 <thead class="attendance-table-head">
                     <tr class="attendance-table-head-row">
                         <? for(saptamana=0;saptamana<13;saptamana++) { ?>
@@ -78,37 +78,35 @@
                     <tr class="attendance-table-body-row">
                         <? for(saptamana=0;saptamana<13;saptamana++) { ?>
                             <td class="attendance-col">
+                            <?= attendanceArray[saptamana].value ?>
                             </td>
                             <td class="attendance-col">
+                            <?= attendanceArray[saptamana].comment ?>
                             </td>   
                         <?}?>
                     </tr>
                 </tbody>
         
             </table>
-        </section>
-        
-        <section>
-            <? for(let user of info) { ?>
-                <? if(user.username===username) { ?>
-                    <? if(user.sanse==='NU') { ?>
-                        </div class="recommend-div">
-                        <p class="recommend-head"> Recomandari </p>
-                        <ul class="recommend-list">
-                            <? for(let recommend of recommendations) { ?>
-        
-                                <li class="recommend-line">
-                                    <?= recommend ?>
-                                </li>
-        
-                                <?}?>
-                        </ul>
-                        <div>
-        
-                            <?}?>
-                                <?}?>
+            <section>
+                <? if(currentAttendancies < 0.5) { ?>
+                            <div class="recommend-div">
+                            <p class="recommend-head"> Recomandari </p>
+                            <ul class="recommend-list">
+                                <? for(let recommend of recommendations) { ?>
+            
+                                    <li class="recommend-line">
+                                        <?= recommend ?>
+                                    </li>
+            
                                     <?}?>
-        
+                            </ul>
+                        </div>
+            
+                                <?}?>
+            
+            </section>
         </section>
+        
     </div>
 </div>
