@@ -1,0 +1,472 @@
+swagger: '2.0'
+info:
+  description: OPEN API for our 2Fv-2F-Web Project
+  version: 1.0.0
+  title: 2Fv-2F-Web
+  contact:
+    email: 2Fv_2FWeb@gmail.com
+# host: localhost
+# basePath: /api
+tags:
+  - name: 2Fv-2F-Web
+  - name: auth
+    description: register and login
+  - name: professor
+    description: Operations about professor
+  - name: student
+    description: Operations about student
+  - name: invite
+    description: Operations about inviting professors
+  - name: groups
+    description: Operations about groups
+  - name: attendance
+    description: Operations about the students situation
+# schemes:
+#   - http
+paths:
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: Login
+      description: ''
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: Login Model
+          description: website login
+          required: true
+          schema:
+            $ref: '#/definitions/LoginTry'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/LoginModel'
+        '404':
+          description: Invalid Credentials
+  /auth/register:
+    post:
+      tags:
+        - auth
+      summary: Register
+      description: ''
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: Register Model
+          description: register model
+          required: true
+          schema:
+            $ref: '#/definitions/RegisterModel'
+      responses:
+        '201':
+          description: successful register
+        '500':
+          description: server error
+  /auth/register/professor:
+    post:
+      tags:
+        - auth
+      summary: Professor Register
+      description: ''
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: Register Model
+          description: register model
+          required: true
+          schema:
+            $ref: '#/definitions/ProfRegisterModel'
+      responses:
+        '201':
+          description: successful register
+        '500':
+          description: server error
+  /professor:
+    post:
+      tags:
+       - professor
+      summary: Create Professor
+      description: ''
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: Professor Model
+          description: register model
+          required: true
+          schema: 
+            $ref: '#/definitions/ProfessorModel'
+      responses:
+        '201':
+          description: created
+        '500':
+          description: server error
+  /professor/{id}/groups:
+    post:
+      tags:
+       - professor
+      summary: assign group to professor
+      description: ''
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: AssignModel
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/AssignModel'
+      responses:
+        '201':
+          description: assigned
+        '500':
+          description: server error
+    delete:
+      tags:
+        - professor
+      summary: remove group from professor
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+      responses:
+        '200':
+          description: deleted
+        '500':
+          description: server error
+  /professor/{id}:
+    get:
+      tags:
+       - professor
+      produces:
+        - application/json
+      summary: get a prof
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+      responses:
+        '200':
+          description: prof model
+          schema:
+            $ref: '#/definitions/ProfessorModel'
+  /professor/all:
+    get:
+      tags:
+       - professor
+      produces:
+        - application/json
+      summary: get all profs
+      responses:
+        '200':
+          description: Array of prof model
+          schema:
+            $ref: '#/definitions/ArrayOfProfessorModel'
+  /student:
+    post:
+      tags:
+       - student
+      summary: create a student
+      parameters:
+        - in: body
+          name: Student Model
+          required: true
+          schema:
+            $ref: '#/definitions/StudentModel'
+      responses:
+        '201':
+          description: created
+        '500':
+          description: server error
+    get:
+      tags:
+       - student
+      summary: get all existing students
+      responses:
+        '200':
+          description: list of all students
+          schema:
+            $ref: '#/definitions/ArrayOfStudentModel'
+        '500':
+          description: server error
+  /student/group/{group}:
+    get:
+      tags:
+      - student
+      summary: get all students from a group
+      parameters:
+      - in: path
+        name: group
+        type: string
+        required: true
+      responses:
+        '200':
+          description: array of students from group
+          schema:
+            $ref: '#/definitions/ArrayOfStudentModel'
+        '500':
+          description: server error
+  /student/details:
+    get:
+      tags:
+      - student
+      summary: get the details of the logged in student
+      responses:
+        '200':
+          description: get the details of the logged in student
+          schema:
+            $ref: '#/definitions/StudentModel'
+        '500':
+          description: server error
+  /invitations/invite:
+    post:
+      tags:
+       - invite
+      summary: invite a professor
+      parameters:
+      - in: body
+        name: Email Model
+        required: true
+        schema:
+          $ref: '#/definitions/EmailModel'
+      responses:
+        '201':
+          description: Invited
+        '500':
+          description: server error
+  /invitations/uids/{uid}:
+    post:
+      tags:
+       - invite
+      summary: Check for pending invitations at a specific uid
+      parameters:
+      - name: uid
+        in: path
+        type: string
+        required: true
+      responses:
+        '200':
+          description: email at specific uid
+          schema:
+            $ref: '#/definitions/EmailModel'
+        '404':
+          description: invite expired
+        '500':
+          description: sever error
+  /groups:
+    post:
+      tags:
+       - groups
+      summary: create a group
+      parameters:
+      - in: body
+        name: Group Model
+        schema:
+          $ref: '#/definitions/GroupModel'
+      responses:
+        '201':
+          description: created
+        '500':
+          description: server error
+    get:
+      tags:
+       - groups
+      summary: get all groups
+      responses:
+        '200':
+          description: array of groups
+          schema:
+            $ref: '#/definitions/ArrayOfGroupModel'
+        '500':
+          description: server error
+  /groups/{id}:
+    get:
+      tags:
+       - groups
+      summary: get a specific group
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+      responses:
+        '200':
+          description: requested group
+          schema:
+            $ref: '#/definitions/GroupModelFromServer'
+        '500':
+          description: server error
+  /attendance-comments/{uuid}:
+    post:
+      tags:
+       - attendance
+      summary: create an attendance for a specific student
+      parameters:
+      - in: path
+        name: uuid
+        type: string
+        required: true
+      - in: body
+        name: Attendance Model
+        required: true
+        schema:
+          $ref: '#/definitions/AttendanceCommentModel'
+      responses:
+        '201':
+          description: created attendance
+        '500':
+          description: server error
+    put:
+      tags:
+        - attendance
+      summary: update an attendance for a specific student
+      parameters:
+      - in: path
+        name: uuid
+        type: string
+        required: true
+      - in: body
+        name: Attendance Model
+        required: true
+        schema:
+          $ref: '#/definitions/ArrayOfAttendanceCommentModel'
+      responses:
+        '204':
+          description: attendance updated
+        '500':
+          description: server error
+definitions:
+  LoginTry:
+    type: object
+    properties:
+      name:
+        type: string
+      password:
+        type: string
+  LoginModel:
+    type: object
+    properties:
+      auth_token:
+        type: string
+    xml:
+      name: Login
+  RegisterModel:
+    type: object
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+      email:
+        type: string
+      cnp:
+        type: string
+      role:
+        type: string
+  ProfRegisterModel:
+    type: object
+    properties:
+      username:
+        type: string
+      firstname:
+        type: string
+      lastname:
+        type: string
+      password:
+        type: string
+      email:
+        type: string
+      cnp:
+        type: string
+      role:
+        type: object
+  ProfessorModel:
+    type: object
+    properties:
+      firstname:
+        type: string
+      lastname:
+        type: string
+      email:
+        type: string
+      rank:
+        type: string
+      groups:
+        type: object
+  ArrayOfProfessorModel:
+    type: array
+    items:
+      $ref: '#/definitions/ProfessorModel'
+  GroupModel:
+    type: object
+    properties:
+      name:
+        type: string
+  ArrayOfGroupModel:
+    type: array
+    items:
+      $ref: '#/definitions/GroupModelFromServer'
+  GroupModelFromServer:
+    type: object
+    properties:
+      name:
+        type: string
+      id:
+        type: string
+  AssignModel:
+    type: object
+    properties:
+      groupId:
+        type: string
+  StudentModel:
+    type: object
+    properties:
+      firstname:
+        type: string
+      lastname:
+        type: string
+      group:
+        type: string
+      cnip:
+        type: string
+      attendance:
+        type: object
+  ArrayOfStudentModel:
+    type: array
+    items:
+      $ref: '#/definitions/StudentModel'
+  EmailModel:
+    type: object
+    properties:
+      email:
+        type: string
+  AttendanceCommentModel:
+    type: object
+    properties:
+      weekNumber:
+        type: number
+      comment:
+        type: string
+      value:
+        type: string
+      student:
+        type: object
+  ArrayOfAttendanceCommentModel:
+    type: array
+    items:
+      $ref: '#/definitions/AttendanceCommentModel'
+host: virtserver.swaggerhub.com
+basePath: /andyrkn/2Fv2FWeb/1.0.0
+schemes:
+ - https
+ - http
