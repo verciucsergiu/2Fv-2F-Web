@@ -371,8 +371,6 @@ definitions:
         type: string
       cnp:
         type: string
-      role:
-        type: string
   ProfRegisterModel:
     type: object
     properties:
@@ -386,10 +384,6 @@ definitions:
         type: string
       email:
         type: string
-      cnp:
-        type: string
-      role:
-        type: object
   ProfessorModel:
     type: object
     properties:
@@ -402,7 +396,11 @@ definitions:
       rank:
         type: string
       groups:
-        type: object
+        type: array
+        items: 
+          $ref: '#/definitions/Object'
+  Object:
+    type: object
   ArrayOfProfessorModel:
     type: array
     items:
@@ -440,7 +438,9 @@ definitions:
       cnip:
         type: string
       attendance:
-        type: object
+        type: array
+        items: 
+          $ref: '#/definitions/Object'
   ArrayOfStudentModel:
     type: array
     items:
