@@ -36,7 +36,7 @@ export class StudentsController extends ApiController {
     @HttpGet('details')
     @Authorize({ role: UserRole[UserRole.Student] })
     public async getStudentDetails(): Promise<IActionResult> {
-        const query = new GetStudentDetailsQuery(this.principal.id);
+        const query = new GetStudentDetailsQuery(this.principal.foreignid);
         const result = await this.queryDispatcher.dispatchAsync<GetStudentDetailsQuery, GetStudentDetailsQueryResult>(query);
         return new Ok(result.student);
     }

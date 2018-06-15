@@ -9,7 +9,7 @@
     },
 
         function () {
-            this.group = "B4";
+            this.group = "";
             this.username = "";
             this.studentName = "";
             this.showPopup = false;
@@ -31,13 +31,13 @@
                     this.studentName = jsonResponse.firstName + ' ' + jsonResponse.lastName;
                     this.group = jsonResponse.group;
                     this.cnp = jsonResponse.cnp;
-
+                    StudentService.getStudentsFromGroup(response.body.group, this.callback, this.lookuperr);
                 });
-                StudentService.getStudentsFromGroup(this.group, this.callback, this.lookuperr);
             }
 
             this.callback = (response) => {
                 let jsonResponse = response.body;
+                console.log(response.body);
                 for (let student of jsonResponse) {
                     this.studentName = student.firstName + ' ' + student.lastName;
                     this.info.push(student);
