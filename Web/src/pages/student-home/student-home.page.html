@@ -131,13 +131,9 @@
                             <div class="recommend-div">
                             <p class="recommend-head"> Recomandari </p>
                             <ul class="recommend-list">
-                                <? for(let recommend of recommendations) { ?>
-            
-                                    <li class="recommend-line">
-                                        <?= recommend ?>
-                                    </li>
-            
-                                    <?}?>
+                              <a href="<?= recommendations[max*3]?>">  <?= recommendations[max*3]?>   </a><br>
+                              <a href="<?= recommendations[max*3+1]?>"> <?= recommendations[max*3+1]?></a><br>
+                              <a href="<?= recommendations[max*3+2]?>"> <?= recommendations[max*3+2]?> </a><br>
                             </ul>
                         </div>
             
