@@ -19,18 +19,13 @@ export class UserService {
         const user: any = await this.userRepository.getByUsername(loginModel.username);
         const userAsEntity = Object.assign(new User(), user);
         if (!user) {
-            console.log("exiting here");
             return false;
         }
-        /*
-        if (userAsEntity.password === this.getPasswordHash(loginModel.password)) {
-            return true;
-        }
-        */
+
         if (bcrypt.compareSync(loginModel.password, userAsEntity.password)) {
             return true;
         }
-        console.log("bcrypt false");
+
         return false;
     }
 }

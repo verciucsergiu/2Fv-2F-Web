@@ -8,7 +8,7 @@
         <br>
     </div>
     <?if (control==0) {?>
-        <div class="adm-prof-req">
+        <div class="box-container">
             <h3>Invite a teacher!</h3>
             <input type="text" name="Email" placeholder="Email" data-bind="requestedEmail">
             <button id="inviteteacher" class="btn btn-submit">Send invitation</button>
@@ -16,60 +16,56 @@
                 <p>Invitations was sent successfully!</p>
             <? } ?>
             <? if(inviteError) {?>
-                <p><?= inviteErrorMessage ?></p>
+                <p class="message error"><?= inviteErrorMessage ?></p>
             <? } ?>
             
         </div>
     <? } ?>
     <?if (control==1) {?>
-        <div class="adm-user-list">
+        <div class="adm-user-list box-container">
             <h1 class="adm-user-list-header"> Registered teachers</h1>
-            <table class="adm-user-teacher-table">
-                <thead class="adm-user-teacher-table-head">
-                    <tr class="adm-user-teacher-table-head-row">
-                        <td> Profesor </td>
-                        <td> Grupa </td>
+            <div class="table-wrap">
+                <table class="management-table">
+                    <thead>
+                    <tr>
+                    <th>Profesor</th>
+                    <th>Grupa</th>
                     </tr>
-                </thead>
-                <tbody class="adm-user-teacher-table-body">
-                    <?for(let teacherline of teachers) {?>
-                        <tr class="adm-user-teacher-table-body-row">
-                            <td class="adm-user-teacher-table-body-col">
-                                <?=teacherline.username ?>
-                            </td>
-                            <td class="adm-user-teacher-table-body-col">
-                                <?=teacherline.grupa?>
-                            </td>
+                    </thead>
+                    <tbody>
+                    <? for(let prof of professors) { ?>
+                        <tr>
+                        <td><div class="cell"><?= prof.firstName + ' ' + prof.lastName  ?></div></td>
+                        <td><div class="cell"><?=ProfessorService.groupsAsString(prof.groups) ?></div></td>
                         </tr>
-                        <? }?>
-                </tbody>
-            </table>
+                    <? } ?>
+                    </tbody>
+                </table>
+            </div>
             <h1 class="adm-user-list-header"> Registered students </h1>
             <button class="btn btn-submit" id="add-student">Add student</button>
-            <table class="adm-user-students-table">
-                <thead class="adm-user-teacher-table-head">
-                    <tr class="adm-user-teacher-table-head-row">
-                        <td> Student </td>
-                        <td> Grupa </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <? for(let studentline of students) {?>
-                        <tr class="adm-user-students-table-body-row">
-                            <td class="adm-user-students-table-body-col">
-                                <?=studentline.firstName ?> <?=studentline.lastName ?>
-                            </td>
-                            <td class="adm-user-students-table-body-col">
-                                <?=studentline.group?>
-                            </td>
+            <div class="table-wrap">
+                <table class="management-table">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Grupa</th>
                         </tr>
-                        <? }?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    <? for(let studentline of students) { ?>
+                        <tr>
+                        <td><div class="cell"><?=studentline.firstName + ' ' + studentline.lastName ?></div></td>
+                        <td><div class="cell"><?=studentline.group?></div></td>
+                        </tr>
+                    <? } ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     <? } ?>
     <?if (control==2) {?>
-        <div class="adm-group-container">
+        <div class="adm-group-container box-container">
             <h3>Group Management</h3>
             <div id="modal" class="modal">
                 <div id="modalcontent" class="modal-content">
@@ -95,43 +91,44 @@
                 </div>
             </div>
             <div class="table-wrap">
-            <table class="group-management-table">
-                <thead>
-                <tr>
-                <th>Teachers</th>
-                <th>Groups</th>
-                <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <? for(let prof of professors) {?>
+                <table class="management-table">
+                    <thead>
                     <tr>
-                    <td><div class="cell"><?=prof.firstName + ' ' + prof.lastName ?></div></td>
-                    <td><div class="cell" id ="profGroups<?=prof.id?>" ><?=ProfessorService.groupsAsString(prof.groups) ?></div></td>
-                    <td><div class="cell last"><button id ="tableBtn<?=prof.id?>" class="table-button">Edit</button></div></td>
+                    <th>Teachers</th>
+                    <th>Groups</th>
+                    <th></th>
                     </tr>
-                <? } ?>
-                </tbody>
-            </table>
-            <button class="btn btn-submit" id="add-group">Add group</button>
-        </div>
+                    </thead>
+                    <tbody>
+                    <? for(let prof of professors) {?>
+                        <tr>
+                        <td><div class="cell"><?=prof.firstName + ' ' + prof.lastName ?></div></td>
+                        <td><div class="cell" id ="profGroups<?=prof.id?>" ><?=ProfessorService.groupsAsString(prof.groups) ?></div></td>
+                        <td><div class="cell last"><button id ="tableBtn<?=prof.id?>" class="table-button">Edit</button></div></td>
+                        </tr>
+                    <? } ?>
+                    </tbody>
+                </table>
+                <button class="btn btn-submit" id="add-group">Add group</button>
+            </div>
         </div>
         <? } ?>
         <?if (control==3) {?>
-            <div class="adm-prof-req">
+            <div class="box-container">
                 <h3>Add group!</h3>
                 <input type="text" name="name" placeholder="Name" data-bind="groupToAdd">
                 <button id="submit-add-group" class="btn btn-submit">Submit</button>             
             </div>
         <? } ?>
         <?if (control==4) {?>
-            <div class="adm-prof-req">
-                <h3>Add group!</h3>
+            <div class="box-container add-student-container">
+                <h3>Add student!</h3>
                 <input type="text" name="firstname" placeholder="First name" data-bind="studentFirstName">
                 <input type="text" name="lastname" placeholder="Last name" data-bind="studentLastName">
                 <input type="text" name="cnp" placeholder="CNP" data-bind="studentCnp">
-                <label>Group</label>
-                <select id="student-group">
+                <label class="group-label">Group</label>
+                <br>
+                <select class="group-select" id="student-group">
                     <?for(let group of groups) {?>
                     <option value="<?= group.name ?>"><?= group.name?></option>    
                     <?}?>
@@ -139,6 +136,9 @@
                 <br>
                 <br>
                 <button id="submit-add-student" class="btn btn-submit">Submit</button>
+                <?if(invalidAddStudent){?>
+                    <p class="message error">All inputs are required!</p>
+                <?}?>
             </div>
         <? } ?>
 </div>

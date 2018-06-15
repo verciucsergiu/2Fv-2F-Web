@@ -2,47 +2,9 @@
     margin-top: 20px;
 }
 
-.login-box {
-    font-family: Open-Sans;
-    width: 360px;
-    background: rgba(228, 228, 228, 0.486);
-    -moz-box-shadow: 0 0 3px #535353;
-    -webkit-box-shadow: 0 0 3px #535353;
-    box-shadow: 0 0 3px #535353;
-    /*background: rgba(157,233,255,1);
-    -moz-box-shadow: 0 0 3px #007ea2;
-    -webkit-box-shadow: 0 0 3px #007ea2;
-    box-shadow: 0 0 3px #007ea2;*/
-    box-sizing: border-box;
-    padding: 30px;
-    padding-top: 0px;
-}
-
 .login-box h3 {
     font-size: 35px;
     padding: 0px;
     margin: 0px;
     margin-top: 10px;
-}
-
-.login-box input{
-    display: flex;
-    margin-top: 30px;
-    width: 100%;
-    height: 50px;
-    border-radius: 10px;
-}
-
-.login-box input[type="text"],input[type="password"] {
-    background: rgb(255, 254, 254);
-    box-shadow: 1px 1px 10px rgba(42, 44, 65, 0.22) inset;
-    font-size: 15px;
-    text-align: center;
-    border: none;
-    padding: auto;
-}
-
-.login-box .btn-submit {
-    margin-top: 30px;
-    width: 100%;
 }

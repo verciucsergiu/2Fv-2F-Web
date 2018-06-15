@@ -1,111 +1,114 @@
-<section class="box">
-    <div class="username-class-parent">
-        <div class="username-class-child">
-            <p>
-                    <?= studentName ?>
-            </p>
-        </div>
-    </div>
-</section>
+<div class="flex-container-center">
+    <div class="box-container">
 
-<section class="box">
-    <div class="group">
-        <?= group ?>
-    </div>
-</section>
-<section>
-
-    <div style="overflow-x:auto">
-        <table class="student-table">
-
-            <thead class="student-table-head">
-                <tr class="student-table-head-row">
-                    <? for(let column of tableHeader) { ?>
-                        <th>
-                            <?= column ?>
-                        </th>
-                        <?}?>
-                </tr>
-            </thead>
-            <tbody class="student-table-body">
-                <? for(let user of info) { ?>
-                    <tr class="student-table-body-row 
-                    <? if (user.username == username ) 
-                        {?> chosen-student 
-                            <?}else{?> 
-                                regular-student<?}?> ">
-                        <td>
-                            <?= user.firstName ?>
-                        </td>
-                        <td>
-                            <?= user.lastName?>
-                        </td>
-                        <td>
-                            <?= user.cnp ?>
-                        </td>
-                    </tr>
-                    <?}?>
-            </tbody>
-        </table>
-    </div>
-
-</section>
-
-<section>
-
-    <div class="attendance-class">
-        <p>
-            Prezente/Activitate Laborator
-        </p>
-    </div>
-
-    <table class="attendance-table">
-
-        <thead class="attendance-table-head">
-            <tr class="attendance-table-head-row">
-                <? for(saptamana=0;saptamana<13;saptamana++) { ?>
-                    <th colspan="2">
-                        W
-                        <?= saptamana+1 ?>
-                    </th>
-                    <?}?>
-            </tr>
-        </thead>
-        <tbody class="attendance-table-body">
-            <tr class="attendance-table-body-row">
-                <? for(saptamana=0;saptamana<13;saptamana++) { ?>
-                    <td class="attendance-col">
-                        <?= attendanceArray[saptamana].value ?>
-                    </td>
-                    <td class="attendance-col">
-                        <?= attendanceArray[saptamana].weekNumber+1 ?>
-                    </td>   
-                <?}?>
-            </tr>
-        </tbody>
-
-    </table>
-</section>
-
-<section>
-    <? for(let user of info) { ?>
-        <? if(user.username===username) { ?>
-            <? if(user.sanse==='NU') { ?>
-                </div class="recommend-div">
-                <p class="recommend-head"> Recomandari </p>
-                <ul class="recommend-list">
-                    <? for(let recommend of recommendations) { ?>
-
-                        <li class="recommend-line">
-                            <?= recommend ?>
-                        </li>
-
-                        <?}?>
-                </ul>
-                <div>
-
-                    <?}?>
-                        <?}?>
+        <section class="box">
+            <div class="username-class-parent">
+                <div class="username-class-child">
+                    <p>
+                            <?= studentName ?>
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="box">
+            <div class="group">
+                <?= group ?>
+            </div>
+        </section>
+        <section>
+        
+            <div style="overflow-x:auto">
+                <table class="student-table">
+        
+                    <thead class="student-table-head">
+                        <tr class="student-table-head-row">
+                            <? for(let column of tableHeader) { ?>
+                                <th>
+                                    <?= column ?>
+                                </th>
+                                <?}?>
+                        </tr>
+                    </thead>
+                    <tbody class="student-table-body">
+                        <? for(let user of info) { ?>
+                            <tr class="student-table-body-row 
+                            <? if (user.username == username ) 
+                                {?> chosen-student 
+                                    <?}else{?> 
+                                        regular-student<?}?> ">
+                                <td>
+                                    <?= user.firstName ?>
+                                </td>
+                                <td>
+                                    <?= user.lastName?>
+                                </td>
+                                <td>
+                                    <?= user.cnp ?>
+                                </td>
+                            </tr>
                             <?}?>
-
-</section>
+                    </tbody>
+                </table>
+            </div>
+        
+        </section>
+        
+        <section>
+        
+            <div class="attendance-class">
+                <p>
+                    Prezente/Activitate Laborator
+                </p>
+            </div>
+        
+            <table class="attendance-table">
+        
+                <thead class="attendance-table-head">
+                    <tr class="attendance-table-head-row">
+                        <? for(saptamana=0;saptamana<13;saptamana++) { ?>
+                            <th colspan="2">
+                                W
+                                <?= saptamana+1 ?>
+                            </th>
+                            <?}?>
+                    </tr>
+                </thead>
+                <tbody class="attendance-table-body">
+                    <tr class="attendance-table-body-row">
+                        <? for(saptamana=0;saptamana<13;saptamana++) { ?>
+                            <td class="attendance-col">
+                            </td>
+                            <td class="attendance-col">
+                            </td>   
+                        <?}?>
+                    </tr>
+                </tbody>
+        
+            </table>
+        </section>
+        
+        <section>
+            <? for(let user of info) { ?>
+                <? if(user.username===username) { ?>
+                    <? if(user.sanse==='NU') { ?>
+                        </div class="recommend-div">
+                        <p class="recommend-head"> Recomandari </p>
+                        <ul class="recommend-list">
+                            <? for(let recommend of recommendations) { ?>
+        
+                                <li class="recommend-line">
+                                    <?= recommend ?>
+                                </li>
+        
+                                <?}?>
+                        </ul>
+                        <div>
+        
+                            <?}?>
+                                <?}?>
+                                    <?}?>
+        
+        </section>
+    </div>
+</div>
