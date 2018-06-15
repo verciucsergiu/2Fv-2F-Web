@@ -22,17 +22,21 @@ export class RequestHandler {
         const token: string = this.getTokenFromHeader(this.request.headers);
 
         console.log(verb + ' : ' + requestUrl);
-        this.getRequestBody(() => {
-            try {
-                const action: Action = AppContainer.getAction(requestUrl, verb, this.body, token);
-                responseHandler.handle(action.executeAction(token));
-            } catch (e) {
-                if (e instanceof NotFoundException) {
-                    responseHandler.handle(new NotFound());
-                } else if (e instanceof UnauthorizedException) {
-                    responseHandler.handle(new Unauthorized());
-                } else {
-                    responseHandler.handle(new InternalServerError());
+        this.getRequestBody((notTrusted: boolean) => {
+            if (notTrusted) {
+                responseHandler.handle(new Unauthorized());
+            } else {
+                try {
+                    const action: Action = AppContainer.getAction(requestUrl, verb, this.body, token);
+                    responseHandler.handle(action.executeAction(token));
+                } catch (e) {
+                    if (e instanceof NotFoundException) {
+                        responseHandler.handle(new NotFound());
+                    } else if (e instanceof UnauthorizedException) {
+                        responseHandler.handle(new Unauthorized());
+                    } else {
+                        responseHandler.handle(new InternalServerError());
+                    }
                 }
             }
         });
@@ -52,11 +56,14 @@ export class RequestHandler {
             });
 
             this.request.on('end', () => {
+                if (jsonString.match(/^<script>/)) {
+                    callback(true);
+                }
                 this.body = JSON.parse(jsonString);
-                callback();
+                callback(false);
             });
         } else {
-            callback();
+            callback(false);
         }
     }
 
