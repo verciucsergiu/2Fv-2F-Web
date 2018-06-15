@@ -199,7 +199,7 @@ paths:
             $ref: '#/definitions/ArrayOfStudentModel'
         '500':
           description: server error
-  /student/group/{group}:
+  /student/groups/{group}:
     get:
       tags:
       - student
