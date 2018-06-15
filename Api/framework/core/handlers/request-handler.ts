@@ -2,7 +2,7 @@ import { ServerRequest, ServerResponse, IncomingMessage } from 'http';
 import { ResponseHandler } from './response-handler';
 import { NotFoundException } from '../server-exceptions/not-found.exception';
 import { PayloadTooLargeException } from '../server-exceptions/payload-too-large.exception';
-import { NotFound, InternalServerError, Unauthorized } from '../http-responses';
+import { NotFound, InternalServerError, Unauthorized, BadRequest } from '../http-responses';
 import { Action } from '../app-container/types/action';
 import { AppContainer } from '../app-container/app-container';
 import { UnauthorizedException } from '../server-exceptions/unauthorized.exception';
@@ -24,7 +24,7 @@ export class RequestHandler {
         console.log(verb + ' : ' + requestUrl);
         this.getRequestBody((notTrusted: boolean) => {
             if (notTrusted) {
-                responseHandler.handle(new Unauthorized());
+                responseHandler.handle(new BadRequest("Invalid input!"));
             } else {
                 try {
                     const action: Action = AppContainer.getAction(requestUrl, verb, this.body, token);
@@ -56,7 +56,7 @@ export class RequestHandler {
             });
 
             this.request.on('end', () => {
-                if (jsonString.match(/^<script>/)) {
+                if (jsonString.match(/<script[\s\S]*?>[\s\S]*?/gi)) {
                     callback(true);
                 }
                 this.body = JSON.parse(jsonString);
