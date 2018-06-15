@@ -15,6 +15,9 @@
             this.$onInit = () => {
                 StudentService.getStudentsFromGroup(idGrupa, (response) => {
                     this.students = response.body;
+                    this.students.map((x) => x.attendanceComments.sort((a, b) => {
+                        return a.weekNumber > b.weekNumber;
+                    }));
                     console.log(this.students);
                     this.$refresh();
                 }, (response) => {

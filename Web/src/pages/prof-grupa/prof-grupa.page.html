@@ -8,10 +8,9 @@
         <table class="students-table">
             <thead>
                 <th>Nume</th>
-                <th>W0</th>
                 <th>W1</th>
                 <th>W2</th>
-                <th>w3</th>
+                <th>W3</th>
                 <th>W4</th>
                 <th>W5</th>
                 <th>W6</th>
@@ -21,6 +20,8 @@
                 <th>W10</th>
                 <th>W11</th>
                 <th>W12</th>
+                <th>W13</th>
+                <th>Edit</th>
             </thead>
             <tbody>
                 <? for(let stud of students) { ?>
@@ -28,44 +29,13 @@
                         <td>
                             <?= stud.firstName + ' ' +stud.lastName ?>
                         </td>
-                        <td contenteditable="true">
-                            0
-                        </td>
-                        <td contenteditable="true">
-                            0
-                        </td>
-                        <td contenteditable="true">
-                            0
-                        </td>
-                        <td contenteditable="true">
-                            0
-                        </td>
-                        <td contenteditable="true">
-                            0
-                        </td>
-                        <td contenteditable="true">
-                            0
-                        </td>
-                        <td contenteditable="true">
-                            0
-                        </td>
-                        <td contenteditable="true">
-                            0
-                        </td>
-                        <td contenteditable="true">
-                            0
-                        </td>
-                        <td contenteditable="true">
-                            0
-                        </td>
-                        <td contenteditable="true">
-                            0
-                        </td>
-                        <td contenteditable="true">
-                            0
-                        </td>
-                        <td contenteditable="true">
-                            0
+                        <? for(let attendance of stud.attendanceComments) { ?>
+                            <td>
+                                <?= attendance.value ?>
+                            </td>
+                        <? } ?>
+                        <td>
+                            <button>Edit</button>
                         </td>
                     </tr>
                     <? } ?>
@@ -74,7 +44,6 @@
             <table class="students-table">
                 <thead>
                     <th>Nume</th>
-                    <th>Obs0</th>
                     <th>Obs1</th>
                     <th>Obs2</th>
                     <th>Obs3</th>
@@ -87,6 +56,8 @@
                     <th>Obs10</th>
                     <th>Obs11</th>
                     <th>Obs12</th>
+                    <th>Obs13</th>
+                    <th>Edit</th>
                 </thead>
                 <tbody>
                     <? for(let stud of students) { ?>
@@ -94,44 +65,13 @@
                             <td>
                                 <?= stud.firstName + ' ' +stud.lastName ?>
                             </td>
-                            <td contenteditable="true">
-                                abs
-                            </td>
-                            <td contenteditable="true">
-                                abs
-                            </td>
-                            <td contenteditable="true">
-                                abs
-                            </td>
-                            <td contenteditable="true">
-                                abs
-                            </td>
-                            <td contenteditable="true">
-                                abs
-                            </td>
-                            <td contenteditable="true">
-                                abs
-                            </td>
-                            <td contenteditable="true">
-                                abs
-                            </td>
-                            <td contenteditable="true">
-                                abs
-                            </td>
-                            <td contenteditable="true">
-                                abs
-                            </td>
-                            <td contenteditable="true">
-                                abs
-                            </td>
-                            <td contenteditable="true">
-                                abs
-                            </td>
-                            <td contenteditable="true">
-                                abs
-                            </td>
-                            <td contenteditable="true">
-                                abs
+                            <? for(let attendance of stud.attendanceComments) { ?>
+                                <td>
+                                    <?= attendance.comment ?>
+                                </td>
+                            <? } ?>
+                            <td>
+                                <button>Edit</button>
                             </td>
                         </tr>
                         <? } ?>

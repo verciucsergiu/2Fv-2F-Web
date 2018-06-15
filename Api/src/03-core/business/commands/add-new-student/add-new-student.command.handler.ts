@@ -10,19 +10,22 @@ import { AttendanceComments } from '../../../domain/attendance-comments';
     commandType: AddNewStudentCommand
 })
 export class AddNewStudentCommandHandler implements ICommandHandler<AddNewStudentCommand> {
-    constructor(@Inject(StudentRepository) private studentRepository: StudentRepository,
-                @Inject(AttendanceCommentsRepository) private attendanceRepository: AttendanceCommentsRepository) { }
+    constructor(
+        @Inject(StudentRepository) private studentRepository: StudentRepository,
+        @Inject(AttendanceCommentsRepository) private attendanceRepository: AttendanceCommentsRepository) { }
 
     public async handle(command: AddNewStudentCommand): Promise<void> {
-        const student: Student = Object.assign(new Student(), command.studentModel);
+        let student: Student = Object.assign(new Student(), command.studentModel);
+
+        student = await this.studentRepository.add(student);
+
         for (let i = 0; i < 13; i++) {
             const attendance: AttendanceComments = Object.assign(new AttendanceComments());
             attendance.student = student;
-            await attendance.setWeekNumber(i);
-            await attendance.setComment("");
-            await attendance.setValue("");
-            this.attendanceRepository.add(attendance);
+            attendance.setWeekNumber(i);
+            attendance.setComment("");
+            attendance.setValue("");
+            await this.attendanceRepository.add(attendance);
         }
-        await this.studentRepository.add(student);
     }
 }
