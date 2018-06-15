@@ -78,19 +78,17 @@
 
     <? if(clicked) {?>
         <div id="edit-div" class="edit-student-box">
-            <label>
-                <p>Student <?= studentToEdit.firstName + ' ' + studentToEdit.lastName ?> </p>
-                <button id="edit-save">
-                    save
-                </button>
+                <h3><?= studentToEdit.firstName + ' ' + studentToEdit.lastName ?> </h3>
                 <? for(let [index,attendance] of studentToEdit.attendanceComments.entries()) { ?>
-                    <h4>Week <?= attendance.weekNumber + 1 ?></h4>
+                    <h4 style="text-align: center">Week <?= attendance.weekNumber + 1 ?></h4>
                     <label>Observatii</label>
                     <input id="editC<?=index?>" value="<?= attendance.comment?>">
                     <label>Nota</label>
                     <input id="editV<?=index?>" value="<?= attendance.value?>">
-                <? } ?>
-            </label>
+                <? } ?><br>
+                <button class="btn btn-submit edit-save-btn" id="edit-save">
+                    save
+                </button>
         </div>
     <? } ?>
 </div>

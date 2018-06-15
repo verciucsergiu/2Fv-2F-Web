@@ -4,7 +4,7 @@ import { CommandDispatcher } from "../../framework/CQRS/command.dispatcher";
 import { QueryDispatcher } from "../../framework/CQRS/query.dispatcher";
 import { LoginModel } from "../03-core/business/models/login.model";
 import { RegisterModel } from "../03-core/business/models/register.model";
-import { RegisterProfessorCommand, RegisterUserCommand } from "../03-core/business";
+import { RegisterProfessorCommand, RegisterUserCommand, ProfRegisterModel } from "../03-core/business";
 import { LoginUserCommand } from "../03-core/business/commands/login-user/login-user.command";
 import { UserRole } from "../03-core/domain/user-role.enum";
 
@@ -35,8 +35,8 @@ export class AuthController {
     }
 
     @HttpPost('register/professor')
-    public async registerProfessorAs(@FromBody() registerModel: RegisterModel): Promise<IActionResult> {
-        const command = new RegisterProfessorCommand(registerModel);
+    public async registerProfessorAs(@FromBody() profRegisterModel: ProfRegisterModel): Promise<IActionResult> {
+        const command = new RegisterProfessorCommand(profRegisterModel);
         await this.commandDispatcher.dispatchAsync(command);
         return new Ok();
     }

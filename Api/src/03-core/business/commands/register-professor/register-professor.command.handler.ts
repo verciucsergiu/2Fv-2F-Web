@@ -26,8 +26,8 @@ export class RegisterProfessorCommandHandler implements ICommandHandler<Register
         const user: User = Object.assign(new User(), command.registerModel);
 
         const profModel = new ProfessorModel();
-        profModel.firstName = command.registerModel.username;
-        profModel.lastName = command.registerModel.username;
+        profModel.firstName = command.registerModel.firstname;
+        profModel.lastName = command.registerModel.lastname;
         profModel.rank = "Lect.";
         profModel.email = command.registerModel.email;
 

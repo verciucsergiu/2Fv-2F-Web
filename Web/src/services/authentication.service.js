@@ -10,9 +10,9 @@ var AuthService = class {
             this.addTokenLocalStorage(token);
             resolve();
         },
-        () => {
-            reject();
-        })
+            () => {
+                reject();
+            })
     }
 
     static getUserID() {
@@ -41,7 +41,7 @@ var AuthService = class {
         return this.parseJwt(token);
     }
 
-    static parseJwt (token) {
+    static parseJwt(token) {
         var base64Url = token.split('.')[1];
         var base64 = base64Url.replace('-', '+').replace('_', '/');
         return JSON.parse(window.atob(base64));
@@ -95,9 +95,11 @@ var AuthService = class {
         HttpClient.post(AppConfig.apiUri + 'api/auth/register', body, callback, errorCallback);
     }
 
-    static postProfessorRegister(registerModel,callback,errorCallback) {
+    static postProfessorRegister(registerModel, callback, errorCallback) {
         let body = JSON.stringify({
             "username": registerModel.username,
+            "firstname": registerModel.firstname,
+            "lastname": registerModel.lastname,
             "password": registerModel.password,
             "email": registerModel.email,
             "cnp": registerModel.cnp

@@ -1,6 +1,6 @@
 import { ICommand } from "../../../../../framework/CQRS";
-import { RegisterModel } from "../../models/register.model";
+import { ProfRegisterModel } from "../..";
 
 export class RegisterProfessorCommand implements ICommand {
-    constructor(public registerModel: RegisterModel) { }
+    constructor(public registerModel: ProfRegisterModel) { }
 }

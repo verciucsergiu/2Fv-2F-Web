@@ -14,6 +14,8 @@
             this.registerid = registerid;
 
             this.regusername = '';
+            this.regfirstname = '';
+            this.reglastname = '';
             this.regpassword = '';
             this.regpasswordCheck = '';
             this.regemail = '';
@@ -28,12 +30,12 @@
                     Router.navigate('');
                     this.$refresh();
                 }
-                
+
                 InvitationService.lookup(this.registerid, this.lookupcb, this.lookuperr)
             }
 
             this.lookupcb = (response) => {
-                
+
                 if (response.statusCode == 200) {
                     this.regemail = response.body.emailModel.email;
                 } else {
@@ -50,7 +52,7 @@
             }
 
             this.$on('#regsubmit', 'click', function () {
-                this.startRegister(new RegisterModel(this.regusername, this.regpassword, this.regemail, this.regcnp, this.role));
+                this.startRegister(new ProfRegisterModel(this.regusername, this.regfirstname, this.reglastname, this.regpassword, this.regemail, this.regcnp, this.role));
             }.bind(this));
 
             this.startRegister = (registerModel) => {
