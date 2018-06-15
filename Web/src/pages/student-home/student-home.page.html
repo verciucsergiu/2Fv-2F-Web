@@ -63,32 +63,23 @@
 
         <thead class="attendance-table-head">
             <tr class="attendance-table-head-row">
-                <? for(saptamana=1;saptamana<10;saptamana++) { ?>
+                <? for(saptamana=0;saptamana<13;saptamana++) { ?>
                     <th colspan="2">
-                        Saptamana
-                        <?= saptamana ?>
+                        W
+                        <?= saptamana+1 ?>
                     </th>
                     <?}?>
             </tr>
         </thead>
         <tbody class="attendance-table-body">
             <tr class="attendance-table-body-row">
-                <? for(saptamana=1;saptamana<10;saptamana++) { ?>
-                    <? if(attendanceArray[saptamana]!=null) { ?>
+                <? for(saptamana=0;saptamana<13;saptamana++) { ?>
                     <td class="attendance-col">
-                        <?=attendanceArray[saptamana].value?>
+                        <?= attendanceArray[saptamana].value ?>
                     </td>
                     <td class="attendance-col">
-                        <?=attendanceArray[saptamana].value?>
-                    </td>
-                    <?}else{?>
-                        <td class="attendance-col">
-                            -
-                        </td>
-                        <td class="attendance-col">
-                            -
-                        </td>
-                    <?}?>    
+                        <?= attendanceArray[saptamana].comment ?>
+                    </td>   
                 <?}?>
             </tr>
         </tbody>
