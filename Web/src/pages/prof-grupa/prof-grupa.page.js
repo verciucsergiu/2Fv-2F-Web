@@ -1,4 +1,4 @@
-var g = require('../../guards/admin.guard');
+var g = require('../../guards/prof.guard');
 var rt = require('../../../framework/router');
 var services = require('../../services/index');
 
@@ -36,10 +36,27 @@ var services = require('../../services/index');
                 })
             }
 
+            // ---------------------------------------------
             this.$on('#group-back', 'click', function () {
                 rt.Router.navigate('/prof');
             }.bind(this));
 
+            this.$on('#importcsv','click', function() {
+                this.importcsv();
+            }.bind(this));
+
+            this.$on('#exportcsv','click', function () {
+                this.exportcsv();
+            }.bind(this));
+
+            this.$on('#exportxml','click', function () {
+                this.exportxml();
+            }.bind(this));
+            
+            this.$on('#exporthtml','click', function () {
+                this.exporthtml();
+            }.bind(this));
+            // ---------------------------------------------
             this.initTableButtons = () => {
 
                 for (let student of this.students) {
@@ -101,6 +118,22 @@ var services = require('../../services/index');
                 },  (response) => {
                         alert(response.statusCode);
                 });
+            }
+
+            this.importcsv = () => {
+                alert("import csv");
+            }
+
+            this.exportcsv = () => {
+                alert("export csv");
+            }
+
+            this.exportxml = () => {
+                alert("export xml");
+            }
+
+            this.exporthtml = () => {
+                alert("export html");
             }
         });
 })();

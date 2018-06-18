@@ -1,6 +1,6 @@
 .prof-box {
     width: 360px;
-    height: 500px;
+    height: auto;
     margin-top: 20px;
     background: rgba(228, 228, 228, 0.486);
     -moz-box-shadow: 0 0 3px #535353;

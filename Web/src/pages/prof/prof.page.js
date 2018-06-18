@@ -1,4 +1,4 @@
-var g = require('../../guards/admin.guard');
+var g = require('../../guards/prof.guard');
 var rt = require('../../../framework/router');
 var services = require('../../services/index');
 
@@ -15,9 +15,9 @@ var services = require('../../services/index');
         function () {
             this.username = '';
             this.groups = [];
-            
+
             this.$onInit = function () {
-                this.profId = AuthService.getFK();
+                this.profId = services.AuthService.getFK();
                 services.ProfessorService.getProfessor(this.profId, this.professorCallback, this.professorCallback);
             };
 
