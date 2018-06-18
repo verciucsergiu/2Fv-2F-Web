@@ -1,9 +1,6 @@
 var StaticFileHandler = class {
     static createScriptElement(path) {
-        let elem = document.createElement('script');
-        elem.setAttribute('type', 'text/javascript');
-        elem.setAttribute('src', 'src/' + path);
-        Framework.insertAfter(elem, Framework.scriptElement);
+        
     }
 }
 
@@ -95,20 +92,18 @@ var Framework = class {
 
     static setDefaultElements() {
         let elem = document.getElementById('sdmf-view-element');
-        if (!elem) {
-            throw 'Framework error: Page viewport is missing from index.html.\n' +
-            'Please add <div id="sdmf-view-element"></div> in the body of the index.html';
-            return;
-        }
         this._pageViewElement = elem;
-
+        
         this._scriptElement =  document.getElementById('sdmf-script-element');
-
+        
         this._styleElement = document.getElementById('sdmf-style-element');
 
-        if (!this._styleElement) {
-            throw 'Framework error: Style element is missing from index.html.\n' +
-            'Please add <style id="sdmf-style-element"></style> to the head of the page.';
+        if (!this._styleElement || !elem) {
+            setTimeout(() => {
+                Framework.setDefaultElements();
+            });
+            // throw 'Framework error: Style element is missing from index.html.\n' +
+            // 'Please add <style id="sdmf-style-element"></style> to the head of the page.';
         }
     }
 
@@ -219,3 +214,8 @@ var Guard = class {
         return true;
     }
 }
+
+
+module.exports.Guard = Guard;
+module.exports.HttpClient = HttpClient;
+module.exports.Framework = Framework;

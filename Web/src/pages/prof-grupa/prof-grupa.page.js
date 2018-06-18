@@ -1,11 +1,15 @@
+var g = require('../../guards/admin.guard');
+var rt = require('../../../framework/router');
+var services = require('../../services/index');
+
 (() => {
-    route('/prof-grupa/:idGrupa',
+    rt.route('/prof-grupa/:idGrupa',
         {
             templateUrl: './src/pages/prof-grupa/prof-grupa.page.html',
             styleUrl: './src/pages/prof-grupa/prof-grupa.page.css',
             guard:
                 {
-                    canEnter: [ProfGuard],
+                    canEnter: [g.ProfGuard],
                     redirectTo: '/'
                 }
         },
@@ -18,7 +22,7 @@
             this.idGrupa = idGrupa;
             this.students = [];
             this.$onInit = () => {
-                StudentService.getStudentsFromGroup(idGrupa, (response) => {
+                services.StudentService.getStudentsFromGroup(idGrupa, (response) => {
                     this.students = response.body;
                     this.students.map((x) => x.attendanceComments.sort((a, b) => {
                         return a.weekNumber > b.weekNumber;
@@ -33,7 +37,7 @@
             }
 
             this.$on('#group-back', 'click', function () {
-                Router.navigate('/prof');
+                rt.Router.navigate('/prof');
             }.bind(this));
 
             this.initTableButtons = () => {
@@ -89,7 +93,7 @@
             }
 
             this.updateStudentAttendance = () => {
-                StudentService.updateAttendance(this.students[this.studentToEditID].id, this.students[this.studentToEditID].attendanceComments, 
+                services.StudentService.updateAttendance(this.students[this.studentToEditID].id, this.students[this.studentToEditID].attendanceComments, 
                     (response) => {
                         if(response.statusCode == 204){
                             this.$refresh();

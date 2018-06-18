@@ -4,3 +4,5 @@ var LoginModel = class {
         this.password = password;
     }
 }
+
+module.exports.LoginModel = LoginModel;

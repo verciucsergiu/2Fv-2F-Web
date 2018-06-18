@@ -1,11 +1,15 @@
+var g = require('../../guards/auth.guard');
+var rt = require('../../../framework/router');
+var services = require('../../services/index');
+var models = require('../../models');
 (() => {
-    route('/register/professor/:registerid',
+    rt.route('/register/professor/:registerid',
         {
             templateUrl: './src/pages/prof-register/register.page.html',
             styleUrl: './src/pages/register/register.page.css',
             guard:
                 {
-                    canEnter: [AuthGuard],
+                    canEnter: [g.AuthGuard],
                     redirectTo: '/'
                 }
         },
@@ -25,12 +29,12 @@
             this.regend = false;
 
             this.$onInit = () => {
-                if (AuthService.isLoggedIn()) {
-                    Router.navigate('');
+                if (services.AuthService.isLoggedIn()) {
+                    rt.Router.navigate('');
                     this.$refresh();
                 }
 
-                InvitationService.lookup(this.registerid, this.lookupcb, this.lookuperr)
+                services.InvitationService.lookup(this.registerid, this.lookupcb, this.lookuperr)
             }
 
             this.lookupcb = (response) => {
@@ -39,7 +43,7 @@
                     this.regemail = response.body.emailModel.email;
                 } else {
                     alert("Invite Expired")
-                    Router.navigate('');
+                    rt.Router.navigate('');
                 }
 
                 this.$refresh();
@@ -47,18 +51,18 @@
 
             this.lookuperr = () => {
                 alert("Something went wrong. Please try again later or contact an admin!");
-                Router.navigate('');
+                rt.Router.navigate('');
             }
 
             this.$on('#regsubmit', 'click', function () {
-                this.startRegister(new ProfRegisterModel(this.regusername, this.regfirstname, this.reglastname, this.regpassword, this.regemail, this.role));
+                this.startRegister(new models.ProfRegisterModel(this.regusername, this.regfirstname, this.reglastname, this.regpassword, this.regemail, this.role));
             }.bind(this));
 
             this.startRegister = (registerModel) => {
                 if (registerModel.password === this.regpasswordCheck && registerModel.password != null)
                     if (registerModel.username != null && registerModel.email != null)
                         if (registerModel.email.includes("@") == true) {
-                            AuthService.requestProfessorRegister(registerModel, this.registerCallback, this.errRegisterCallback);
+                            services.AuthService.requestProfessorRegister(registerModel, this.registerCallback, this.errRegisterCallback);
                             return;
                         }
                 this.registerError = true;
@@ -67,7 +71,7 @@
 
             this.registerCallback = (response) => {
                 this.regend = true;
-                Router.navigate('');
+                rt.Router.navigate('');
                 this.$refresh();
             }
 

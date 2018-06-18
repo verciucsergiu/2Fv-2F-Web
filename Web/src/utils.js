@@ -1,19 +1,21 @@
-(() => {
+var services = require('./services');
+
+addEventListener("load", () => {
     function displayHeader() {
         document.getElementById('nav-prof').style.display = "none";
         document.getElementById('nav-admin').style.display = "none";
         document.getElementById('nav-stud').style.display = "none";
         document.getElementById('nav-logout').style.display = "block";
-        if (AuthService.isLoggedIn() == true) {
+        if (services.AuthService.isLoggedIn() == true) {
             document.getElementById('nav-log').style.display = "none";
             document.getElementById('nav-reg').style.display = "none";
-            if (AuthService.getUserRole() == "admin") {
+            if (services.AuthService.getUserRole() == "admin") {
                 document.getElementById('nav-admin').style.display = "block";
             }
-            if (AuthService.getUserRole() == "prof") {
+            if (services.AuthService.getUserRole() == "prof") {
                 document.getElementById('nav-prof').style.display = "block";
             }
-            if (AuthService.getUserRole() == "student") {
+            if (services.AuthService.getUserRole() == "student") {
                 document.getElementById('nav-stud').style.display = "block";
             }
         } else {
@@ -23,6 +25,6 @@
         }
     }
 
-    this.addEventListener('hashchange', displayHeader);
+    addEventListener('hashchange', displayHeader);
     displayHeader();
-})();
+});

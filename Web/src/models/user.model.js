@@ -7,3 +7,5 @@ var UserModel = class {
         this.sanse = sanse;
     }
 }
+
+module.exports.UserModel = UserModel;

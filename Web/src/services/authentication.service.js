@@ -1,3 +1,5 @@
+var fr = require('../../framework/main');
+var app = require('./app.config');
 var AuthService = class {
 
     static get localStorageUserTokeItem() {
@@ -76,7 +78,7 @@ var AuthService = class {
 
     static postLogin(loginModel, callback, errorCallback) {
         let body = JSON.stringify({ "username": loginModel.username, "password": loginModel.password });
-        HttpClient.post(AppConfig.apiUri + 'api/auth/login', body, callback, errorCallback);
+        fr.HttpClient.post(app.AppConfig.apiUri + 'api/auth/login', body, callback, errorCallback);
     }
     //----------------------------------------------------------------------------------------------------------------------------
 
@@ -96,7 +98,7 @@ var AuthService = class {
             "email": registerModel.email,
             "cnp": registerModel.cnp
         });
-        HttpClient.post(AppConfig.apiUri + 'api/auth/register', body, callback, errorCallback);
+        fr.HttpClient.post(app.AppConfig.apiUri + 'api/auth/register', body, callback, errorCallback);
     }
 
     static postProfessorRegister(registerModel, callback, errorCallback) {
@@ -107,7 +109,9 @@ var AuthService = class {
             "password": registerModel.password,
             "email": registerModel.email
         });
-        HttpClient.post(AppConfig.apiUri + 'api/auth/register/professor', body, callback, errorCallback);
+        fr.HttpClient.post(app.AppConfig.apiUri + 'api/auth/register/professor', body, callback, errorCallback);
     }
     //----------------------------------------------------------------------------------------------------------------------------
 };
+
+module.exports.AuthService = AuthService;

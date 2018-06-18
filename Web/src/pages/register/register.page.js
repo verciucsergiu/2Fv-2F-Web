@@ -1,11 +1,15 @@
+var g = require('../../guards/auth.guard');
+var rt = require('../../../framework/router');
+var services = require('../../services/index');
+var models = require('../../models');
 (() => {
-    route('/register',
+    rt.route('/register',
         {
             templateUrl: './src/pages/register/register.page.html',
             styleUrl: './src/pages/register/register.page.css',
             guard:
                 {
-                    canEnter: [AuthGuard],
+                    canEnter: [g.AuthGuard],
                     redirectTo: '/'
                 }
         },
@@ -23,14 +27,14 @@
             this.t = 'dsa0';
 
             this.$on('#regsubmit', 'click', function () {
-                this.startRegister(new RegisterModel(this.regusername, this.regpassword, this.regemail, this.regcnp, this.role));
+                this.startRegister(new models.RegisterModel(this.regusername, this.regpassword, this.regemail, this.regcnp, this.role));
             }.bind(this));
 
             this.startRegister = (registerModel) => {
                 if (registerModel.password === this.regpasswordCheck && registerModel.password != null)
                     if (registerModel.cnp != null && registerModel.username != null && registerModel.email != null)
                         if (registerModel.email.includes("@") == true) {
-                            AuthService.requestRegister(registerModel, this.registerCallback, this.errRegisterCallback);
+                            services.AuthService.requestRegister(registerModel, this.registerCallback, this.errRegisterCallback);
                             return;
                         }
                 this.registerError = true;
@@ -39,7 +43,7 @@
 
             this.registerCallback = (response) => {
                 this.regend = true;
-                Router.navigate('');
+                rt.Router.navigate('');
                 this.$refresh();
             }
 

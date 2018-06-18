@@ -1,10 +1,14 @@
+var g = require('../../guards/admin.guard');
+var rt = require('../../../framework/router');
+var services = require('../../services/index');
+
 (() => {
-    route('/prof',
+    rt.route('/prof',
         {
             templateUrl: './src/pages/prof/prof.page.html',
             styleUrl: './src/pages/prof/prof.page.css',
             guard: {
-                canEnter: [ProfGuard],
+                canEnter: [g.ProfGuard],
                 redirectTo: '/'
             }
         },
@@ -14,7 +18,7 @@
             
             this.$onInit = function () {
                 this.profId = AuthService.getFK();
-                ProfessorService.getProfessor(this.profId, this.professorCallback, this.professorCallback);
+                services.ProfessorService.getProfessor(this.profId, this.professorCallback, this.professorCallback);
             };
 
             this.professorCallback = (response) => {
@@ -39,7 +43,7 @@
             }
 
             this.clickGroup = (id) => {
-                Router.navigate('/prof-grupa', id);
+                rt.Router.navigate('/prof-grupa', id);
             }
         });
 })();

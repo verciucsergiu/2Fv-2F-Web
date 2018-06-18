@@ -3,3 +3,4 @@ var AppConfig = class {
         return 'http://localhost:4200/';
     }
 };
+module.exports.AppConfig = AppConfig;

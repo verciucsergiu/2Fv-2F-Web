@@ -1,12 +1,14 @@
-var TemplateEngine = class {
+var fr = require('./main');
+
+var TemplateEngine = class  {
     constructor() {
         this.cache = {}
     }
 
-     interpret(str, data) {
+    interpret (str, data)  {
         var fn = str[0] == '.' && str[1] == '/' ?
             this.cache[str] = this.cache[str] ||
-            this.interpret(Framework.readTextFile(str))
+            this.interpret(fr.Framework.readTextFile(str))
             :
             new Function("obj",
                 "var p=[],print=function(){p.push.apply(p,arguments);};" +
@@ -27,3 +29,5 @@ var TemplateEngine = class {
         return data ? fn(data) : fn;
     }
 }
+
+module.exports.TemplateEngine = TemplateEngine;

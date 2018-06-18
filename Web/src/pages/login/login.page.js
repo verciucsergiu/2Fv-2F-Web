@@ -1,10 +1,14 @@
+var g = require('../../guards/auth.guard');
+var rt = require('../../../framework/router');
+var services = require('../../services/index');
+var models = require('../../models');
 (() => {
-    route('/login',
+    rt.route('/login',
         {
             templateUrl: './src/pages/login/login.page.html',
             styleUrl: './src/pages/login/login.page.css',
             guard: {
-                canEnter: [AuthGuard],
+                canEnter: [g.AuthGuard],
                 redirectTo: '/'
             }
         },
@@ -15,10 +19,10 @@
 
             this.loginError = false;
             this.$on('#submit', 'click', function () {
-                let loginModel = new LoginModel(this.username, this.password);
-                AuthService.login(loginModel,
+                let loginModel = new models.LoginModel(this.username, this.password);
+                services.AuthService.login(loginModel,
                     () => {
-                        Router.navigate('/');
+                        rt.Router.navigate('/');
                     },
                     () => {
                         this.loginError = true;

@@ -1,10 +1,13 @@
+
+var rt = require('../../../framework/router');
+var services = require('../../services/index');
 (() => {
-    route('/logout',
+    rt.route('/logout',
         {
             template: ''
         },
         function () {
-            AuthService.logout();
-            Router.navigate('');
+            services.AuthService.logout();
+            rt.Router.navigate('');
         });
 })();

@@ -1,10 +1,13 @@
+var g = require('../../guards/admin.guard');
+var rt = require('../../../framework/router');
+var services = require('../../services/index');
 (() => {
-    route('/admin',
+    rt.route('/admin',
         {
             templateUrl: './src/pages/admin/admin.page.html',
             styleUrl: './src/pages/admin/admin.page.css',
             guard: {
-                canEnter: [AdminGuard],
+                canEnter: [g.AdminGuard],
                 redirectTo: '/'
             }
         },
@@ -22,12 +25,12 @@
             this.inviteError = false;
 
             this.$onInit = () => {
-                GroupService.getAllGroups((groups) => {
+                services.GroupService.getAllGroups((groups) => {
                     this.groups = groups.body;
                     this.groups.sort((a, b) => {
                         return a.name.localeCompare(b.name);
                     });
-                    ProfessorService.getAllProfessors(this.professorsCallback, null);
+                    services.ProfessorService.getAllProfessors(this.professorsCallback, null);
                 });
 
             }
@@ -91,9 +94,9 @@
             this.professorsCallback = (response) => {
                 let jr = response.body;
                 for (let prof of jr.professors) {
-                    this.professors.push(ProfessorService.parseProfessor(prof));
+                    this.professors.push(services.ProfessorService.parseProfessor(prof));
                 }
-                StudentService.getStudents((response) => {
+                services.StudentService.getStudents((response) => {
                     this.students = response.body;
                     this.initTableButtons();
                     this.$refresh();
@@ -133,20 +136,20 @@
                     btn.textContent = "No";
                 }
                 // after the admin is done, update the professor with the latest version on the server
-                ProfessorService.getProfessor(this.teacherClickedUID, this.professorUpdate, this.errCallback);
+                services.ProfessorService.getProfessor(this.teacherClickedUID, this.professorUpdate, this.errCallback);
             }
 
             //add a group
             this.assignGroup = (id) => {
                 let profId = this.teacherClickedUID;
                 let groupId = id;
-                ProfessorService.addGroupToProfessor(groupId, profId, this.errCallback, this.errCallback);
+                services.ProfessorService.addGroupToProfessor(groupId, profId, this.errCallback, this.errCallback);
             }
 
             this.deleteGroup = (id) => {
                 let profId = this.teacherClickedUID;
                 let groupId = id;
-                ProfessorService.removeGroupFromProfessor(groupId, profId, this.errCallback, this.errCallback);
+                services.ProfessorService.removeGroupFromProfessor(groupId, profId, this.errCallback, this.errCallback);
             }
 
             this.modalTableClick = (id) => {
@@ -192,10 +195,10 @@
                         this.$refresh();
                         return;
                     }
-                    ProfessorService.inviteProfessor(this.requestedEmail, () => {
+                    services.ProfessorService.inviteProfessor(this.requestedEmail, () => {
                         this.invitationWasSuccess = true;
                         this.requestedEmail = '';
-                        Router.navigate('/admin');
+                        rt.Router.navigate('/admin');
                         this.$refresh();
                     }, (response) => {
                         this.inviteError = true;
@@ -209,13 +212,13 @@
             this.groupToAdd = '';
 
             this.addGroup = () => {
-                GroupService.addGroup({
+                services.GroupService.addGroup({
                     name: this.groupToAdd
                 },
                     () => {
                         this.groupToAdd = '';
                         this.controlButton(2);
-                        GroupService.getAllGroups((groups) => {
+                        services.GroupService.getAllGroups((groups) => {
                             this.groups = groups.body;
                             this.groups.sort((a, b) => {
                                 return a.name.localeCompare(b.name);
@@ -236,14 +239,14 @@
                 this.studentGroup = document.getElementById('student-group').value;
                 this.invalidAddStudent = true;
                 if (this.studentFirstName && this.studentLastName && this.studentCnp) {
-                    StudentService.addStudent({
+                    services.StudentService.addStudent({
                         firstName: this.studentFirstName,
                         lastName: this.studentLastName,
                         group: this.studentGroup,
                         cnp: this.studentCnp
                     },
                         () => {
-                            StudentService.getStudents((response) => {
+                            services.StudentService.getStudents((response) => {
                                 this.students = response.body
                                 this.controlButton(1);
                                 // this.$refresh();
@@ -254,5 +257,9 @@
                     this.$refresh();
                 }
             };
+
+            this.groupsAsString = (groups) => {
+                return services.ProfessorService.groupsAsString(groups);
+            }
         });
 })();

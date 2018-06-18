@@ -1,9 +1,12 @@
+var g = require('../../guards/student.guard');
+var services = require('../../services/index');
+var rt = require('../../../framework/router');
 (() => {
-    route('/student-home', {
+    rt.route('/student-home', {
         templateUrl: './src/pages/student-home/student-home.page.html',
         styleUrl: './src/pages/student-home/student-home.page.css',
         guard: {
-            canEnter: [StudentGuard],
+            canEnter: [g.StudentGuard],
             redirectTo: '/'
         }
     },
@@ -14,32 +17,30 @@
             this.studentName = "";
             this.showPopup = false;
             this.info = [];
-            this.id = "";
             this.attendanceArray = [];
+            this.id = 1;
             this.attendances = 0;
             this.currentStudent
             this.maxAttendances = 0;
             this.studentAttendancies = 0;
             this.cnp = "";
-            this.chances = [];
-            this.promovare = "";
-            this.currentAttendancies = 0;
-            this.max = 0;
+            this.chances=[];
+            this.promovare="";
+            this.currentAttendancies=0;
 
             this.$on('#add-git-token', 'click', function () {
-                Router.navigate('/student-add-git');
+                rt.Router.navigate('/student-add-git');
             }.bind(this));
 
             this.$onInit = () => {
-                StudentService.getStudentDetails((response) => {
+                services.StudentService.getStudentDetails((response) => {
                     console.log(response.body);
                     let jsonResponse = response.body;
                     this.studentName = jsonResponse.firstName + ' ' + jsonResponse.lastName;
-                    this.currentStudent = this.studentName;
+                    this.currentStudent=this.studentName;
                     this.group = jsonResponse.group;
                     this.cnp = jsonResponse.cnp;
-                    this.id = AuthService.getFK();
-                    StudentService.getStudentsFromGroup(response.body.group, this.callback, this.lookuperr);
+                    services.StudentService.getStudentsFromGroup(response.body.group, this.callback, this.lookuperr);
                 });
             }
 
@@ -79,8 +80,8 @@
                 }
                 console.log(this.max);
                 this.$refresh();
-            }
 
+            }
             this.lookuperr = () => {
             }
 

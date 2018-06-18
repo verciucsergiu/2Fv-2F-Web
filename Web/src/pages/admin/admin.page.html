@@ -36,7 +36,7 @@
                     <? for(let prof of professors) { ?>
                         <tr>
                         <td><div class="cell"><?= prof.firstName + ' ' + prof.lastName  ?></div></td>
-                        <td><div class="cell"><?=ProfessorService.groupsAsString(prof.groups) ?></div></td>
+                        <td><div class="cell"><?= groupsAsString(prof.groups) ?></div></td>
                         </tr>
                     <? } ?>
                     </tbody>
@@ -103,7 +103,7 @@
                     <? for(let prof of professors) {?>
                         <tr>
                         <td><div class="cell"><?=prof.firstName + ' ' + prof.lastName ?></div></td>
-                        <td><div class="cell" id ="profGroups<?=prof.id?>" ><?=ProfessorService.groupsAsString(prof.groups) ?></div></td>
+                        <td><div class="cell" id ="profGroups<?=prof.id?>" ><?= groupsAsString(prof.groups) ?></div></td>
                         <td><div class="cell last"><button id ="tableBtn<?=prof.id?>" class="table-button">Edit</button></div></td>
                         </tr>
                     <? } ?>

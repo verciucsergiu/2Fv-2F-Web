@@ -1,3 +1,6 @@
+var tl = require('./template-engine');
+var fr = require('./main');
+
 var BindHandler = class {
     constructor() {
         this.currentContext = null;
@@ -6,9 +9,9 @@ var BindHandler = class {
 
     static bindElementsWithContext(context) {
         this.currentContext = context;
-        this.elements = document.querySelectorAll(Framework.bindSelector);
+        this.elements = document.querySelectorAll(fr.Framework.bindSelector);
         this.elements.forEach((element) => {
-            var propToBind = element.getAttribute(Framework.bindAttribute);
+            var propToBind = element.getAttribute(fr.Framework.bindAttribute);
             if (this.isElementTypeable(element)) {
                 this.addPropertySetAndGetOnContext(propToBind, this.elements);
                 if (context[propToBind] !== undefined) {
@@ -35,7 +38,7 @@ var BindHandler = class {
             set: function (newValue) {
                 value = newValue;
                 elems.forEach(function (element) {
-                    if (element.getAttribute(Framework.bindAttribute) === prop) {
+                    if (element.getAttribute(fr.Framework.bindAttribute) === prop) {
                         if (element.type && BindHandler.isElementTypeable(element)) {
                             element.value = newValue;
                         }
@@ -56,40 +59,41 @@ var BindHandler = class {
     }
 
     static isElementTypeable(element) {
-        return Framework.typeableElementTypes.find(() => element.type);
+        return fr.Framework.typeableElementTypes.find(() => element.type);
     }
 };
 
-(() => {
-    var routes = {};
-    var events = [];
-    var currentRoute = null;
-    var templateEngine = new TemplateEngine();
-    var context = {
-        on: function (selector, evt, handler) {
-            events.push([selector, evt, handler]);
-        },
-        refresh: function (listeners) {
-            listeners.forEach(function (fn) { fn(); });
+var Router = class {
+    static navigate(path, parameter) {
+        if (path.indexOf('/') != 0) {
+            path = '/' + path;
         }
-    };
+        if (parameter) {
+            path = path + '/' + parameter;
+        }
+        location.hash = '#' + path;
+    }
+};
 
-    function route(path, page, controller) {
+var RT = class {
+   
+
+    static route (path, page, controller) {
         if (!page.templateUrl && !page.template === undefined) {
-            Framework.printError('Route: ' + path + ' doesn\'t have a template');
+            fr.Framework.printError('Route: ' + path + ' doesn\'t have a template');
             return;
         }
 
-        var listeners = [];
-        Object.defineProperty(controller.prototype, '$on', { value: context.on });
-        Object.defineProperty(controller.prototype, '$refresh', { value: context.refresh.bind(undefined, listeners) });
+        let listeners = [];
+        Object.defineProperty(controller.prototype, '$on', { value: RT.context.on });
+        Object.defineProperty(controller.prototype, '$refresh', { value: RT.context.refresh.bind(undefined, listeners) });
 
         // Remove parmater from the route
         if (path.indexOf('/:') != -1) {
             path = path.slice(0, path.indexOf('/:'));
         }
 
-        routes[path] = {
+        RT.routes[path] = {
             templateUrl: page.templateUrl,
             styleUrl: page.styleUrl,
             style: page.style,
@@ -100,26 +104,26 @@ var BindHandler = class {
 
     }
 
-    function forEachEventElement(fnName) {
-        for (var i = 0, len = events.length; i < len; i++) {
-            var els = Framework.pageViewElement.querySelectorAll(events[i][0]);
+    static forEachEventElement(fnName) {
+        for (var i = 0, len = RT.events.length; i < len; i++) {
+            var els = fr.Framework.pageViewElement.querySelectorAll(RT.events[i][0]);
             for (var j = 0, elsLen = els.length; j < elsLen; j++) {
-                els[j][fnName].apply(els[j], events[i].slice(1));
+                els[j][fnName].apply(els[j], RT.events[i].slice(1));
             }
         }
     }
 
-    function addEventListeners() {
-        forEachEventElement('addEventListener');
+    static addEventListeners() {
+        RT.forEachEventElement('addEventListener');
     }
 
-    function removeEventListeners() {
-        forEachEventElement('removeEventListener');
+    static removeEventListeners() {
+        RT.forEachEventElement('removeEventListener');
     }
 
-    function router() {
-        removeEventListeners();
-        events = [];
+    static router() {
+        RT.removeEventListeners();
+        RT.events = [];
         let url = location.hash.slice(1) || '/';
 
         let parameterRouteValue = null, paramIndex = url.lastIndexOf('/');
@@ -128,9 +132,9 @@ var BindHandler = class {
             url = url.slice(0, paramIndex);
         }
 
-        let route = routes[url] || routes['*'];
+        let route = RT.routes[url] || RT.routes['*'];
         if (route && route.controller) {
-            checkGuard(route);
+            RT.checkGuard(route);
 
             let ctrl;
             if (parameterRouteValue) {
@@ -139,15 +143,19 @@ var BindHandler = class {
                 ctrl = new route.controller();
             }
 
-            if (currentRoute != route) {
-                if (currentRoute) {
-                    let currentRouteControler = new currentRoute.controller();
-                    if (currentRouteControler.$onLeave) {
-                        currentRouteControler.$onLeave();
+            if (RT.currentRoute != route) {
+                if (RT.currentRoute) {
+                    try {
+                        let currentRouteControler = new currentRoute.controller();
+                        if (currentRouteControler.$onLeave) {
+                            currentRouteControler.$onLeave();
+                        }
+                    } catch (error) {
+                        
                     }
                 }
 
-                currentRoute = route;
+                RT.currentRoute = route;
             }
 
             if (!route.templateUrl) {
@@ -155,20 +163,20 @@ var BindHandler = class {
             }
 
             route.onRefresh(function () {
-                removeEventListeners();
+                RT.removeEventListeners();
 
-                Framework.pageViewElement.innerHTML = templateEngine.interpret(route.templateUrl, ctrl);
+                fr.Framework.pageViewElement.innerHTML = RT.templateEngine.interpret(route.templateUrl, ctrl);
                 BindHandler.bindElementsWithContext(ctrl);
-                addEventListeners();
+                RT.addEventListeners();
             });
 
             if (route.styleUrl) {
                 if (!route.style) {
-                    let style = Framework.readTextFile(route.styleUrl);
+                    let style = fr.Framework.readTextFile(route.styleUrl);
                     route.style = style;
                 }
 
-                Framework.styleElement.innerHTML = route.style;
+                fr.Framework.styleElement.innerHTML = route.style;
             }
             if (ctrl.$onInit) {
                 ctrl.$onInit();
@@ -177,19 +185,19 @@ var BindHandler = class {
         }
     }
 
-    function checkGuard(route) {
+    static checkGuard(route) {
         if (route.hasOwnProperty('guard') && route.guard) {
             if (route.guard.hasOwnProperty('canEnter') && Array.isArray(route.guard.canEnter)) {
                 let guards = route.guard.canEnter;
                 let canEnter = true;
                 for(let guard of guards) {
                     let guardInstance = new guard();
-                    if (!guardInstance instanceof Guard) {
+                    if (!guardInstance instanceof fr.Guard) {
                         canEnter = false;
-                        Framework.printError("Guard :'" + guardInstance.constructor.name + "' doesn't extends Guard class!");
+                        fr.Framework.printError("Guard :'" + guardInstance.constructor.name + "' doesn't extends Guard class!");
                     }
                     if (!guardInstance.hasOwnProperty('canEnter') && typeof guardInstance.canEnter != 'function') {
-                        Framework.printError("Guard :'" + guardInstance.constructor.name + "' doesn't have a function called 'canEnter'!");
+                        fr.Framework.printError("Guard :'" + guardInstance.constructor.name + "' doesn't have a function called 'canEnter'!");
                         canEnter = false;
                         break;
                     } else {
@@ -208,26 +216,31 @@ var BindHandler = class {
                     }
                 }
             } else {
-                Framework.printError("A route has a guard but property: 'canEnter' is undefined or is not an array!");
+                fr.Framework.printError("A route has a guard but property: 'canEnter' is undefined or is not an array!");
             }
         }
     }
+};
 
-    this.addEventListener('hashchange', router);
 
-    this.addEventListener('load', router);
-
-    this.route = route;
-
-    this.Router = class {
-        static navigate(path, parameter) {
-            if (path.indexOf('/') != 0) {
-                path = '/' + path;
-            }
-            if (parameter) {
-                path = path + '/' + parameter;
-            }
-            location.hash = '#' + path;
+(() => {
+    RT.routes = {};
+    RT.events = [];
+    RT.currentRoute = {};
+    RT.listeners = [];
+    RT.templateEngine = new tl.TemplateEngine();
+    RT.context = {
+        on: function (selector, evt, handler) {
+            RT.events.push([selector, evt, handler]);
+        },
+        refresh: function (listeners) {
+            listeners.forEach(function (fn) { fn(); });
         }
     };
+    addEventListener('hashchange', RT.router);
+    
+    addEventListener('load', RT.router);
 })();
+module.exports.BindHandler = BindHandler;
+module.exports.Router = Router;
+module.exports.route = RT.route;

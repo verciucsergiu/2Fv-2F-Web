@@ -19,3 +19,6 @@ var ProfRegisterModel = class {
         this.role = role;
     }
 }
+
+module.exports.ProfRegisterModel = ProfRegisterModel;
+module.exports.RegisterModel = RegisterModel;

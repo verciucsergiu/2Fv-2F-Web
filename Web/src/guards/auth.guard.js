@@ -1,6 +1,10 @@
-var AuthGuard = class extends Guard {
+var g = require('../../framework/main');
+var services = require('./../services');
+
+var AuthGuard = class extends g.Guard {
     canEnter() {
-        return !AuthService.isLoggedIn();
+        return !services.AuthService.isLoggedIn();
     }
 }
 
+module.exports.AuthGuard = AuthGuard;
