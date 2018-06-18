@@ -14,5 +14,5 @@ module.exports = {
   node: {
     fs: "empty"
   },
-  mode: "developement"
+  mode: "development"
 };
