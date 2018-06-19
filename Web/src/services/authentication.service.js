@@ -17,7 +17,7 @@ var AuthService = class {
             })
     }
 
-    static getUserID() {
+    static getUserID() { 
         return this.getDecodedToken().id;
     }
 

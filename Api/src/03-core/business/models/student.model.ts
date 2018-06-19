@@ -5,5 +5,6 @@ export class StudentModel {
     public lastName: string;
     public group: string;
     public cnp: string;
+    public gitToken : string;
     public attendanceComments: Array<AttendanceCommentsModel> = new Array<AttendanceCommentsModel>();
 }
