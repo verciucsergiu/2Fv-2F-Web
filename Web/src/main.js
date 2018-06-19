@@ -21,7 +21,8 @@ addEventListener("load", () => {
             'services/student.service.js',
             'services/professor.service.js',
             'services/group.service.js',
-            'services/invitation.service.js'
+            'services/invitation.service.js',
+            'services/exporter.service.js'
         ],
         guards: [
             'guards/auth.guard.js',
