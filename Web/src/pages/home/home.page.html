@@ -2,7 +2,12 @@
     <h2>Welcome!</h2>
 </div>
 
-<dv>
+<div>
     <?= role?>
-    <button id="twitterbutton">twitter</button>
-</dv>
+        <button id="twitterbutton">twitter</button>
+</div>
+<? if(role=="user") { ?>
+    <div>
+        <a href=<?= gitHubUrl?> class="gitHub-connecter" id="conenctToGit"> Sign in with GitHub</a>
+    </div>
+<? } ?>

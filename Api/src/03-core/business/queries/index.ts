@@ -7,3 +7,4 @@ export * from './get-all-students';
 export * from './get-student-details';
 export * from './get-students-by-group';
 export * from './get-git-status';
+export * from './get-all-tokens';

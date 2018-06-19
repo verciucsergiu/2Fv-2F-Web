@@ -20,7 +20,13 @@ export class Student extends BaseEntity {
     private deleted?: boolean = false;
 
     @Column()
-    private token: string = '';
+    private gitToken: string = '';
+
+    @Column()
+    private fbToken : string = '';
+
+    @Column()
+    private twToken : string = '';
 
     @OneToMany((type) => AttendanceComments, (attendanceComments) => attendanceComments.student)
     public attendanceComments: Array<AttendanceComments> = new Array<AttendanceComments>();
@@ -29,10 +35,10 @@ export class Student extends BaseEntity {
     }
 
     public setGitToken(token: string): void {
-        this.token = token;
+        this.gitToken = token;
     }
 
     public getGitToken(): string {
-        return this.token;
+        return this.gitToken;
     }
 }
