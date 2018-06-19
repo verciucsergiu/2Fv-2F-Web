@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "codebird": "^2.6.0",
     "connect": "^3.6.6",
     "fs": "0.0.1-security",
     "npm-run-all": "^4.1.3",
