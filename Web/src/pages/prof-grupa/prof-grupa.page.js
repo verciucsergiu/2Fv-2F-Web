@@ -125,15 +125,15 @@ var services = require('../../services/index');
             }
 
             this.exportcsv = () => {
-                alert("export csv");
+                services.ExporterService.exportStudentListCSV(this.students);
             }
 
             this.exportxml = () => {
-                alert("export xml");
+                services.ExporterService.exportStudentListXML(this.students);
             }
 
             this.exporthtml = () => {
-                alert("export html");
+                services.ExporterService.exportStudentListHTML(this.students);
             }
         });
 })();
