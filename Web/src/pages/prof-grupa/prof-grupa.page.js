@@ -1,6 +1,7 @@
 var g = require('../../guards/prof.guard');
 var rt = require('../../../framework/router');
 var services = require('../../services/index');
+var codebird = require('../../../node_modules/codebird');
 
 (() => {
     rt.route('/prof-grupa/:idGrupa',
@@ -15,6 +16,7 @@ var services = require('../../services/index');
         },
         function (idGrupa) {
 
+            this.cb = new codebird;
             this.clicked = false;
             this.studentToEdit = {};
             this.studentToEditID = "";
@@ -22,6 +24,13 @@ var services = require('../../services/index');
             this.idGrupa = idGrupa;
             this.students = [];
             this.$onInit = () => {
+                //codebird
+                if (services.AuthService.getTwitterSecret() != false) {
+                    this.cb.setConsumerKey('qNmVG4mMKW76TNI9pPhSRwt1h', 'HDqJqH47FVNnb8PATfaTHEQiqnmQcpWS77sVNZNNaJwBPF1nBE');
+                    this.cb.setToken(services.AuthService.getTwitterToken(), services.AuthService.getTwitterSecret());
+                }
+                //codebird
+
                 services.StudentService.getStudentsFromGroup(idGrupa, (response) => {
                     this.students = response.body;
                     this.students.map((x) => x.attendanceComments.sort((a, b) => {
@@ -41,20 +50,23 @@ var services = require('../../services/index');
                 rt.Router.navigate('/prof');
             }.bind(this));
 
-            this.$on('#importcsv','click', function() {
+            this.$on('#importcsv', 'click', function () {
                 this.importcsv();
             }.bind(this));
 
-            this.$on('#exportcsv','click', function () {
+            this.$on('#exportcsv', 'click', function () {
                 this.exportcsv();
             }.bind(this));
 
-            this.$on('#exportxml','click', function () {
+            this.$on('#exportxml', 'click', function () {
                 this.exportxml();
             }.bind(this));
-            
-            this.$on('#exporthtml','click', function () {
+
+            this.$on('#exporthtml', 'click', function () {
                 this.exporthtml();
+            }.bind(this));
+            this.$on('#share-group-status', 'click', function () {
+                this.shareGroup();
             }.bind(this));
             // ---------------------------------------------
             this.initTableButtons = () => {
@@ -110,14 +122,14 @@ var services = require('../../services/index');
             }
 
             this.updateStudentAttendance = () => {
-                services.StudentService.updateAttendance(this.students[this.studentToEditID].id, this.students[this.studentToEditID].attendanceComments, 
+                services.StudentService.updateAttendance(this.students[this.studentToEditID].id, this.students[this.studentToEditID].attendanceComments,
                     (response) => {
-                        if(response.statusCode == 204){
+                        if (response.statusCode == 204) {
                             this.$refresh();
                         }
-                },  (response) => {
+                    }, (response) => {
                         alert(response.statusCode);
-                });
+                    });
             }
 
             this.importcsv = () => {
@@ -134,6 +146,16 @@ var services = require('../../services/index');
 
             this.exporthtml = () => {
                 services.ExporterService.exportStudentListHTML(this.students);
+            }
+
+            this.shareGroup = () => {
+                this.cb.__call(
+                    "statuses_update",
+                    { "status": "Status updated! \n" + "http://localhost:3000/#/download-group/" + idGrupa },
+                    (reply) => {
+                        alert('succes');
+                    }
+                );
             }
         });
 })();

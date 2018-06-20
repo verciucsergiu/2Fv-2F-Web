@@ -16,8 +16,24 @@ var AuthService = class {
                 reject();
             })
     }
+    // ----------------------------------------------- Twitter
+    static saveTwitterToken(token, secret) { // refresh the tokens
+        localStorage.removeItem('twitterToken');
+        localStorage.removeItem('twitterSecret');
+        localStorage.setItem('twitterToken', token);
+        localStorage.setItem('twitterSecret', secret);
+    }
 
-    static getUserID() { 
+    static getTwitterToken() {
+        return localStorage.getItem('twitterToken');
+    }
+
+    static getTwitterSecret() {
+        return localStorage.getItem('twitterSecret');
+    }
+    // -----------------------------------------------
+
+    static getUserID() {
         return this.getDecodedToken().id;
     }
 
@@ -40,10 +56,10 @@ var AuthService = class {
 
     static getDecodedToken() {
         let token = localStorage.getItem(this.localStorageUserTokeItem);
-        if(token) {
+        if (token) {
             return this.parseJwt(token);
         }
-        
+
         return {};
     }
 
@@ -56,6 +72,9 @@ var AuthService = class {
     static logout() {
         localStorage.removeItem(this.localStorageUserTokeItem);
         localStorage.removeItem('username');
+
+        localStorage.removeItem('twitterToken');
+        localStorage.removeItem('twitterSecret');
     }
 
     static addTokenLocalStorage(token) {
