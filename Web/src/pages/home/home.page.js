@@ -11,26 +11,7 @@ var codebird = require('../../../node_modules/codebird');
             this.role = '';
             this.cb = new codebird;
             this.twitterAuthStatus = "waiting";
-            this.facebookStatus = '';
-            this.fbStatusLoaded = false;
-            
             this.$onInit = () => {
-                // facebook
-                FB.init({
-                    appId: '177880766235218',
-                    cookie: true,  
-                    xfbml: true,  
-                    version: 'v2.8'
-                });
-                FB.getLoginStatus((response) => {
-                    this.facebookStatus = response.status;
-                    this.fbStatusLoaded = true;
-                    console.log(response);
-                    this.$refresh();
-                });
-
-                
-
                 //role
                 this.role = services.AuthService.getUserRole();
 
@@ -45,7 +26,7 @@ var codebird = require('../../../node_modules/codebird');
 
                 //github
                 if (this.role == "student") {
-                    this.gitHubUrl = "https://github.com/login/oauth/authorize?client_id=17b94e383b4d34913743";
+                    
                     services.MediaService.getTokens(this.tokensCallback, this.tokensErrorCallback);
                     services.MediaService.getMediaData(this.tokensCallback, this.tokensErrorCallback);
                     var url_string = window.location.href;
@@ -57,7 +38,7 @@ var codebird = require('../../../node_modules/codebird');
                         services.MediaService.generateGitToken(this.code, services.AuthService.getFK(), () => {
                         }, this.lookuperr);
 
-                        window.location.href = services.AppConfig.webBaseUrl;
+                        window.location.href = services.AppConfig.webBaseUrl + 'student-home';
                     }
                 }
             }
@@ -77,16 +58,6 @@ var codebird = require('../../../node_modules/codebird');
             }.bind(this));
             this.$on('#sharetwitterpost', 'click', function () {
                 this.sharepost();
-            }.bind(this));
-
-            this.$on('#loginFb', 'click', function () {
-                FB.login(function (response) {
-                    this.facebookStatus = 'connected';
-                    this.fbStatusLoaded = true;
-                    services.MediaService.addFacebookAuthToken(response.authResponse.accessToken, response.authResponse.userID, () => {
-                    })
-                    this.$refresh();
-                });
             }.bind(this));
 
             this.initTwitter = () => {

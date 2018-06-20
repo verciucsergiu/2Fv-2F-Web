@@ -14,7 +14,7 @@ export class AddGitTokenCommandHandler implements ICommandHandler<AddGitTokenCom
         @Inject(StudentRepository) private studentRepository: StudentRepository) { }
 
     public async handle(command: AddGitTokenCommand): Promise<void> {
-        const student: any = await this.studentRepository.getById(command.studentId);
+        const student: any = await this.studentRepository.getStudentWithAttendance(command.studentId);
         const studentAsEntity: Student = Object.assign(new Student(), student);
         studentAsEntity.setGitToken(command.gitToken.token);
         await this.studentRepository.update(studentAsEntity);

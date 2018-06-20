@@ -24,20 +24,50 @@ var rt = require('../../../framework/router');
             this.maxAttendances = 0;
             this.studentAttendancies = 0;
             this.cnp = "";
-            this.chances=[];
-            this.promovare="";
-            this.currentAttendancies=0;
+            this.chances = [];
+            this.promovare = "";
+            this.currentAttendancies = 0;
+            this.fbStatusLoaded = false;
+            this.facebookStatus = '';
 
             this.$on('#add-git-token', 'click', function () {
                 rt.Router.navigate('/student-add-git');
             }.bind(this));
 
+
+            this.$on('#loginFb', 'click', function () {
+                FB.login(function (response) {
+                    this.facebookStatus = 'connected';
+                    this.fbStatusLoaded = true;
+                    services.MediaService.addFacebookAuthToken(response.authResponse.accessToken, response.authResponse.userID, () => {
+                    })
+                    this.$refresh();
+                }.bind(this));
+            }.bind(this));
+            this.$on('#connectWithGit', 'click', function () {
+                window.location.href = "https://github.com/login/oauth/authorize?client_id=17b94e383b4d34913743";
+            }.bind(this));
+            
             this.$onInit = () => {
+
+                FB.init({
+                    appId: '177880766235218',
+                    cookie: true,
+                    xfbml: true,
+                    version: 'v2.8'
+                });
+                FB.getLoginStatus((response) => {
+                    this.facebookStatus = response.status;
+                    this.fbStatusLoaded = true;
+                    console.log(response);
+                    this.$refresh();
+                });
+
                 services.StudentService.getStudentDetails((response) => {
                     console.log(response.body);
                     let jsonResponse = response.body;
                     this.studentName = jsonResponse.firstName + ' ' + jsonResponse.lastName;
-                    this.currentStudent=this.studentName;
+                    this.currentStudent = this.studentName;
                     this.group = jsonResponse.group;
                     this.cnp = jsonResponse.cnp;
                     services.StudentService.getStudentsFromGroup(response.body.group, this.callback, this.lookuperr);
@@ -46,6 +76,7 @@ var rt = require('../../../framework/router');
 
             this.callback = (response) => {
                 let jsonResponse = response.body;
+                console.log(jsonResponse);
                 for (let student of jsonResponse) {
                     this.studentName = student.firstName + ' ' + student.lastName;
                     this.info.push(student);
@@ -56,10 +87,9 @@ var rt = require('../../../framework/router');
                         if (this.id == student.id) {
                             this.studentAttendancies++;
                         }
-                        if (attendance.value !== "")
-                            {
+                        if (attendance.value !== "") {
                             this.attendances++;
-                            if(attendance.weekNumber > this.max)
+                            if (attendance.weekNumber > this.max)
                                 this.max = attendance.weekNumber;
                         }
 
@@ -144,7 +174,7 @@ var rt = require('../../../framework/router');
                 "http://microservices.io/",
                 "https://www.ibm.com/developerworks/web/library/wa-reverseajax1/",
                 "https://martinfowler.com/articles/break-monolith-into-microservices.html"
-            ];    
+            ];
 
         },
     );

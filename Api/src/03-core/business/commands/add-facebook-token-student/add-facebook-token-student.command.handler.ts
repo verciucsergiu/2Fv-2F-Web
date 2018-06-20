@@ -12,7 +12,7 @@ export class AddFacebookTokenHandler implements ICommandHandler<AddFacebookToken
         @Inject(StudentRepository) private studentRepository: StudentRepository) { }
 
     public async handle(command: AddFacebookTokenCommand): Promise<void> {
-        const student: any = await this.studentRepository.getById(command.studentId);
+        const student: any = await this.studentRepository.getStudentWithAttendance(command.studentId);
         const studentAsEntity: Student = Object.assign(new Student(), student);
         studentAsEntity.setFbToken(command.token.authToken);
         studentAsEntity.setFbUserId(command.token.userId);

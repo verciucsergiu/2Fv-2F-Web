@@ -1,6 +1,6 @@
-import { Entity, Column , OneToMany, JoinTable } from 'typeorm';
+import { Entity, Column, OneToMany, JoinTable } from 'typeorm';
 import { BaseEntity } from './base.entity';
-import {AttendanceComments} from './attendance-comments';
+import { AttendanceComments } from './attendance-comments';
 @Entity()
 export class Student extends BaseEntity {
 
@@ -14,7 +14,7 @@ export class Student extends BaseEntity {
     private group: string;
 
     @Column()
-    private cnp : string;
+    private cnp: string;
 
     @Column()
     private deleted?: boolean = false;
@@ -23,13 +23,16 @@ export class Student extends BaseEntity {
     private gitToken: string = '';
 
     @Column()
-    private fbToken : string = '';
+    private fbToken: string = '';
 
     @Column()
-    private fbUserId : string = '';
+    private fbUserId: string = '';
 
     @Column()
-    private twToken : string = '';
+    private twToken: string = '';
+
+    @Column()
+    private fbPoints: number = 0;
 
     @OneToMany((type) => AttendanceComments, (attendanceComments) => attendanceComments.student)
     public attendanceComments: Array<AttendanceComments> = new Array<AttendanceComments>();
@@ -59,5 +62,9 @@ export class Student extends BaseEntity {
 
     public getFbUserId(): string {
         return this.fbUserId;
+    }
+
+    public setFbPoits(value: number): void {
+        this.fbPoints = value;
     }
 }
