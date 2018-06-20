@@ -15,7 +15,7 @@ export class GetStudentDetailsQueryHandler implements IQueryHandler<GetStudentDe
     }
 
     public async retrieve(query: GetStudentDetailsQuery): Promise<GetStudentDetailsQueryResult> {
-        const student = await this.studentsRepositiory.getById(query.studentId);
+        const student = await this.studentsRepositiory.getStudentWithAttendance(query.studentId);
         const mappdStudent = Object.assign(new StudentModel(), student);
         return new GetStudentDetailsQueryResult(mappdStudent);
     }

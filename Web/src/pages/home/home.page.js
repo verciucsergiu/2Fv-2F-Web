@@ -11,7 +11,6 @@ var codebird = require('../../../node_modules/codebird');
             this.role = '';
             this.cb = new codebird;
             this.twitterAuthStatus = "waiting";
-
             this.$onInit = () => {
                 //role
                 this.role = services.AuthService.getUserRole();
@@ -27,9 +26,9 @@ var codebird = require('../../../node_modules/codebird');
 
                 //github
                 if (this.role == "student") {
-                    this.gitHubUrl = "https://github.com/login/oauth/authorize?client_id=17b94e383b4d34913743";
+                    
                     services.MediaService.getTokens(this.tokensCallback, this.tokensErrorCallback);
-                    services.MediaService.getMediaData(this.tokensCallback, this.tokensErrorCallback) ;
+                    services.MediaService.getMediaData(this.tokensCallback, this.tokensErrorCallback);
                     var url_string = window.location.href;
                     var url = new URL(url_string);
                     this.code = url.searchParams.get("code");
@@ -38,6 +37,8 @@ var codebird = require('../../../node_modules/codebird');
 
                         services.MediaService.generateGitToken(this.code, services.AuthService.getFK(), () => {
                         }, this.lookuperr);
+
+                        window.location.href = services.AppConfig.webBaseUrl + 'student-home';
                     }
                 }
             }

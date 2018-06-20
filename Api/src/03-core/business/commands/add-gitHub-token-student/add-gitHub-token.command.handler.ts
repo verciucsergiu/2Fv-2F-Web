@@ -11,7 +11,7 @@ export class AddGitHubTokenCommandHandler implements ICommandHandler<AddGitHubTo
     }
 
     public async handle(command: AddGitHubTokenCommand): Promise<void> {
-        const student: any = await this.studentRepository.getById(command.uuid);
+        const student: any = await this.studentRepository.getStudentWithAttendance(command.uuid);
         student.gitToken = command.token;
         await this.studentRepository.update(student);
     }

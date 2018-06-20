@@ -1,22 +1,21 @@
 import { ICommandHandler, CommandHandler } from "../../../../../framework/CQRS";
-import { StudentModel } from "../..";
 import { Inject } from "../../../../../framework/injector";
 import { Student } from "../../../domain/student";
-import { StudentRepository, AttendanceCommentsRepository } from "../../../../02-persistance";
-import { AttendanceComments } from '../../../domain/attendance-comments';
-import { AddGitTokenCommand } from "./add-git-token-student.command";
+import { AddFacebookTokenCommand } from "./add-facebook-token-student.command";
+import { StudentRepository } from "../../../../02-persistance";
 
 @CommandHandler({
-    commandType: AddGitTokenCommand
+    commandType: AddFacebookTokenCommand
 })
-export class AddGitTokenCommandHandler implements ICommandHandler<AddGitTokenCommand> {
+export class AddFacebookTokenHandler implements ICommandHandler<AddFacebookTokenCommand> {
     constructor(
         @Inject(StudentRepository) private studentRepository: StudentRepository) { }
 
-    public async handle(command: AddGitTokenCommand): Promise<void> {
+    public async handle(command: AddFacebookTokenCommand): Promise<void> {
         const student: any = await this.studentRepository.getStudentWithAttendance(command.studentId);
         const studentAsEntity: Student = Object.assign(new Student(), student);
-        studentAsEntity.setGitToken(command.gitToken.token);
+        studentAsEntity.setFbToken(command.token.authToken);
+        studentAsEntity.setFbUserId(command.token.userId);
         await this.studentRepository.update(studentAsEntity);
     }
 }

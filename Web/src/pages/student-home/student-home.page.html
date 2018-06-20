@@ -77,7 +77,6 @@
                     <tr class="attendance-table-body-row">
                         <? for(saptamana=0;saptamana<13;saptamana++) { ?>
                             <td class="attendance-col">
-                            <?= attendanceArray[saptamana].value ?>
                             </td>  
                         <?}?>
                     </tr>
@@ -111,7 +110,6 @@
                         <tr class="attendance-table-body-row">
                             <? for(saptamana=0;saptamana<13;saptamana++) { ?>
                                 <td class="attendance-col">
-                                <?= attendanceArray[saptamana].comment ?>
                                 </td>   
                             <?}?>
                         </tr>
@@ -141,6 +139,12 @@
             
             </section>
         </section>
+        <?if(facebookStatus !== 'connected' && fbStatusLoaded === true){?>
+            <button class="btn btn-submit" id="loginFb">Connect With Facebook</button><br>
+        <?}?>
+        <div>
+            <button  class="btn btn-submit" id="connectWithGit"> Sign in with GitHub</a>
+        </div>
         
     </div>
 </div>
