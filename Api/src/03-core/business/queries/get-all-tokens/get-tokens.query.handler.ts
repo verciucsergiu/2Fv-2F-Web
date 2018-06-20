@@ -13,18 +13,18 @@ export class GetTokensQueryHandler implements IQueryHandler<GetTokensQuery, GetT
     }
 
     public async retrieve(query: GetTokensQuery): Promise<GetTokensQueryResult> {
-        const students: any = await this.repository.getById(query.uuid);
+        const student: any = await this.repository.getById(query.uuid);
         const result : any = new Object();
         result.gitToken = "true";
         result.fbToken = "true";
         result.twToken = "true";
-        if (students.gitToken === "") {
+        if (student.gitToken === "") {
             result.gitToken = "false";
         }
-        if (students.fbToken === "") {
+        if (student.fbToken === "") {
             result.fbToken = "false";
         }
-        if (students.twToken === "") {
+        if (student.twToken === "") {
             result.twToken = "false";
         }
         return new GetTokensQueryResult(result);

@@ -1,25 +1,29 @@
 <div align="center">
     <h2>Welcome!</h2>
 </div>
-
-<div>
-    <p>Logged in as: <?= role?></p><br>
-    <? if(twitterAuthStatus == "waiting") {?>
-        <button id="twitterbutton">Connect With Twitter</button><br>
-    <? } ?>
-
-    <? if(twitterAuthStatus == "running") {?>
-        <input id="twitterpinfield" placeholder="twitter PIN">
-        <button id="entertwitterpin">Confirm</button><br>
-    <? } ?>
-
-    <? if(twitterAuthStatus == "confirmed") {?> 
-        <button id="sharetwitterpost">Share something</button>
-    <? } ?>
-
-</div>
-<? if(role=="student") { ?>
+<?if(role !== '') {?>
     <div>
-        <a href=<?= gitHubUrl?> class="gitHub-connecter" id="conenctToGit"> Sign in with GitHub</a>
+        <p>Logged in as: <?= role ?></p><br>
+        <? if(twitterAuthStatus == "waiting") {?>
+            <button id="twitterbutton">Connect With Twitter</button><br>
+        <? } ?>
+    
+        <? if(twitterAuthStatus == "running") {?>
+            <input id="twitterpinfield" placeholder="twitter PIN">
+            <button id="entertwitterpin">Confirm</button><br>
+        <? } ?>
+    
+        <? if(twitterAuthStatus == "confirmed") {?> 
+            <button id="sharetwitterpost">Share something</button>
+        <? } ?>
+    
     </div>
-<? } ?>
+    <? if(role=="student") { ?>
+        <?if(facebookStatus !== 'connected' && fbStatusLoaded === true){?>
+            <button class="btn btn-submit" id="loginFb">Connect With Facebook</button><br>
+        <?}?>
+        <div>
+            <a href= "https://github.com/login/oauth/authorize?client_id=17b94e383b4d34913743" class="gitHub-connecter" id="conenctToGit"> Sign in with GitHub</a>
+        </div>
+    <? } ?>
+<?}?>

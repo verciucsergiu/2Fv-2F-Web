@@ -26,6 +26,9 @@ export class Student extends BaseEntity {
     private fbToken : string = '';
 
     @Column()
+    private fbUserId : string = '';
+
+    @Column()
     private twToken : string = '';
 
     @OneToMany((type) => AttendanceComments, (attendanceComments) => attendanceComments.student)
@@ -40,5 +43,21 @@ export class Student extends BaseEntity {
 
     public getGitToken(): string {
         return this.gitToken;
+    }
+
+    public setFbToken(token: string): void {
+        this.fbToken = token;
+    }
+
+    public getFbToken(): string {
+        return this.fbToken;
+    }
+
+    public setFbUserId(id: string): void {
+        this.fbUserId = id;
+    }
+
+    public getFbUserId(): string {
+        return this.fbUserId;
     }
 }

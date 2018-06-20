@@ -43,7 +43,7 @@ var AuthService = class {
 
     static getUserRole() {
         let role = this.getDecodedToken().role;
-        return role.toLowerCase();
+        return role ? role.toLowerCase() : '';
     }
 
     static isLoggedIn() {

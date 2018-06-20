@@ -3,13 +3,18 @@ import {
     IActionResult,
     Ok, Controller, FromRoute, HttpPost,
     NotFound, FromBody, Created,
-    Authorize, HttpPatch
+    Authorize
 } from "../../framework/core";
 import { GetStudentsByGroupQuery, GetStudentsByGroupQueryResult } from "../03-core/business/queries/get-students-by-group";
 import { GetStudentsQuery, GetStudentsQueryResult } from "../03-core/business/queries/get-students";
 import { CommandDispatcher, QueryDispatcher } from "../../framework/CQRS";
 import { Inject } from "../../framework/injector";
-import { StudentModel, AddNewStudentCommand, GetAllStudentsQuery, GetAllStudentsQueryResult } from "../03-core/business";
+import {
+    StudentModel,
+    AddNewStudentCommand,
+    GetAllStudentsQuery,
+    GetAllStudentsQueryResult
+} from "../03-core/business";
 import { UserRole } from "../03-core/domain/user-role.enum";
 import { ApiController } from "../../framework/core/api-controller";
 import { GetStudentDetailsQuery } from "../03-core/business/queries/get-student-details/get-student-details.query";
