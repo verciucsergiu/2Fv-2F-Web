@@ -28,6 +28,9 @@ export class Student extends BaseEntity {
     @Column()
     private twToken : string = '';
 
+    @Column()
+    private gitMark : number;
+
     @OneToMany((type) => AttendanceComments, (attendanceComments) => attendanceComments.student)
     public attendanceComments: Array<AttendanceComments> = new Array<AttendanceComments>();
     public markAsDeleted(): void {
