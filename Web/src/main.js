@@ -14,7 +14,8 @@ addEventListener("load", () => {
             'pages/admin/admin.page.js',
             'pages/prof-register/register.page.js',
             'pages/logout/logout.page.js',
-            'pages/student-git/student-git.page.js'
+            'pages/student-git/student-git.page.js',
+            'pages/download-group/download-group.js'
         ],
         services: [
             'services/authentication.service.js',

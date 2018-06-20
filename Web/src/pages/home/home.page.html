@@ -3,10 +3,22 @@
 </div>
 
 <div>
-    <?= role?>
-        <button id="twitterbutton">twitter</button>
+    <p>Logged in as: <?= role?></p><br>
+    <? if(twitterAuthStatus == "waiting") {?>
+        <button id="twitterbutton">Connect With Twitter</button><br>
+    <? } ?>
+
+    <? if(twitterAuthStatus == "running") {?>
+        <input id="twitterpinfield" placeholder="twitter PIN">
+        <button id="entertwitterpin">Confirm</button><br>
+    <? } ?>
+
+    <? if(twitterAuthStatus == "confirmed") {?> 
+        <button id="sharetwitterpost">Share something</button>
+    <? } ?>
+
 </div>
-<? if(role=="user") { ?>
+<? if(role=="student") { ?>
     <div>
         <a href=<?= gitHubUrl?> class="gitHub-connecter" id="conenctToGit"> Sign in with GitHub</a>
     </div>

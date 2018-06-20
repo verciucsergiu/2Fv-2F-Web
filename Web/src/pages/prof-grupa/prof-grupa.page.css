@@ -16,13 +16,14 @@
     position: absolute;
     left: 50%;
     width: auto !important;
-    transform: translate(-50%, 0%);
+    transform: translate(-110%, 0%);
 }
 
-.save {
+.share {
     margin-top: -1%;
     position: absolute;
     left: 50%;
+    transform: translate(10%, 0%);
     width: auto !important;
 }
 

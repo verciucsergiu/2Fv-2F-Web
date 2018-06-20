@@ -10,6 +10,7 @@ var codebird = require('../../../node_modules/codebird');
 
             this.role = '';
             this.cb = new codebird;
+            this.twitterAuthStatus = "waiting";
 
             this.$onInit = () => {
                 //role
@@ -17,10 +18,15 @@ var codebird = require('../../../node_modules/codebird');
 
                 //codebird
                 this.cb.setConsumerKey('qNmVG4mMKW76TNI9pPhSRwt1h', 'HDqJqH47FVNnb8PATfaTHEQiqnmQcpWS77sVNZNNaJwBPF1nBE');
+                if (services.AuthService.getTwitterSecret() != null) {
+                    this.twitterAuthStatus = "confirmed";
+                    this.cb.setToken(services.AuthService.getTwitterToken(), services.AuthService.getTwitterSecret())
+                    this.$refresh();
+                }
                 //codebird
 
                 //github
-                if (this.role == "user") {
+                if (this.role == "student") {
                     this.gitHubUrl = "https://github.com/login/oauth/authorize?client_id=17b94e383b4d34913743";
                     services.MediaService.getTokens(this.tokensCallback, this.tokensErrorCallback);
 
@@ -47,23 +53,64 @@ var codebird = require('../../../node_modules/codebird');
             this.$on('#twitterbutton', 'click', function () {
                 this.initTwitter();
             }.bind(this));
+            this.$on('#entertwitterpin', 'click', function () {
+                this.enterpin();
+            }.bind(this));
+            this.$on('#sharetwitterpost', 'click', function () {
+                this.sharepost();
+            }.bind(this));
 
             this.initTwitter = () => {
+                if (!services.AuthService.getTwitterSecret()) {
+                    this.twitterAuthStatus = "running";
+                    this.authTwitter();
+                    this.$refresh();
+                } else {
+                    this.twitterAuthStatus = "confirmed";
+                    this.cb.setToken(services.AuthService.getTwitterToken(), services.AuthService.getTwitterSecret())
+                    this.$refresh();
+                }
+            }
+
+            this.authTwitter = () => {
                 this.cb.__call(
                     "oauth_requestToken",
                     { oauth_callback: "oob" },
-                    function (reply) {
+                    (reply) => {
                         // stores it
                         this.cb.setToken(reply.oauth_token, reply.oauth_token_secret);
-
+                        this.twitterAuthStatus = "confirming";
                         // gets the authorize screen URL
                         this.cb.__call(
                             "oauth_authorize",
                             {},
-                            function (auth_url) {
+                            (auth_url) => {
                                 window.codebird_auth = window.open(auth_url);
                             }
                         );
+                    }
+                );
+            }
+
+            this.enterpin = () => {
+                this.cb.__call(
+                    "oauth_accessToken",
+                    { oauth_verifier: document.getElementById("twitterpinfield").value },
+                    (reply) => {
+                        this.twitterAuthStatus = "confirmed";
+                        this.cb.setToken(reply.oauth_token, reply.oauth_token_secret);
+                        services.AuthService.saveTwitterToken(reply.oauth_token, reply.oauth_token_secret);
+                        this.$refresh();
+                    }
+                );
+            }
+
+            this.sharepost = () => {
+                this.cb.__call(
+                    "statuses_update",
+                    { "status": "On the HomePage of 2Fv2FWeb" },
+                    (reply) => {
+                        // console.log(reply);
                     }
                 );
             }
