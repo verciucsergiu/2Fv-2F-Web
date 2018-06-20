@@ -7,3 +7,4 @@ export * from './register.model';
 export * from './login.model';
 export * from './attendance-comments.model';
 export * from './prof-register.model';
+export * from './media-data.model';

@@ -20,10 +20,10 @@ var codebird = require('../../../node_modules/codebird');
                 //codebird
 
                 //github
-                if (this.role == "user") {
+                if (this.role == "student") {
                     this.gitHubUrl = "https://github.com/login/oauth/authorize?client_id=17b94e383b4d34913743";
                     services.MediaService.getTokens(this.tokensCallback, this.tokensErrorCallback);
-
+                    services.MediaService.getMediaData(this.tokensCallback, this.tokensErrorCallback) ;
                     var url_string = window.location.href;
                     var url = new URL(url_string);
                     this.code = url.searchParams.get("code");
@@ -31,7 +31,6 @@ var codebird = require('../../../node_modules/codebird');
                     if (this.code != null) {
 
                         services.MediaService.generateGitToken(this.code, services.AuthService.getFK(), () => {
-
                         }, this.lookuperr);
                     }
                 }

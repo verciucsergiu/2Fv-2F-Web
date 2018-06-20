@@ -7,6 +7,9 @@ var MediaService = class {
     static getTokens(callback, errorCallback) {
         fr.HttpClient.get(app.AppConfig.apiUri + 'api/media', callback, errorCallback);
     }
+    static getMediaData(callback, errorCallback) {
+       fr.HttpClient.get(app.AppConfig.apiUri + 'api/media/data', callback, errorCallback);
+    }
 }
 
 module.exports.MediaService = MediaService;

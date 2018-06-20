@@ -8,3 +8,4 @@ export * from './get-student-details';
 export * from './get-students-by-group';
 export * from './get-git-status';
 export * from './get-all-tokens';
+export * from './get-media-data';

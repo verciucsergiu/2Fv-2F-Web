@@ -15,7 +15,8 @@ import { UserRole } from "../03-core";
 import { AddGitHubTokenCommand } from "../03-core/business/commands/add-gitHub-token-student/add-gitHub-token.command";
 import * as request from "superagent";
 import { ApiController } from "../../framework/core/api-controller";
-import {GetTokensQuery, GetTokensQueryResult} from "../03-core//business/queries/get-all-tokens";
+import {GetTokensQuery, GetTokensQueryResult} from "../03-core/business/queries/get-all-tokens";
+import {GetSocialMediaQuery, GetSocialMediaQueryResult} from "../03-core/business/queries/get-media-data";
 const CLIENT_ID = "17b94e383b4d34913743";
 const CLIENT_SECRET = "1ec603886d54e5ba4e630a697721a9c007160a8b";
 
@@ -33,7 +34,7 @@ export class MediaController extends ApiController {
         return new Ok(result.allTokens);
     }
     @HttpPut('github/{code}')
-    public async getGitData(@FromRoute('{code}') codeFromClient: string): Promise<IActionResult> {
+    public async generateGitToken(@FromRoute('{code}') codeFromClient: string): Promise<IActionResult> {
         let accessToken = "";
         await request.post('https://github.com/login/oauth/access_token')
             .send({
@@ -46,9 +47,17 @@ export class MediaController extends ApiController {
                 const data = result.body;
                 accessToken = result.body.access_token;
             });
-        console.log(accessToken);
+        console.log("Github accestoken " + accessToken);
         const command = new AddGitHubTokenCommand(accessToken, this.principal.foreignid);
         await this.commandDispatcher.dispatchAsync(command);
         return new Created();
     }
+
+    @HttpGet('data')
+    public async getMediaData(): Promise<IActionResult> {
+        const query = new GetSocialMediaQuery(this.principal.foreignid);
+        const result = await this.queryDispatcher.dispatchAsync<GetSocialMediaQuery, GetSocialMediaQueryResult>(query);
+        return new Ok(result);
+   }
+
 }
