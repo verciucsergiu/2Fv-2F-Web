@@ -15,9 +15,8 @@ export class AddLinkedInMarkCommandHandler implements ICommandHandler<AddLinkedI
         console.log("lk token " + student.lnToken1 + student.lnToken2);
         //  try {
         await request
-            .get("https://api.linkedin.com/v2/people/~")
+            .get("https://api.linkedin.com/v1/jobs/~?format=json")
             .set('Authorization', 'Bearer ' + student.lnToken1 + student.lnToken2)
-            .set('Content-Type', 'application/json')
             .then((result) => {
                 console.log(result.body);
             });
