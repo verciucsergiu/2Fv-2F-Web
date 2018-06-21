@@ -126,8 +126,8 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
             this.$on('#entertwitterpinstd', 'click', function () {
                 this.enterpinstd();
             }.bind(this));
-            this.$on('#sharetwitterpoststd', 'click', function () {
-                this.shareTwitter();
+            this.$on('#twitterinfo', 'click', function () {
+                this.getTwitterData();
             }.bind(this));
 
             this.initTwitterstd = () => {
@@ -148,7 +148,7 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
                         "status": message
                     },
                     (reply) => {
-                         console.log(reply);
+                        //console.log(reply);
                     }
                 );
             }
@@ -196,7 +196,7 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
             this.tokensCallback = (response) => {
                 this.isLoggedInGithub = response.body.allTokens.gitToken;
                 this.isLoggedInLinkedin = response.body.allTokens.lnToken;
-                console.log(response.body);
+                //console.log(response.body);
             }
 
             this.groupRequestCallback = (response) => {
@@ -288,6 +288,15 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
             this.shareTwitter = () => {
                 let tweet = "Just sharing my grades: \nClasses ="+ this.identity.classesMark + "\nGitHub Mark ="+ this.identity.gitMark + "\nLinkedIn Mark="+ this.identity.linkedinMark + "\n\Final Mark ="+ this.identity.finalMark + "\n";
                 this.sharepoststd(tweet);
+            }
+
+            this.getTwitterData = () => {
+                this.cb.__call(
+                    "friends_list",
+                    (reply) => {
+                         console.log(reply);
+                    }
+                );
             }
         },
     );
