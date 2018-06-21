@@ -3,13 +3,13 @@ var services = require('../../services/index');
 var rt = require('../../../framework/router');
 (() => {
     rt.route('/student-home', {
-        templateUrl: './src/pages/student-home/student-home.page.html',
-        styleUrl: './src/pages/student-home/student-home.page.css',
-        guard: {
-            canEnter: [g.StudentGuard],
-            redirectTo: '/'
-        }
-    },
+            templateUrl: './src/pages/student-home/student-home.page.html',
+            styleUrl: './src/pages/student-home/student-home.page.css',
+            guard: {
+                canEnter: [g.StudentGuard],
+                redirectTo: '/'
+            }
+        },
 
         function () {
             this.group = "";
@@ -17,19 +17,15 @@ var rt = require('../../../framework/router');
             this.studentName = "";
             this.showPopup = false;
             this.info = [];
-            this.attendanceArray = [];
-            this.id = 1;
-            this.attendances = 0;
-            this.currentStudent
-            this.maxAttendances = 0;
-            this.studentAttendancies = 0;
+            this.attendanceArray= [];
+            this.currentStudent;
             this.cnp = "";
             this.chances = [];
-            this.promovare = "";
-            this.currentAttendancies = 0;
             this.fbStatusLoaded = false;
             this.facebookStatus = '';
-
+ 
+            this.isLoggedInGithub = "";
+            this.isLoggedInLinkedin = "";
             this.$on('#add-git-token', 'click', function () {
                 rt.Router.navigate('/student-add-git');
             }.bind(this));
@@ -39,16 +35,27 @@ var rt = require('../../../framework/router');
                 FB.login(function (response) {
                     this.facebookStatus = 'connected';
                     this.fbStatusLoaded = true;
-                    services.MediaService.addFacebookAuthToken(response.authResponse.accessToken, response.authResponse.userID, () => {
-                    })
+                    services.MediaService.addFacebookAuthToken(response.authResponse.accessToken, response.authResponse.userID, () => {})
                     this.$refresh();
                 }.bind(this));
             }.bind(this));
             this.$on('#connectWithGit', 'click', function () {
                 window.location.href = "https://github.com/login/oauth/authorize?client_id=17b94e383b4d34913743";
+
             }.bind(this));
-            
+            this.$on('#refreshMediaData', 'click', function () {
+                services.MediaService.getMediaData(this.gitTokenCallback, this.lookuperr);
+                this.$refresh();
+            }.bind(this));
+
             this.$onInit = () => {
+                var url_string = window.location.href;
+                var url = new URL(url_string);
+                let code = url.searchParams.get("code");
+
+                if (code != null) {
+                    services.MediaService.generateGitToken(code, services.AuthService.getFK(), this.gitTokenCallback, this.lookuperr);
+                }
 
                 FB.init({
                     appId: '177880766235218',
@@ -59,12 +66,12 @@ var rt = require('../../../framework/router');
                 FB.getLoginStatus((response) => {
                     this.facebookStatus = response.status;
                     this.fbStatusLoaded = true;
-                    console.log(response);
                     this.$refresh();
                 });
 
                 services.StudentService.getStudentDetails((response) => {
-                    console.log(response.body);
+                    this.attendanceArray.push(response.body.attendanceComments);
+                    console.log(response.body.attendanceComments);
                     let jsonResponse = response.body;
                     this.studentName = jsonResponse.firstName + ' ' + jsonResponse.lastName;
                     this.currentStudent = this.studentName;
@@ -72,51 +79,25 @@ var rt = require('../../../framework/router');
                     this.cnp = jsonResponse.cnp;
                     services.StudentService.getStudentsFromGroup(response.body.group, this.callback, this.lookuperr);
                 });
+                services.MediaService.getTokens(this.tokensCallback, this.tokensErrorCallback);
             }
-
+            this.tokensCallback = (response) => {
+                this.isLoggedInGithub = response.body.allTokens.gitToken;
+                this.isLoggedInLinkedin = response.body.allTokens.lnToken;
+                console.log(response.body);
+            }
             this.callback = (response) => {
                 let jsonResponse = response.body;
-                console.log(jsonResponse);
                 for (let student of jsonResponse) {
                     this.studentName = student.firstName + ' ' + student.lastName;
                     this.info.push(student);
-                    if (student.id == this.id) {
-                        this.attendanceArray = student.attendanceComments;
-                    }
-                    for (let attendance of student.attendanceComments) {
-                        if (this.id == student.id) {
-                            this.studentAttendancies++;
-                        }
-                        if (attendance.value !== "") {
-                            this.attendances++;
-                            if (attendance.weekNumber > this.max)
-                                this.max = attendance.weekNumber;
-                        }
 
-                    }
-                    if (this.attendances > this.maxAttendances) this.maxAttendances = this.attendances;
-                    if (this.studentName === this.currentStudent) this.currentAttendances = this.attendances;
-                    this.chances.push(this.attendances);
-                    this.attendances = 0;
                 }
-
-                this.attendanceArray.sort((a, b) => {
-                    return (a.weekNumber > b.weekNumber);
-                });
-
-                this.currentAttendancies = this.currentAttendancies / this.maxAttendances;
-                for (let [index, chance] of this.chances.entries()) {
-                    this.chances[index] = this.chances[index] / this.maxAttendances;
-                }
-                console.log(this.max);
-                this.$refresh();
-
             }
-            this.lookuperr = () => {
-            }
+            this.lookuperr = () => {}
 
 
-            this.tableHeader = ["First name", "Last name", "Sansa Promovare"];
+            this.tableHeader = ["First name", "Last name", "Classes score", "GitHub score", "Linkedin score", "Final score", "Will promote"];
 
             this.recommendations = [
                 "https://eager.io/blog/the-history-of-the-url-path-fragment-query-auth/",
@@ -179,4 +160,3 @@ var rt = require('../../../framework/router');
         },
     );
 })();
-

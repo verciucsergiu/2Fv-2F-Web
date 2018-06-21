@@ -17,15 +17,15 @@ export class GetTokensQueryHandler implements IQueryHandler<GetTokensQuery, GetT
         const result : any = new Object();
         result.gitToken = "true";
         result.fbToken = "true";
-        result.twToken = "true";
+        result.lnToken = "true";
         if (student.gitToken === "") {
             result.gitToken = "false";
         }
         if (student.fbToken === "") {
             result.fbToken = "false";
         }
-        if (student.twToken === "") {
-            result.twToken = "false";
+        if (student.lnToken === "") {
+            result.lnToken = "false";
         }
         return new GetTokensQueryResult(result);
     }

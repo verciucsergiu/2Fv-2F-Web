@@ -23,31 +23,7 @@ var codebird = require('../../../node_modules/codebird');
                     this.$refresh();
                 }
                 //codebird
-
-                //github
-                if (this.role == "student") {
-                    
-                    services.MediaService.getTokens(this.tokensCallback, this.tokensErrorCallback);
-                    services.MediaService.getMediaData(this.tokensCallback, this.tokensErrorCallback);
-                    var url_string = window.location.href;
-                    var url = new URL(url_string);
-                    this.code = url.searchParams.get("code");
-
-                    if (this.code != null) {
-
-                        services.MediaService.generateGitToken(this.code, services.AuthService.getFK(), () => {
-                        }, this.lookuperr);
-
-                        window.location.href = services.AppConfig.webBaseUrl + 'student-home';
-                    }
-                }
             }
-
-            this.tokensCallback = (response) => {
-                let jsonResponse = response.body;
-                console.log(jsonResponse);
-            }
-
             // ------------------------------------------------------------------
             // TWITTER
             this.$on('#twitterbutton', 'click', function () {

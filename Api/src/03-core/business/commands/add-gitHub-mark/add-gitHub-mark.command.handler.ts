@@ -19,61 +19,63 @@ export class AddGitHubMarkCommandHandler implements ICommandHandler<AddGitHubMar
         let contribuitorsURL: any = "";
         let languagesURL: any = "";
         let totalPoints: number = 0;
-
-        await request
-            .get("https://api.github.com/user")
-            .set('Authorization', 'token ' + student.gitToken)
-            .then((result) => {
-                this.currentGitUser = result.body.login;
-            });
-
-        await request
-            .get("https://api.github.com/user/repos")
-            .set('Authorization', 'token ' + student.gitToken)
-            .then((result) => {
-                bodyJson = result.body;
-            });
-        for (const repo of bodyJson) {
-            contribuitorsURL = repo.contributors_url;
-            languagesURL = repo.languages_url;
-            let specificWebLanguages: number = 0;
-            let totalLanguages: number = 0;
-            console.log(languagesURL);
+        try {
             await request
-                .get(languagesURL)
+                .get("https://api.github.com/user")
                 .set('Authorization', 'token ' + student.gitToken)
                 .then((result) => {
-                    for (const language in result.body) {
-                        if (result.body.hasOwnProperty(language)) {
-                            console.log(language, result.body[language]);
-                            if (REFFERENCELANGUAGES.some((x: string) => x === language)) {
-                                specificWebLanguages += result.body[language];
+                    this.currentGitUser = result.body.login;
+                });
+            await request
+                .get("https://api.github.com/user/repos")
+                .set('Authorization', 'token ' + student.gitToken)
+                .then((result) => {
+                    bodyJson = result.body;
+                });
+            for (const repo of bodyJson) {
+                contribuitorsURL = repo.contributors_url;
+                languagesURL = repo.languages_url;
+                let specificWebLanguages: number = 0;
+                let totalLanguages: number = 0;
+                console.log(languagesURL);
+                await request
+                    .get(languagesURL)
+                    .set('Authorization', 'token ' + student.gitToken)
+                    .then((result) => {
+                        for (const language in result.body) {
+                            if (result.body.hasOwnProperty(language)) {
+                                console.log(language, result.body[language]);
+                                if (REFFERENCELANGUAGES.some((x: string) => x === language)) {
+                                    specificWebLanguages += result.body[language];
+                                }
+                                totalLanguages += result.body[language];
                             }
-                            totalLanguages += result.body[language];
                         }
-                    }
-                });
+                    });
 
-            await request
-                .get(contribuitorsURL)
-                .set('Authorization', 'token ' + student.gitToken)
-                .then((result) => {
+                await request
+                    .get(contribuitorsURL)
+                    .set('Authorization', 'token ' + student.gitToken)
+                    .then((result) => {
 
-                    let totalRepoContributions: number = 0;
-                    let currentUserRepoContributions: number = 0;
-                    for (const contribuitor of result.body) {
+                        let totalRepoContributions: number = 0;
+                        let currentUserRepoContributions: number = 0;
+                        for (const contribuitor of result.body) {
 
-                        totalRepoContributions = totalRepoContributions + contribuitor.contributions;
-                        if (contribuitor.login === this.currentGitUser) {
-                            currentUserRepoContributions = currentUserRepoContributions + contribuitor.contributions;
+                            totalRepoContributions = totalRepoContributions + contribuitor.contributions;
+                            if (contribuitor.login === this.currentGitUser) {
+                                currentUserRepoContributions = currentUserRepoContributions + contribuitor.contributions;
+                            }
                         }
-                    }
-                    totalPoints = totalPoints + (currentUserRepoContributions / totalRepoContributions) *
-                        (totalRepoContributions / REFFERENCECOMMITSNUMBER) + (currentUserRepoContributions / totalRepoContributions) *
-                        (totalRepoContributions / REFFERENCECOMMITSNUMBER) * specificWebLanguages / totalLanguages;
+                        totalPoints = totalPoints + (currentUserRepoContributions / totalRepoContributions) *
+                            (totalRepoContributions / REFFERENCECOMMITSNUMBER) + (currentUserRepoContributions / totalRepoContributions) *
+                            (totalRepoContributions / REFFERENCECOMMITSNUMBER) * specificWebLanguages / totalLanguages;
 
-                });
+                    });
 
+            }
+        } catch {
+            student.gitToken = "";
         }
         student.gitMark = totalPoints;
         console.log(totalPoints);

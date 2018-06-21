@@ -44,8 +44,20 @@
                                     <?= user.lastName?>
                                 </td>
                                 <td>
-                                    <?= chances[index]?>
+                                    <?= user.classesMark?> /10
                                 </td>
+                                <td>
+                                    <?= user.gitMark?> /10
+                                </td>
+                                <td>
+                                    <?= user.linkedinMark?> /10
+                                </td>
+                                <td>
+                                     <?= user.finalMark?> /10
+                                </td>
+                                <td>
+                                    <?= user.willPromote?>
+                                </td>    
                             </tr>
                             <?}?>
                     </tbody>
@@ -75,8 +87,9 @@
                 </thead>
                 <tbody class="attendance-table-body">
                     <tr class="attendance-table-body-row">
-                        <? for(saptamana=0;saptamana<13;saptamana++) { ?>
+                            <? for(saptamana=0;saptamana<13;saptamana++) { ?>
                             <td class="attendance-col">
+                                    <?= attendanceArray[0][saptamana].value ?>
                             </td>  
                         <?}?>
                     </tr>
@@ -108,10 +121,11 @@
                     </thead>
                     <tbody class="attendance-table-body">
                         <tr class="attendance-table-body-row">
-                            <? for(saptamana=0;saptamana<13;saptamana++) { ?>
-                                <td class="attendance-col">
-                                </td>   
-                            <?}?>
+                                <? for(saptamana=0;saptamana<13;saptamana++) { ?>
+                                        <td class="attendance-col">
+                                                <?= attendanceArray[0][saptamana].comment ?>
+                                        </td>  
+                                    <?}?>
                         </tr>
                     </tbody>
             
@@ -123,28 +137,17 @@
 
 
 
-            <!-- <button class="btn btn-submit">Add/Update GitHub token</button> -->
-            <section>
-                <? if(currentAttendancies < 0.5) { ?>
-                            <div class="recommend-div">
-                            <p class="recommend-head"> Recomandari </p>
-                            <ul class="recommend-list">
-                              <a href="<?= recommendations[max*3]?>">  <?= recommendations[max*3]?>   </a><br>
-                              <a href="<?= recommendations[max*3+1]?>"> <?= recommendations[max*3+1]?></a><br>
-                              <a href="<?= recommendations[max*3+2]?>"> <?= recommendations[max*3+2]?> </a><br>
-                            </ul>
-                        </div>
-            
-                                <?}?>
-            
-            </section>
         </section>
         <?if(facebookStatus !== 'connected' && fbStatusLoaded === true){?>
             <button class="btn btn-submit" id="loginFb">Connect With Facebook</button><br>
         <?}?>
+        <?if( isLoggedInGithub == "false"){?>
         <div>
-            <button  class="btn btn-submit" id="connectWithGit"> Sign in with GitHub</a>
+            <button  class="btn btn-submit" id="connectWithGit"> Sign in with GitHub</button></a>
         </div>
-        
+        <?}?>
+        <div>
+            <button  class="btn btn-submit" id="refreshMediaData"> Refresh media data</button></a>
+        </div>
     </div>
 </div>

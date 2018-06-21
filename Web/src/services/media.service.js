@@ -4,8 +4,8 @@ var MediaService = class {
     static generateGitToken(code, fk, callback, errorCallback) {
         fr.HttpClient.put(app.AppConfig.apiUri + 'api/media/github/' + code, JSON.stringify({}), callback, errorCallback);
     }
-    static getTokens(callback, errorCallback) {
-        fr.HttpClient.get(app.AppConfig.apiUri + 'api/media', callback, errorCallback);
+    static getTokens(tokensCallback, tokensErrorCallback) {
+        fr.HttpClient.get(app.AppConfig.apiUri + 'api/media', tokensCallback, tokensErrorCallback);
     }
     static getMediaData(callback, errorCallback) {
        fr.HttpClient.get(app.AppConfig.apiUri + 'api/media/data', callback, errorCallback);

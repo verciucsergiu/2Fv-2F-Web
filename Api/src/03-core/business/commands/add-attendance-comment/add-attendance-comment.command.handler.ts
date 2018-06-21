@@ -14,7 +14,6 @@ export class AddAttendanceCommentsCommandHandler implements ICommandHandler<AddA
     }
 
     public async handle(command: AddAttendanceCommentCommand): Promise<void> {
-        console.log("ici");
         const attendance: AttendanceComments = Object.assign(new AttendanceComments(), command.attendanceCommentModel);
         const student: any = await this.studentRepository.getStudentWithAttendance(command.uuid);
         attendance.student = student;

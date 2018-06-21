@@ -33,7 +33,7 @@ export class MediaController extends ApiController {
     public async getTokens(): Promise<IActionResult> {
         const query = new GetTokensQuery(this.principal.foreignid);
         const result = await this.queryDispatcher.dispatchAsync<GetTokensQuery, GetTokensQueryResult>(query);
-        return new Ok(result.allTokens);
+        return new Ok(result);
     }
     @HttpPut('github/{code}')
     @Authorize({ role: UserRole[UserRole.Student] })

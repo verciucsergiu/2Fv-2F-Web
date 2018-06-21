@@ -29,13 +29,24 @@ export class Student extends BaseEntity {
     private fbUserId: string = '';
 
     @Column()
-    private twToken: string = '';
+    private lnToken: string = '';
 
     @Column()
     private fbPoints: number = 0;
 
     @Column()
-    private gitMark : number;
+    private classesMark : number = 0;
+    @Column()
+    private gitMark : number = 0;
+
+    @Column()
+    private linkedinMark : number = 0;
+
+    @Column()
+    private finalMark : number = 0;
+
+    @Column()
+    private willPromote : string = "No";
 
     @OneToMany((type) => AttendanceComments, (attendanceComments) => attendanceComments.student)
     public attendanceComments: Array<AttendanceComments> = new Array<AttendanceComments>();
