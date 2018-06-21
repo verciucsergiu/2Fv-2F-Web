@@ -12,7 +12,6 @@ export class AddLinkedInMarkCommandHandler implements ICommandHandler<AddLinkedI
     }
     public async handle(command: AddLinkedInMarkCommand): Promise<void> {
         const student: any = await this.studentRepository.getStudentWithAttendance(command.uuid);
-        console.log("lk token " + student.lnToken1 + student.lnToken2);
         await request
             .get("https://api.linkedin.com/v1/people/~?format=json")
             /* .send({
@@ -45,9 +44,7 @@ export class AddLinkedInMarkCommandHandler implements ICommandHandler<AddLinkedI
                     || result.body.headline === "WebDeveloper") {
                     student.linkedinMark = 1;
                 }
-                console.log(result.body);
             }).catch((err) => {
-                console.log(err);
                 student.lnToken1 = "";
                 student.lnToken2 = "";
             });

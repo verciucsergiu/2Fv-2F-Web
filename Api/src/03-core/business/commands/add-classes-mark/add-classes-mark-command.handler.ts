@@ -17,7 +17,6 @@ export class AddClassesMarkCommandHandler implements ICommandHandler<AddClassesM
         let classMark : number = 0;
         while (i < 13) {
             const attendance : any = await this.attendanceRepository.getAttendance(command.uuid, i);
-            console.log(student);
             classMark += attendance.value / 13;
             if (attendance.value !== "" || attendance.comment !== "") {
                 classMark += PRESENCEBONUS;

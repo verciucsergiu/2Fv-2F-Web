@@ -150,23 +150,19 @@
                 </section>
                 <?if(facebookStatus !== 'connected' && fbStatusLoaded === true){?>
                     <button class="btn btn-submit" id="loginFb">Connect With Facebook</button>
-                    <br>
                 <?}?>
                         <?if( isLoggedInGithub == "false"){?>
                             <div>
                                 <button class="btn btn-submit" id="connectWithGit"> Sign in with GitHub</button>
-                                </a>
                             </div>
                             <? } ?>
                                 <?if( isLoggedInLinkedin == "false"){?>
                                     <div>
                                         <button class="btn btn-submit" id="connectWithLk"> Sign in with LinkedIn</button>
-                                        </a>
                                     </div>
                                     <? } ?>
                                         <div>
-                                            <button class="btn btn-submit" id="refreshMediaData"> Refresh media data</button>
-                                            </a>
+                                            <button class="btn btn-submit" id="refreshMediaData" <?if(refreshRequestSent) {?> disabled <?}?> > <?if(refreshRequestSent) {?> Loading... <?}else{?>Refresh media data <?}?></button>
                                         </div>
                                         <div>
                                                 <? if(twitterAuthStatus == "waiting") {?>

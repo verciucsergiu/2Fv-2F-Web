@@ -54,7 +54,6 @@ export class MediaController extends ApiController {
                 const data = result.body;
                 accessToken = result.body.access_token;
             });
-        console.log("Github accestoken " + accessToken);
         const command = new AddGitHubTokenCommand(accessToken, this.principal.foreignid);
         await this.commandDispatcher.dispatchAsync(command);
         return new Created();
@@ -77,7 +76,6 @@ export class MediaController extends ApiController {
 
     @HttpPut('lemur')
     public async attachLinkedToken(@FromBody() linkedinTokenModel: LinkedInTokenModel): Promise<IActionResult> {
-        console.log(linkedinTokenModel.authToken);
         const command = new AddLinkedTokenCommand(linkedinTokenModel.authToken, this.principal.foreignid);
         await this.commandDispatcher.dispatchAsync(command);
         return new Ok();
