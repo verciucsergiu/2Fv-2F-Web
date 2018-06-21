@@ -1,11 +1,15 @@
 var rt = require('../../../framework/router');
 var services = require('../../services/index');
 var codebird = require('../../../node_modules/codebird');
+var request = require('../../../node_modules/superagent');
+const LINKED_CLIENT_ID = "781qvgq30f1r1m";
+const LINKED_CLIENT_SECRET = "DDjbekhvYRM79KYD";
+const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
 (() => {
     rt.route('/', {
-        templateUrl: './src/pages/home/home.page.html',
-        styleUrl: './src/pages/home/home.page.css'
-    },
+            templateUrl: './src/pages/home/home.page.html',
+            styleUrl: './src/pages/home/home.page.css'
+        },
         function () {
 
             this.role = '';
@@ -23,6 +27,22 @@ var codebird = require('../../../node_modules/codebird');
                     this.$refresh();
                 }
                 //codebird
+
+                //LINKEDIN
+
+                var url_string = window.location.href;
+                var url = new URL(url_string);
+                let code = url.searchParams.get("code");
+
+                if (code != null) {
+                    window.location.href = "https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code&redirect_uri=" + LINKED_REDIRECT_URI + "&client_id=" + LINKED_CLIENT_ID + "&client_secret=" + LINKED_CLIENT_SECRET + "&code=" + code;
+                    code = null;
+                }
+
+                //LINKKEDIN
+
+
+
             }
             // ------------------------------------------------------------------
             // TWITTER
@@ -35,6 +55,11 @@ var codebird = require('../../../node_modules/codebird');
             this.$on('#sharetwitterpost', 'click', function () {
                 this.sharepost();
             }.bind(this));
+
+            this.$on('#enterlinkedinpin', 'click', function(){
+                console.log(document.getElementById("linkedpinfield").value);
+                services.MediaService.addLinkedInAuthToken(document.getElementById("linkedpinfield").value);
+            })
 
             this.initTwitter = () => {
                 if (!services.AuthService.getTwitterSecret()) {
@@ -50,16 +75,16 @@ var codebird = require('../../../node_modules/codebird');
 
             this.authTwitter = () => {
                 this.cb.__call(
-                    "oauth_requestToken",
-                    { oauth_callback: "oob" },
+                    "oauth_requestToken", {
+                        oauth_callback: "oob"
+                    },
                     (reply) => {
                         // stores it
                         this.cb.setToken(reply.oauth_token, reply.oauth_token_secret);
                         this.twitterAuthStatus = "confirming";
                         // gets the authorize screen URL
                         this.cb.__call(
-                            "oauth_authorize",
-                            {},
+                            "oauth_authorize", {},
                             (auth_url) => {
                                 window.codebird_auth = window.open(auth_url);
                             }
@@ -70,8 +95,9 @@ var codebird = require('../../../node_modules/codebird');
 
             this.enterpin = () => {
                 this.cb.__call(
-                    "oauth_accessToken",
-                    { oauth_verifier: document.getElementById("twitterpinfield").value },
+                    "oauth_accessToken", {
+                        oauth_verifier: document.getElementById("twitterpinfield").value
+                    },
                     (reply) => {
                         this.twitterAuthStatus = "confirmed";
                         this.cb.setToken(reply.oauth_token, reply.oauth_token_secret);
@@ -83,8 +109,9 @@ var codebird = require('../../../node_modules/codebird');
 
             this.sharepost = () => {
                 this.cb.__call(
-                    "statuses_update",
-                    { "status": "On the HomePage of 2Fv2FWeb" },
+                    "statuses_update", {
+                        "status": "On the HomePage of 2Fv2FWeb"
+                    },
                     (reply) => {
                         // console.log(reply);
                     }

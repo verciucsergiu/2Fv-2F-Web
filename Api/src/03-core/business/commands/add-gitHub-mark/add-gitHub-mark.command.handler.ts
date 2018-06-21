@@ -78,6 +78,7 @@ export class AddGitHubMarkCommandHandler implements ICommandHandler<AddGitHubMar
             student.gitToken = "";
         }
         student.gitMark = totalPoints;
+        if (student.gitMark > 15) {student.gitMark = 15; }
         console.log(totalPoints);
         await this.studentRepository.update(student);
     }

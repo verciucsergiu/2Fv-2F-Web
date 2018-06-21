@@ -1,4 +1,5 @@
-import { ProfessorController, GroupController, AttendanceCommentsController, StudentsController, AuthController } from './01-controllers';
+import { ProfessorController, GroupController, AttendanceCommentsController,
+     StudentsController, AuthController, MediaController } from './01-controllers';
 import { WebApi } from '../framework/core';
 
 @WebApi({
@@ -7,7 +8,8 @@ import { WebApi } from '../framework/core';
         GroupController,
         AttendanceCommentsController,
         StudentsController,
-        AuthController
+        AuthController,
+        MediaController
     ],
     settings: {
         port: 4200,

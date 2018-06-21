@@ -17,6 +17,7 @@ export class AddFinalMarkCommandHandler implements ICommandHandler<AddFinalMarkC
         if (finalMark < 5)  {
             student.willPromote = "No";
         }
+        if (student.finalMark > 10) { student.finalMark = 10; }
         await this.studentRepository.update(student);
     }
 }

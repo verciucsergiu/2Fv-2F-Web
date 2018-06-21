@@ -1,6 +1,7 @@
 var g = require('../../guards/student.guard');
 var services = require('../../services/index');
 var rt = require('../../../framework/router');
+const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
 (() => {
     rt.route('/student-home', {
             templateUrl: './src/pages/student-home/student-home.page.html',
@@ -17,13 +18,12 @@ var rt = require('../../../framework/router');
             this.studentName = "";
             this.showPopup = false;
             this.info = [];
-            this.attendanceArray= [];
             this.currentStudent;
             this.cnp = "";
             this.chances = [];
             this.fbStatusLoaded = false;
             this.facebookStatus = '';
- 
+            this.attendanceArray = "";
             this.isLoggedInGithub = "";
             this.isLoggedInLinkedin = "";
             this.$on('#add-git-token', 'click', function () {
@@ -43,6 +43,12 @@ var rt = require('../../../framework/router');
                 window.location.href = "https://github.com/login/oauth/authorize?client_id=17b94e383b4d34913743";
 
             }.bind(this));
+
+            this.$on('#connectWithLk', 'click', function () {
+                window.location.href = 
+                "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=781qvgq30f1r1m&redirect_uri="+LINKED_REDIRECT_URI+"&state=886474868343";
+            }.bind(this));
+
             this.$on('#refreshMediaData', 'click', function () {
                 services.MediaService.getMediaData(this.gitTokenCallback, this.lookuperr);
                 this.$refresh();
@@ -70,8 +76,8 @@ var rt = require('../../../framework/router');
                 });
 
                 services.StudentService.getStudentDetails((response) => {
-                    this.attendanceArray.push(response.body.attendanceComments);
-                    console.log(response.body.attendanceComments);
+                    this.attendanceArray = response.body.attendanceComments;
+                    console.log(this.attendanceArray[0]);
                     let jsonResponse = response.body;
                     this.studentName = jsonResponse.firstName + ' ' + jsonResponse.lastName;
                     this.currentStudent = this.studentName;

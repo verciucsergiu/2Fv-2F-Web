@@ -12,3 +12,5 @@ export * from './add-git-token-student';
 export * from './add-gitHub-token-student';
 export * from './add-classes-mark';
 export * from './add-final-mark';
+export * from './add-linked-token';
+export * from './add-linkedin-mark';

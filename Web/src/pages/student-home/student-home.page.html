@@ -87,9 +87,9 @@
                 </thead>
                 <tbody class="attendance-table-body">
                     <tr class="attendance-table-body-row">
-                            <? for(saptamana=0;saptamana<13;saptamana++) { ?>
+                            <? for(saptamana=0;saptamana<12;saptamana++) { ?>
                             <td class="attendance-col">
-                                    <?= attendanceArray[0][saptamana].value ?>
+                                   
                             </td>  
                         <?}?>
                     </tr>
@@ -123,7 +123,7 @@
                         <tr class="attendance-table-body-row">
                                 <? for(saptamana=0;saptamana<13;saptamana++) { ?>
                                         <td class="attendance-col">
-                                                <?= attendanceArray[0][saptamana].comment ?>
+                                               
                                         </td>  
                                     <?}?>
                         </tr>
@@ -145,7 +145,12 @@
         <div>
             <button  class="btn btn-submit" id="connectWithGit"> Sign in with GitHub</button></a>
         </div>
-        <?}?>
+        <? } ?>
+        <?if( isLoggedInLinkedin == "false"){?>
+            <div>
+                <button  class="btn btn-submit" id="connectWithLk"> Sign in with LinkedIn</button></a>
+            </div>
+        <? } ?>    
         <div>
             <button  class="btn btn-submit" id="refreshMediaData"> Refresh media data</button></a>
         </div>

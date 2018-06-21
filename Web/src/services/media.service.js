@@ -4,6 +4,9 @@ var MediaService = class {
     static generateGitToken(code, fk, callback, errorCallback) {
         fr.HttpClient.put(app.AppConfig.apiUri + 'api/media/github/' + code, JSON.stringify({}), callback, errorCallback);
     }
+    static generateLinkedToken(code, fk, callback, errorCallback) {
+        fr.HttpClient.put(app.AppConfig.apiUri + 'api/media/linked', JSON.stringify({}) ,callback, errorCallback);
+    }
     static getTokens(tokensCallback, tokensErrorCallback) {
         fr.HttpClient.get(app.AppConfig.apiUri + 'api/media', tokensCallback, tokensErrorCallback);
     }
@@ -13,6 +16,10 @@ var MediaService = class {
     static addFacebookAuthToken(token, userId, callback, errorCallback) {
         let body = JSON.stringify({ authToken: token, userId: userId });
         fr.HttpClient.put(app.AppConfig.apiUri + 'api/media/facebook', body, callback, errorCallback);
+    }
+    static addLinkedInAuthToken(token, callback, errorCallback) {
+        let body = JSON.stringify({ authToken: token });
+        fr.HttpClient.put(app.AppConfig.apiUri + 'api/media/lemur', body, callback, errorCallback);
     }
 }
 
