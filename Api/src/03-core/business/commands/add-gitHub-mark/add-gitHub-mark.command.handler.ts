@@ -44,7 +44,6 @@ export class AddGitHubMarkCommandHandler implements ICommandHandler<AddGitHubMar
                     .then((result) => {
                         for (const language in result.body) {
                             if (result.body.hasOwnProperty(language)) {
-                                console.log(language, result.body[language]);
                                 if (REFFERENCELANGUAGES.some((x: string) => x === language)) {
                                     specificWebLanguages += result.body[language];
                                 }
@@ -79,7 +78,6 @@ export class AddGitHubMarkCommandHandler implements ICommandHandler<AddGitHubMar
         }
         student.gitMark = totalPoints;
         if (student.gitMark > 15) {student.gitMark = 15; }
-        console.log(totalPoints);
         await this.studentRepository.update(student);
     }
 }

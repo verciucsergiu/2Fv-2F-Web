@@ -104,10 +104,10 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
             this.$on('#shareStudOnLinkedIn', 'click', function () {
                 this.shareLinkedIn();
             }.bind(this));
-
+            
             // --------------------------------------------------------------- share btn
             this.mediaCallback = () => { // once the server updates data, request it
-                services.StudentService.getStudentsFromGroup(this.group, this.callback, this.lookuperr);
+                services.StudentService.getStudentsFromGroup(this.group, this.groupRequestCallback, this.lookuperr);
             }
 
             this.tokensCallback = (response) => {
@@ -134,7 +134,7 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
 
             this.lookuperr = () => { }
 
-            this.tableHeader = ["First name", "Last name", "Classes score", "GitHub score", "Linkedin score", "Final score", "Will promote"];
+            this.tableHeader = ["First name", "Last name", "Classes score", "GitHub score", "Linkedin bonus", "Final score", "Will promote"];
 
             this.recommendations = [
                 "https://eager.io/blog/the-history-of-the-url-path-fragment-query-auth/",

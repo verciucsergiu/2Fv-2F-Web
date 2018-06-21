@@ -13,18 +13,44 @@ export class AddLinkedInMarkCommandHandler implements ICommandHandler<AddLinkedI
     public async handle(command: AddLinkedInMarkCommand): Promise<void> {
         const student: any = await this.studentRepository.getStudentWithAttendance(command.uuid);
         console.log("lk token " + student.lnToken1 + student.lnToken2);
-        //  try {
         await request
-            .get("https://api.linkedin.com/v1/jobs/~?format=json")
+            .get("https://api.linkedin.com/v1/people/~?format=json")
+            /* .send({
+                 owner: "urn:li:person:324_kGGaLE",
+                 text: {
+                   text: "Test Share!"
+                 },
+                 subject: "Test Share Subject",
+                 distribution: {
+                   linkedInDistributionTarget: {}
+                 },
+                 content: {
+                   contentEntities: [
+                     {
+                       entityLocation: "https://www.example.com/content.html",
+                       thumbnails: [
+                         {
+                           resolvedUrl: "https://www.example.com/image.jpg"
+                         }
+                       ]
+                     }
+                   ],
+                   title: "Test Share with Content"
+                 }
+               })*/
             .set('Authorization', 'Bearer ' + student.lnToken1 + student.lnToken2)
+            .set('Content-Type', 'application/json')
             .then((result) => {
+                if (result.body.headline === "Programator" || result.body.headline === "Developer"
+                    || result.body.headline === "WebDeveloper") {
+                    student.linkedinMark = 1;
+                }
                 console.log(result.body);
+            }).catch((err) => {
+                console.log(err);
+                student.lnToken1 = "";
+                student.lnToken2 = "";
             });
-        // } catch {
-        //     student.lnToken1 = "";
-        //    student.lnToken2 = "";
-        //     await this.studentRepository.update(student);
-        //  }
-
+        await this.studentRepository.update(student);
     }
 }
