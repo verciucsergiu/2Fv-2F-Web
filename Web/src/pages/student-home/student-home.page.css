@@ -32,32 +32,18 @@
 
 .regular-student>td {
     text-align: center;
-    font-weight: bold;
     font-size: 15px;
     color: #000;
-    border-bottom: solid 1px rgba(255, 255, 255, 0.1);
     position: relative;
-    opacity: 0.5;
-}
-
-.regular-student>td:hover:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: -9999px;
-    bottom: -9999px;
-    background-color: rgba(255, 255, 255, 0.2);
-    z-index: -1;
+    opacity: 0.9;
 }
 
 .chosen-student>td {
     text-align: center;
     padding: 15px;
-    font-weight: 500;
+    font-weight: bold;
     font-size: 14px;
-    color: #000;
-    border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+    color: #689ee4;
     position: relative;
 }
 
@@ -238,7 +224,7 @@
 }
 
 .box-container {
-    width: 80%;
+    width: 90%;
     margin-top: 25px;
     margin-bottom: 25px;
     display: flex;

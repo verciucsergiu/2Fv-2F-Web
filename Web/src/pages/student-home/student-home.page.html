@@ -24,7 +24,7 @@
         </section>
         <section>
 
-            <div style="overflow-x:auto">
+            <div>
                 <table class="student-table">
 
                     <thead class="student-table-head">
@@ -39,7 +39,7 @@
                     <tbody class="student-table-body">
                         <? for(let [index, user] of info.entries()) { ?>
                             <tr class="student-table-body-row 
-                            <? if (user.username == username ) 
+                            <? if (user.id == studentId ) 
                                 {?> chosen-student 
                                     <?}else{?> 
                                         regular-student<?}?> ">
@@ -54,6 +54,12 @@
                                 </td>
                                 <td>
                                     <?= user.gitMark?> /10
+                                </td>
+                                <td>
+                                    <?= user.fbMark?> /10
+                                </td>
+                                <td>
+                                    <?= user.twitterMark?> /10
                                 </td>
                                 <td>
                                     <?= user.linkedinMark?> 
@@ -159,7 +165,7 @@
                                     </div>
                                     <? } ?>
                                         <div>
-                                            <button class="btn btn-submit" id="refreshMediaData" <?if(refreshRequestSent) {?> disabled <?}?> > <?if(refreshRequestSent) {?> Loading... <?}else{?>Refresh media data <?}?></button>
+                                            <button class="btn btn-submit" id="refreshMediaData" <?if(refreshRequestSent) {?> disabled <?}?> > <?if(refreshRequestSent) {?> Loading... this may take a while... <?}else{?>Refresh media data <?}?></button>
                                         </div>
                                         <div>
                                                 <? if(twitterAuthStatus == "waiting") {?>
