@@ -5,22 +5,22 @@
             <div class="username-class-parent">
                 <div class="username-class-child">
                     <p>
-                            <?= studentName ?>
+                        <?= studentName ?>
                     </p>
                 </div>
             </div>
         </section>
-        
+
         <section class="box">
             <div class="group">
                 <?= group ?>
             </div>
         </section>
         <section>
-        
+
             <div style="overflow-x:auto">
                 <table class="student-table">
-        
+
                     <thead class="student-table-head">
                         <tr class="student-table-head-row">
                             <? for(let column of tableHeader) { ?>
@@ -53,61 +53,27 @@
                                     <?= user.linkedinMark?> /10
                                 </td>
                                 <td>
-                                     <?= user.finalMark?> /10
+                                    <?= user.finalMark?> /10
                                 </td>
                                 <td>
                                     <?= user.willPromote?>
-                                </td>    
+                                </td>
                             </tr>
                             <?}?>
                     </tbody>
                 </table>
             </div>
-        
-        </section>
-        
-        <section>
-        
-            <div class="attendance-class">
-                <p>
-                    Note Laborator
-                </p>
-            </div>
-        
-            <table class="attendance-table">
-                <thead class="attendance-table-head">
-                    <tr class="attendance-table-head-row">
-                        <? for(saptamana=0;saptamana<13;saptamana++) { ?>
-                            <th colspan="1">
-                                W
-                                <?= saptamana+1 ?>
-                            </th>
-                            <?}?>
-                    </tr>
-                </thead>
-                <tbody class="attendance-table-body">
-                    <tr class="attendance-table-body-row">
-                            <? for(saptamana=0;saptamana<12;saptamana++) { ?>
-                            <td class="attendance-col">
-                                   
-                            </td>  
-                        <?}?>
-                    </tr>
-                </tbody>
-        
-            </table>
-        </section>
 
+        </section>
+        <? if(datarefreshed) { ?>
+            <section>
 
-        <section>
-        
                 <div class="attendance-class">
                     <p>
-                           
-                        Prezente/Observatii Laborator
+                        Note Laborator
                     </p>
                 </div>
-            
+
                 <table class="attendance-table">
                     <thead class="attendance-table-head">
                         <tr class="attendance-table-head-row">
@@ -121,38 +87,77 @@
                     </thead>
                     <tbody class="attendance-table-body">
                         <tr class="attendance-table-body-row">
-                                <? for(saptamana=0;saptamana<13;saptamana++) { ?>
-                                        <td class="attendance-col">
-                                               
-                                        </td>  
-                                    <?}?>
+                            <? for(attendance of identity.attendanceComments) { ?>
+                                <td class="attendance-col">
+                                    <?=attendance.value?>
+                                </td>
+                                <?}?>
                         </tr>
                     </tbody>
-            
+
                 </table>
             </section>
 
 
+            <section>
+
+                <div class="attendance-class">
+                    <p>
+
+                        Prezente/Observatii Laborator
+                    </p>
+                </div>
+
+                <table class="attendance-table">
+                    <thead class="attendance-table-head">
+                        <tr class="attendance-table-head-row">
+                            <? for(saptamana=0;saptamana<13;saptamana++) { ?>
+                                <th colspan="1">
+                                    W
+                                    <?= saptamana+1 ?>
+                                </th>
+                                <?}?>
+                        </tr>
+                    </thead>
+                    <tbody class="attendance-table-body">
+                        <tr class="attendance-table-body-row">
+                            <? for(attendance of identity.attendanceComments) { ?>
+                                <td class="attendance-col">
+                                    <?=attendance.comment?>
+                                </td>
+                                <?}?>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </section>
+            <?}?>
 
 
 
 
-        </section>
-        <?if(facebookStatus !== 'connected' && fbStatusLoaded === true){?>
-            <button class="btn btn-submit" id="loginFb">Connect With Facebook</button><br>
-        <?}?>
-        <?if( isLoggedInGithub == "false"){?>
-        <div>
-            <button  class="btn btn-submit" id="connectWithGit"> Sign in with GitHub</button></a>
-        </div>
-        <? } ?>
-        <?if( isLoggedInLinkedin == "false"){?>
-            <div>
-                <button  class="btn btn-submit" id="connectWithLk"> Sign in with LinkedIn</button></a>
-            </div>
-        <? } ?>    
-        <div>
-            <button  class="btn btn-submit" id="refreshMediaData"> Refresh media data</button></a>
-        </div>
+
+
+                </section>
+                <?if(facebookStatus !== 'connected' && fbStatusLoaded === true){?>
+                    <button class="btn btn-submit" id="loginFb">Connect With Facebook</button>
+                    <br>
+                    <?}?>
+                        <?if( isLoggedInGithub == "false"){?>
+                            <div>
+                                <button class="btn btn-submit" id="connectWithGit"> Sign in with GitHub</button>
+                                </a>
+                            </div>
+                            <? } ?>
+                                <?if( isLoggedInLinkedin == "false"){?>
+                                    <div>
+                                        <button class="btn btn-submit" id="connectWithLk"> Sign in with LinkedIn</button>
+                                        </a>
+                                    </div>
+                                    <? } ?>
+                                        <div>
+                                            <button class="btn btn-submit" id="refreshMediaData"> Refresh media data</button>
+                                            </a>
+                                        </div>
     </div>
 </div>
