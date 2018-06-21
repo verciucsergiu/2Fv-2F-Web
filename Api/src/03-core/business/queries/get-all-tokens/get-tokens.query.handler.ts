@@ -24,7 +24,7 @@ export class GetTokensQueryHandler implements IQueryHandler<GetTokensQuery, GetT
         if (student.fbToken === "") {
             result.fbToken = "false";
         }
-        if (student.lnToken === "") {
+        if (student.lnToken1 === "") {
             result.lnToken = "false";
         }
         return new GetTokensQueryResult(result);

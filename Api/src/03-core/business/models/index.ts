@@ -9,3 +9,4 @@ export * from './attendance-comments.model';
 export * from './prof-register.model';
 export * from './media-data.model';
 export * from './facebook-token.model';
+export * from './linkedin-token.model';

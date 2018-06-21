@@ -29,7 +29,10 @@ export class Student extends BaseEntity {
     private fbUserId: string = '';
 
     @Column()
-    private lnToken: string = '';
+    private lnToken1: string = '';
+
+    @Column()
+    private lnToken2: string = '';
 
     @Column()
     private fbPoints: number = 0;

@@ -19,7 +19,7 @@ export class GetAndUpdateFacebookPointsQueryHandler
     public async retrieve(query: GetAndUpdateFacebookPointsQuery): Promise<GetAndUpdateFacebookPointsQueryResult> {
         const stud = await this.studentRepository.getById(query.studentId);
         const studAsEntity: Student = Object.assign(new Student(), stud);
-        const fbEventUry = "https://graphs.facebook.com/me/events?access_token=" + studAsEntity.getFbToken;
+        const fbEventUry = "https://graphs.facebook.com/me/events?access_token=" + studAsEntity.getFbToken();
 
         await request.post(fbEventUry)
             .then((result) => {

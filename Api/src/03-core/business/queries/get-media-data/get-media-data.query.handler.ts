@@ -7,7 +7,7 @@ import { MediaData } from "../../models";
 import * as request from "superagent";
 import { AddGitHubMarkCommand } from "../../commands/add-gitHub-mark";
 import { AddClassesMarkCommand } from "../../commands/add-classes-mark/add-classes-mark-command";
-import { AddFinalMarkCommand } from "../../commands";
+import { AddFinalMarkCommand, AddLinkedInMarkCommand } from "../../commands";
 @QueryHandler({
     queryType: GetSocialMediaQuery,
     resultType: GetSocialMediaQueryResult
@@ -27,6 +27,10 @@ export class GetSocialMediaQueryHandler implements IQueryHandler<GetSocialMediaQ
         if (student.gitToken !== "") {
             const gitMarkCommand = new AddGitHubMarkCommand(query.uuid);
             await this.commandDispatcher.dispatchAsync(gitMarkCommand);
+        }
+        if (student.lnToken !== "") {
+            const lnMarkCommand = new AddLinkedInMarkCommand(query.uuid);
+            await this.commandDispatcher.dispatchAsync(lnMarkCommand);
         }
         const finalMarkCommand = new AddFinalMarkCommand(query.uuid);
         await this.commandDispatcher.dispatchAsync(finalMarkCommand);
