@@ -3,13 +3,13 @@ var services = require('../../services/index');
 var rt = require('../../../framework/router');
 (() => {
     rt.route('/student-home', {
-            templateUrl: './src/pages/student-home/student-home.page.html',
-            styleUrl: './src/pages/student-home/student-home.page.css',
-            guard: {
-                canEnter: [g.StudentGuard],
-                redirectTo: '/'
-            }
-        },
+        templateUrl: './src/pages/student-home/student-home.page.html',
+        styleUrl: './src/pages/student-home/student-home.page.css',
+        guard: {
+            canEnter: [g.StudentGuard],
+            redirectTo: '/'
+        }
+    },
 
         function () {
             this.group = "";
@@ -17,36 +17,15 @@ var rt = require('../../../framework/router');
             this.studentName = "";
             this.showPopup = false;
             this.info = [];
-            this.attendanceArray= [];
+            this.attendanceArray = [];
             this.currentStudent;
             this.cnp = "";
             this.chances = [];
             this.fbStatusLoaded = false;
             this.facebookStatus = '';
- 
+
             this.isLoggedInGithub = "";
             this.isLoggedInLinkedin = "";
-            this.$on('#add-git-token', 'click', function () {
-                rt.Router.navigate('/student-add-git');
-            }.bind(this));
-
-
-            this.$on('#loginFb', 'click', function () {
-                FB.login(function (response) {
-                    this.facebookStatus = 'connected';
-                    this.fbStatusLoaded = true;
-                    services.MediaService.addFacebookAuthToken(response.authResponse.accessToken, response.authResponse.userID, () => {})
-                    this.$refresh();
-                }.bind(this));
-            }.bind(this));
-            this.$on('#connectWithGit', 'click', function () {
-                window.location.href = "https://github.com/login/oauth/authorize?client_id=17b94e383b4d34913743";
-
-            }.bind(this));
-            this.$on('#refreshMediaData', 'click', function () {
-                services.MediaService.getMediaData(this.gitTokenCallback, this.lookuperr);
-                this.$refresh();
-            }.bind(this));
 
             this.$onInit = () => {
                 var url_string = window.location.href;
@@ -77,25 +56,58 @@ var rt = require('../../../framework/router');
                     this.currentStudent = this.studentName;
                     this.group = jsonResponse.group;
                     this.cnp = jsonResponse.cnp;
-                    services.StudentService.getStudentsFromGroup(response.body.group, this.callback, this.lookuperr);
+                    services.StudentService.getStudentsFromGroup(response.body.group, this.this.groupRequestCallback, this.lookuperr);
                 });
                 services.MediaService.getTokens(this.tokensCallback, this.tokensErrorCallback);
             }
+            // --------------------------------------------------------------- buttons
+
+            this.$on('#add-git-token', 'click', function () {
+                rt.Router.navigate('/student-add-git');
+            }.bind(this));
+
+            this.$on('#loginFb', 'click', function () {
+                FB.login(function (response) {
+                    this.facebookStatus = 'connected';
+                    this.fbStatusLoaded = true;
+                    services.MediaService.addFacebookAuthToken(response.authResponse.accessToken, response.authResponse.userID, () => { })
+                    this.$refresh();
+                }.bind(this));
+            }.bind(this));
+
+            this.$on('#connectWithGit', 'click', function () {
+                window.location.href = "https://github.com/login/oauth/authorize?client_id=17b94e383b4d34913743";
+
+            }.bind(this));
+
+            this.$on('#refreshMediaData', 'click', function () {
+                services.MediaService.getMediaData(this.mediaCallback, this.lookuperr);
+            }.bind(this));
+
+            // --------------------------------------------------------------- buttons
+
+            this.mediaCallback = () => { // once the server updates data, request it
+                services.StudentService.getStudentsFromGroup(this.group, this.callback, this.lookuperr);
+            }
+
             this.tokensCallback = (response) => {
                 this.isLoggedInGithub = response.body.allTokens.gitToken;
                 this.isLoggedInLinkedin = response.body.allTokens.lnToken;
                 console.log(response.body);
             }
-            this.callback = (response) => {
+            
+            this.groupRequestCallback = (response) => {
+                this.info = [];
                 let jsonResponse = response.body;
                 for (let student of jsonResponse) {
                     this.studentName = student.firstName + ' ' + student.lastName;
                     this.info.push(student);
 
                 }
+                this.$refresh();
             }
-            this.lookuperr = () => {}
 
+            this.lookuperr = () => { }
 
             this.tableHeader = ["First name", "Last name", "Classes score", "GitHub score", "Linkedin score", "Final score", "Will promote"];
 
