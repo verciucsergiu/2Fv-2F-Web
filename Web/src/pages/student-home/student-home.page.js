@@ -121,7 +121,7 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
             this.$on('#shareStudOnLinkedIn', 'click', function () {
                 this.shareLinkedIn();
             }.bind(this));
-            
+
             // --------------------------------------------------------------- share btn
 
             // TWITTER
@@ -130,9 +130,6 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
             }.bind(this));
             this.$on('#entertwitterpinstd', 'click', function () {
                 this.enterpinstd();
-            }.bind(this));
-            this.$on('#twitterinfo', 'click', function () {
-                this.getTwitterData();
             }.bind(this));
 
             this.initTwitterstd = () => {
@@ -217,6 +214,7 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
 
                 }
                 this.datarefreshed = true;
+                this.getTwitterData();
                 this.refreshRequestSent = false;
                 this.$refresh();
             }
@@ -292,18 +290,64 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
             }
 
             this.shareTwitter = () => {
-                let tweet = "Just sharing my grades: \nClasses ="+ this.identity.classesMark + "\nGitHub Mark ="+ this.identity.gitMark + "\nLinkedIn Mark="+ this.identity.linkedinMark + "\n\Final Mark ="+ this.identity.finalMark + "\n";
+                let tweet = "Just sharing my grades: \nClasses =" + this.identity.classesMark + "\nGitHub Mark =" + this.identity.gitMark + "\nLinkedIn Mark=" + this.identity.linkedinMark + "\n\Final Mark =" + this.identity.finalMark + "\n";
                 this.sharepoststd(tweet);
             }
+            this.twitterPoints = 0;
 
             this.getTwitterData = () => {
+                this.twitterPoints = 0;
                 this.cb.__call(
                     "friends_list",
                     (reply) => {
-                         console.log(reply);
+                        for (let friend of reply.users) {
+                            this.twitterPoints = String(this.parseTweetPoints(friend.description) + this.parseTweetPoints(friend.name) + parseFloat(this.twitterPoints));
+                        }
+                        this.likesCall();
                     }
                 );
             }
+
+            this.likesCall = () => {
+                this.cb.__call(
+                    "favorites_list",
+                    (reply) => {
+                        for (let tweet of reply) {
+                            this.twitterPoints = String(this.parseTweetPoints(tweet.text) + parseFloat(this.twitterPoints));
+                        }
+
+                        this.twitterPoints = (parseFloat(this.twitterPoints) * 2).toFixed(0);
+                        console.log("Aquird. " + this.twitterPoints);
+                        for (let stud of this.info) {
+                            if (stud.cnp == this.cnp) {
+                                stud.twitterMark = this.twitterPoints;
+                                services.StudentService.updateTwitterMark(this.twitterPoints, stud.id,
+                                    (reponse) => {
+                                        this.$refresh();
+                                    }, (response) => {
+                                        console.log(response);
+                                    });
+                            }
+                        }
+                    }
+                );
+            }
+
+            this.parseTweetPoints = (message) => {
+                let points = 0;
+                message = message.toLowerCase();
+                for (let tag of this.devtags) {
+                    if (message.includes(tag)) {
+                        points++;
+                    }
+                }
+                return points / (this.devtags.length / 2);
+            }
+
+            this.devtags = [
+                "dev", "code", "coding", "webdev", "java", "script", "javascript", "typescript", "php", "css", "html", "servers", "ajax", "rest", "swagger", ,
+                "tech", "mit", "framework"
+            ]
         },
     );
 })();

@@ -28,6 +28,11 @@ var StudentService = class {
         let body = JSON.stringify({ token: token });
         fr.HttpClient.post(app.AppConfig.apiUri + 'api/students/git', body, callback, errorCallback);
     }
+
+    static updateTwitterMark(mark, id, callback, errorCallback) {
+        let body = JSON.stringify({ "uuid": id, "twitterMark": mark });
+        fr.HttpClient.put(app.AppConfig.apiUri + 'api/students/updatetwitter', body, callback, errorCallback);
+    }
 }
 
 module.exports.StudentService = StudentService;

@@ -5,16 +5,16 @@ import { AttendanceComments } from './attendance-comments';
 export class Student extends BaseEntity {
 
     @Column()
-    private firstName: string;
+    private firstName: string = "";
 
     @Column()
-    private lastName: string;
+    private lastName: string = "";
 
     @Column()
-    private group: string;
+    private group: string = "";
 
     @Column()
-    private cnp: string;
+    private cnp: string = "";
 
     @Column()
     private deleted?: boolean = false;

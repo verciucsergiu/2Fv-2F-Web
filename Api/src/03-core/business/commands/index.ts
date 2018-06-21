@@ -14,3 +14,4 @@ export * from './add-classes-mark';
 export * from './add-final-mark';
 export * from './add-linked-token';
 export * from './add-linkedin-mark';
+export * from './update-twitter-mark';
