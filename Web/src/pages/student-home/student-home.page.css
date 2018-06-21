@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
 .info_container {
     margin-top: 50px;
     background: rgba('red', green, blue, alpha);
@@ -213,27 +215,26 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.recommend-head{
+.recommend-head {
     text-align: center;
-    margin-top:50px;
-    margin-left:25px;
+    margin-top: 50px;
+    margin-left: 25px;
     color: black;
     font-weight: bold;
     font-size: 20px;
 }
 
-.recommend-line{
+.recommend-line {
     text-align: center;
-    margin-top:25px;
-    color:black;
-    overflow:auto;
+    margin-top: 25px;
+    color: black;
+    overflow: auto;
 }
 
-.recommend-list
-{
-    list-style-type:none;
+.recommend-list {
+    list-style-type: none;
     text-align: center;
-    color:black;
+    color: black;
 }
 
 .box-container {
@@ -242,4 +243,118 @@
     margin-bottom: 25px;
     display: flex;
     flex-direction: column;
+}
+
+.share {
+    clear: both;
+    white-space: nowrap;
+    font-size: .8em;
+    display: inline-block;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.35);
+    margin: 2px;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    transition: all .5s;
+    overflow: hidden;
+    position: fixed;
+    top: 50%;
+    left: 0%;
+}
+
+.share:hover {
+    box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.45);
+}
+
+.share:focus {
+    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.4);
+}
+
+.share>span, .share-icon>i {
+    float: left;
+    padding: 13px;
+    padding-right: 25px;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    transition: all .5s;
+    line-height: 1em
+}
+
+.share>span {
+    cursor: pointer;
+    padding: 14px 18px 16px;
+    white-space: nowrap;
+    color: #FFF;
+    background: #b8b8b8;
+    min-width: 150px;
+    text-align: center;
+}
+
+.share:focus>span {
+    background: #9a9a9a
+}
+
+.share-icon>i {
+    border-radius: 5px 0 0 5px;
+    position: relative;
+    width: 13px;
+    text-align: center;
+    font-size: 1.25em;
+    color: #fff;
+    background: #212121
+}
+
+.share-icon>i:after {
+    content: "";
+    border: 8px solid;
+    border-color: transparent transparent transparent #222;
+    position: absolute;
+    top: 13px;
+    right: -15px
+}
+
+.share-icon:hover>i, .share-icon:focus>i {
+    color: #FFF
+}
+
+.share-icon>span {
+    border-radius: 0 5px 5px 0
+}
+
+/*Facebook*/
+
+.share-facebook {
+    transform: translate(0%, -100%);
+}
+
+.share-facebook:hover>i, .share-facebook:focus>i {
+    color: #3b5998
+}
+
+.share-facebook>span {
+    background: #3b5998
+}
+
+/*Twitter*/
+
+.share-twitter {
+    transform: translate(0%, 100%);
+}
+
+.share-twitter:hover>i, .share-twitter:focus>i {
+    color: #55acee
+}
+
+.share-twitter>span {
+    background: #55acee
+}
+
+/*LinkedIn*/
+
+.share-linkedin:hover>i, .share-linkedin:focus>i {
+    color: #007bb6
+}
+
+.share-linkedin>span {
+    background: #007bb6
 }

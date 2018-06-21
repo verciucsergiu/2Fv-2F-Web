@@ -93,6 +93,19 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
 
             // --------------------------------------------------------------- buttons
 
+            this.$on('#shareStudOnFaceBook', 'click', function () {
+                this.shareFacebook();
+            }.bind(this));
+
+            this.$on('#shareStudOnTwitter', 'click', function () {
+                this.shareTwitter();
+            }.bind(this));
+
+            this.$on('#shareStudOnLinkedIn', 'click', function () {
+                this.shareLinkedIn();
+            }.bind(this));
+
+            // --------------------------------------------------------------- share btn
             this.mediaCallback = () => { // once the server updates data, request it
                 services.StudentService.getStudentsFromGroup(this.group, this.callback, this.lookuperr);
             }
@@ -181,6 +194,17 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
                 "https://martinfowler.com/articles/break-monolith-into-microservices.html"
             ];
 
+            this.shareFacebook = () => {
+                alert('fb');
+            }
+
+            this.shareLinkedIn = () => {
+                alert('ln');
+            }
+
+            this.shareTwitter = () => {
+                alert('tw');
+            }
         },
     );
 })();
