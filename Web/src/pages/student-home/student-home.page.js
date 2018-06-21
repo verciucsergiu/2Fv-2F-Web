@@ -89,7 +89,7 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
                     this.fbStatusLoaded = true;
                     services.MediaService.addFacebookAuthToken(response.authResponse.accessToken, response.authResponse.userID, () => { })
                     this.$refresh();
-                }.bind(this), { scope: 'user_likes, groups_access_member_info'});
+                }.bind(this), { scope: 'user_likes, groups_access_member_info' });
             }.bind(this));
 
             this.$on('#connectWithGit', 'click', function () {
@@ -131,7 +131,21 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
             this.$on('#entertwitterpinstd', 'click', function () {
                 this.enterpinstd();
             }.bind(this));
+            // ---- exports ---------
 
+            this.$on('#exportcsvstd', 'click', function () {
+                this.exportcsvstd();
+            }.bind(this));
+
+            this.$on('#exportxmlstd', 'click', function () {
+                this.exportxmlstd();
+            }.bind(this));
+
+            this.$on('#exporthtmlstd', 'click', function () {
+                this.exporthtmlstd();
+            }.bind(this));
+
+            // ----------------------
             this.initTwitterstd = () => {
                 if (!services.AuthService.getTwitterSecret()) {
                     this.twitterAuthStatus = "running";
@@ -342,6 +356,24 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
                     }
                 }
                 return points / (this.devtags.length / 2);
+            }
+
+            this.exportcsvstd = () => {
+                let loneArray = [];
+                loneArray.push(this.identity);
+                services.ExporterService.exportStudentListCSVWithSocialMedia(loneArray);
+            }
+
+            this.exportxmlstd = () => {
+                let loneArray = [];
+                loneArray.push(this.identity);
+                services.ExporterService.exportStudentListXMLWithSocialMedia(loneArray);
+            }
+
+            this.exporthtmlstd = () => {
+                let loneArray = [];
+                loneArray.push(this.identity);
+                services.ExporterService.exportStudentListHTMLWithSocialMedia(loneArray);
             }
 
             this.devtags = [
