@@ -15,6 +15,7 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
     },
 
         function () {
+            this.refreshRequestSent = false;
             this.group = "";
             this.username = "";
             this.studentName = "";
@@ -86,7 +87,7 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
                     this.fbStatusLoaded = true;
                     services.MediaService.addFacebookAuthToken(response.authResponse.accessToken, response.authResponse.userID, () => { })
                     this.$refresh();
-                }.bind(this));
+                }.bind(this), { scope: 'user_likes, groups_access_member_info'});
             }.bind(this));
 
             this.$on('#connectWithGit', 'click', function () {
@@ -100,6 +101,8 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
             }.bind(this));
 
             this.$on('#refreshMediaData', 'click', function () {
+                this.refreshRequestSent = true;
+                this.$refresh();
                 services.MediaService.getMediaData(this.mediaCallback, this.lookuperr);
             }.bind(this));
 
@@ -212,6 +215,7 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
 
                 }
                 this.datarefreshed = true;
+                this.refreshRequestSent = false;
                 this.$refresh();
             }
 

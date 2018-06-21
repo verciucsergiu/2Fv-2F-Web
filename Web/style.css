@@ -105,8 +105,16 @@ input:focus {
     font-weight: bolder;
 }
 
-.btn.btn-submit:hover {
-    background-color: #22317f;
+.btn.btn-submit:disabled {
+    background-color: #09224c;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bolder;
+    cursor: not-allowed;
+}
+
+.btn.btn-submit:hover:disabled {
+    background-color: #09224c;
 }
 
 .message {

@@ -37,7 +37,6 @@ export class AddGitHubMarkCommandHandler implements ICommandHandler<AddGitHubMar
                 languagesURL = repo.languages_url;
                 let specificWebLanguages: number = 0;
                 let totalLanguages: number = 0;
-                console.log(languagesURL);
                 await request
                     .get(languagesURL)
                     .set('Authorization', 'token ' + student.gitToken)

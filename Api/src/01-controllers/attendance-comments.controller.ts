@@ -26,7 +26,6 @@ export class AttendanceCommentsController {
         @FromBody() attendanceComment: AttendanceCommentsModel,
         @FromRoute('{uuid}') uuid: string): Promise<IActionResult> {
         const command = new AddAttendanceCommentCommand(attendanceComment, uuid);
-        console.log(attendanceComment.value);
         await this.commandDispatcher.dispatchAsync(command);
         return new Created();
     }

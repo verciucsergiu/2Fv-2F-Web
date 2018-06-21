@@ -34,7 +34,7 @@ export class Student extends BaseEntity {
     @Column()
     private lnToken2: string = '';
 
-    @Column()
+    @Column('float')
     private fbPoints: number = 0;
 
     @Column()
@@ -83,7 +83,7 @@ export class Student extends BaseEntity {
         return this.fbUserId;
     }
 
-    public setFbPoits(value: number): void {
+    public setFbPoints(value: number): void {
         this.fbPoints = value;
     }
 }
