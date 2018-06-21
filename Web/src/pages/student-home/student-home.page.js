@@ -1,6 +1,8 @@
 var g = require('../../guards/student.guard');
 var services = require('../../services/index');
 var rt = require('../../../framework/router');
+var codebird = require('../../../node_modules/codebird');
+
 const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
 (() => {
     rt.route('/student-home', {
@@ -28,6 +30,8 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
             this.isLoggedInLinkedin = "";
             this.datarefreshed = false;
             this.identity = {};
+            this.twitterAuthStatus = "waiting";
+            this.cb = new codebird;
 
             this.$onInit = () => {
                 var url_string = window.location.href;
@@ -36,6 +40,13 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
 
                 if (code != null) {
                     services.MediaService.generateGitToken(code, services.AuthService.getFK(), this.gitTokenCallback, this.lookuperr);
+                }
+
+                this.cb.setConsumerKey('qNmVG4mMKW76TNI9pPhSRwt1h', 'HDqJqH47FVNnb8PATfaTHEQiqnmQcpWS77sVNZNNaJwBPF1nBE');
+                if (services.AuthService.getTwitterSecret() != null) {
+                    this.twitterAuthStatus = "confirmed";
+                    this.cb.setToken(services.AuthService.getTwitterToken(), services.AuthService.getTwitterSecret())
+                    this.$refresh();
                 }
 
                 FB.init({
@@ -62,6 +73,7 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
                 });
                 services.MediaService.getTokens(this.tokensCallback, this.tokensErrorCallback);
             }
+
             // --------------------------------------------------------------- buttons
 
             this.$on('#add-git-token', 'click', function () {
@@ -106,6 +118,77 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
             }.bind(this));
             
             // --------------------------------------------------------------- share btn
+
+            // TWITTER
+            this.$on('#twitterbuttonstd', 'click', function () {
+                this.initTwitterstd();
+            }.bind(this));
+            this.$on('#entertwitterpinstd', 'click', function () {
+                this.enterpinstd();
+            }.bind(this));
+            this.$on('#sharetwitterpoststd', 'click', function () {
+                this.shareTwitter();
+            }.bind(this));
+
+            this.initTwitterstd = () => {
+                if (!services.AuthService.getTwitterSecret()) {
+                    this.twitterAuthStatus = "running";
+                    this.authTwitter();
+                    this.$refresh();
+                } else {
+                    this.twitterAuthStatus = "confirmed";
+                    this.cb.setToken(services.AuthService.getTwitterToken(), services.AuthService.getTwitterSecret());
+                    this.$refresh();
+                }
+            }
+
+            this.sharepoststd = (message) => {
+                this.cb.__call(
+                    "statuses_update", {
+                        "status": message
+                    },
+                    (reply) => {
+                         console.log(reply);
+                    }
+                );
+            }
+
+            this.enterpinstd = () => {
+                this.cb.__call(
+                    "oauth_accessToken", {
+                        oauth_verifier: document.getElementById("twitterpinfieldstd").value
+                    },
+                    (reply) => {
+                        this.twitterAuthStatus = "confirmed";
+                        this.cb.setToken(reply.oauth_token, reply.oauth_token_secret);
+                        services.AuthService.saveTwitterToken(reply.oauth_token, reply.oauth_token_secret);
+                        this.$refresh();
+                    }
+                );
+            }
+
+            this.authTwitter = () => {
+                this.cb.__call(
+                    "oauth_requestToken", {
+                        oauth_callback: "oob"
+                    },
+                    (reply) => {
+                        // stores it
+                        this.cb.setToken(reply.oauth_token, reply.oauth_token_secret);
+                        this.twitterAuthStatus = "confirming";
+                        // gets the authorize screen URL
+                        this.cb.__call(
+                            "oauth_authorize", {},
+                            (auth_url) => {
+                                window.codebird_auth = window.open(auth_url);
+                            }
+                        );
+                    }
+                );
+            }
+
+            // -------------------------------
+
             this.mediaCallback = () => { // once the server updates data, request it
                 services.StudentService.getStudentsFromGroup(this.group, this.groupRequestCallback, this.lookuperr);
             }
@@ -203,7 +286,8 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
             }
 
             this.shareTwitter = () => {
-                alert('tw');
+                let tweet = "Just sharing my grades: \nClasses ="+ this.identity.classesMark + "\nGitHub Mark ="+ this.identity.gitMark + "\nLinkedIn Mark="+ this.identity.linkedinMark + "\n\Final Mark ="+ this.identity.finalMark + "\n";
+                this.sharepoststd(tweet);
             }
         },
     );

@@ -3,27 +3,35 @@
 </div>
 <?if(role !== '') {?>
     <div>
-        <p>Logged in as: <?= role ?></p><br>
-        <? if(twitterAuthStatus == "waiting") {?>
-            <button id="twitterbutton">Connect With Twitter</button><br>
+        <p>Logged in as:
+            <?= role ?>
+        </p>
+        <br>
+        <? if(role == "prof") { ?>
+            <? if(twitterAuthStatus == "waiting") {?>
+                <button id="twitterbuttonstd">Connect With Twitter</button>
+                <br>
+            <? } ?>
+
+            <? if(twitterAuthStatus == "running") {?>
+                <input id="twitterpinfieldstd" placeholder="twitter PIN">
+                    <button id="entertwitterpin">Confirm</button>
+                    <br>
+            <? } ?>
+
+            <? if(twitterAuthStatus == "confirmed") {?>
+                <button id="sharetwitterpoststd">Share something</button>
+            <? } ?>
         <? } ?>
-    
-        <? if(twitterAuthStatus == "running") {?>
-            <input id="twitterpinfield" placeholder="twitter PIN">
-            <button id="entertwitterpin">Confirm</button><br>
-        <? } ?>
-    
-        <? if(twitterAuthStatus == "confirmed") {?> 
-            <button id="sharetwitterpost">Share something</button>
-        <? } ?>
-    
+
     </div>
     <br>
     <br>
     <br>
     <div>
-            <input id="linkedpinfield" placeholder="LinkedIn PIN">
-            <button id="enterlinkedinpin">Confirm</button><br>
+        <input id="linkedpinfield" placeholder="LinkedIn PIN">
+        <button id="enterlinkedinpin">Confirm</button>
+        <br>
     </div>
 
     <?}?>

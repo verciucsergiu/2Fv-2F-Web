@@ -72,7 +72,7 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
             this.$on('#enterlinkedinpin', 'click', function(){
                 console.log(document.getElementById("linkedpinfield").value);
                 services.MediaService.addLinkedInAuthToken(document.getElementById("linkedpinfield").value);
-            })
+            }.bind(this));
 
             this.initTwitter = () => {
                 if (!services.AuthService.getTwitterSecret()) {
