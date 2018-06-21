@@ -35,7 +35,20 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
                 let code = url.searchParams.get("code");
 
                 if (code != null) {
-                    window.location.href = "https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code&redirect_uri=" + LINKED_REDIRECT_URI + "&client_id=" + LINKED_CLIENT_ID + "&client_secret=" + LINKED_CLIENT_SECRET + "&code=" + code;
+                window.location.href = "https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code&redirect_uri=" + LINKED_REDIRECT_URI + "&client_id=" + LINKED_CLIENT_ID + "&client_secret=" + LINKED_CLIENT_SECRET + "&code=" + code;
+                    /*const linkedUrl="https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code&redirect_uri=" + LINKED_REDIRECT_URI + "&client_id=" + LINKED_CLIENT_ID + "&client_secret=" + LINKED_CLIENT_SECRET + "&code=" + code;
+                    request.get(linkedUrl)
+                    .set('Content-Type', "application/json")
+                    .set("Access-Control-Allow-Origin", "http://localhost:3000")
+                    .set("Access-Control-Allow-Headers", "GET, POST, OPTIONS, PUT, PATCH, DELETE")
+                    .set("Access-Control-Allow-Headers", "X-Requested-With,content-type")
+                    .set("Access-Control-Allow-Credentials", true)
+                    .then((response) => {
+                        console.log(response.body);
+                    }).catch((c) => {
+                        console.log(c);
+                    });*/
+                    
                     code = null;
                 }
 

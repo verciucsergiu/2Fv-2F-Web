@@ -11,7 +11,7 @@ export class AddFinalMarkCommandHandler implements ICommandHandler<AddFinalMarkC
     }
     public async handle(command: AddFinalMarkCommand): Promise<void> {
         const student: any = await this.studentRepository.getStudentWithAttendance(command.uuid);
-        const finalMark = Math.round(student.gitMark + student.classesMark + student.linkedinMark) / 3;
+        const finalMark = Math.round(student.gitMark + student.classesMark + student.twitterMark) / 3 + student.linkedinMark;
         student.finalMark = finalMark;
         student.willPromote = "Yes";
         if (finalMark < 5)  {
