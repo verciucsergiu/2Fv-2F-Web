@@ -3,7 +3,9 @@
 
         <a id="shareStudOnFaceBook" class="share share-icon share-facebook" ><i class="fa fa-facebook"></i><span>Share on Facebook</span></a>
         <a id="shareStudOnLinkedIn" class="share share-icon share-linkedIn" ><i class="fa fa-linkedin"></i><span>Share on LinkedIn</span></a>
-        <a id="shareStudOnTwitter" class="share share-icon share-twitter" ><i class="fa fa-twitter"></i><span>Share on Twitter</span></a>
+        <? if(twitterAuthStatus == "confirmed") {?> 
+            <a id="shareStudOnTwitter" class="share share-icon share-twitter" ><i class="fa fa-twitter"></i><span>Share on Twitter</span></a>
+        <? } ?>
 
         <section class="box">
             <div class="username-class-parent">
@@ -146,7 +148,7 @@
                 <?if(facebookStatus !== 'connected' && fbStatusLoaded === true){?>
                     <button class="btn btn-submit" id="loginFb">Connect With Facebook</button>
                     <br>
-                    <?}?>
+                <?}?>
                         <?if( isLoggedInGithub == "false"){?>
                             <div>
                                 <button class="btn btn-submit" id="connectWithGit"> Sign in with GitHub</button>
@@ -162,6 +164,16 @@
                                         <div>
                                             <button class="btn btn-submit" id="refreshMediaData"> Refresh media data</button>
                                             </a>
+                                        </div>
+                                        <div>
+                                                <? if(twitterAuthStatus == "waiting") {?>
+                                                    <button id="twitterbuttonstd" class="btn btn-submit">Connect With Twitter</button><br>
+                                                <? } ?>
+                                            
+                                                <? if(twitterAuthStatus == "running") {?>
+                                                    <input id="twitterpinfieldstd" placeholder="twitter PIN">
+                                                    <button id="entertwitterpinstd">Confirm</button><br>
+                                                <? } ?>
                                         </div>
     </div>
 </div>
