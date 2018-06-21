@@ -3,7 +3,8 @@ import {
     IActionResult,
     Ok, Controller, FromRoute, HttpPost,
     NotFound, FromBody, Created,
-    Authorize
+    Authorize,
+    HttpPut
 } from "../../framework/core";
 import { GetStudentsByGroupQuery, GetStudentsByGroupQueryResult } from "../03-core/business/queries/get-students-by-group";
 import { GetStudentsQuery, GetStudentsQueryResult } from "../03-core/business/queries/get-students";
@@ -13,7 +14,8 @@ import {
     StudentModel,
     AddNewStudentCommand,
     GetAllStudentsQuery,
-    GetAllStudentsQueryResult
+    GetAllStudentsQueryResult,
+    TwitterUpdateModel
 } from "../03-core/business";
 import { UserRole } from "../03-core/domain/user-role.enum";
 import { ApiController } from "../../framework/core/api-controller";
@@ -22,6 +24,7 @@ import { GetStudentDetailsQueryResult } from "../03-core/business/queries/get-st
 import { AddGitTokenCommand } from "../03-core/business/commands/add-git-token-student/add-git-token-student.command";
 import { GitTokenModel } from "../03-core/business/models/git-token.model";
 import { GetGitStatusQuery } from "../03-core/business/queries/get-git-status/get-git-status.query";
+import { UpdateTwitterMarkCommand } from "../03-core/business/commands/update-twitter-mark/update-twitter-mark.command";
 
 @Controller('api/students')
 export class StudentsController extends ApiController {
@@ -34,6 +37,14 @@ export class StudentsController extends ApiController {
     @HttpPost('')
     public async addNewStudent(@FromBody() studentModel: StudentModel): Promise<IActionResult> {
         const command = new AddNewStudentCommand(studentModel);
+        await this.commandDispatcher.dispatchAsync(command);
+        return new Created();
+    }
+
+    @HttpPut('updatetwitter')
+    public async updateStudentTwitter(@FromBody() twitterModel: TwitterUpdateModel): Promise<IActionResult> {
+
+        const command = new UpdateTwitterMarkCommand(twitterModel);
         await this.commandDispatcher.dispatchAsync(command);
         return new Created();
     }

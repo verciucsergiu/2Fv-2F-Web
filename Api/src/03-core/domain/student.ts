@@ -5,16 +5,16 @@ import { AttendanceComments } from './attendance-comments';
 export class Student extends BaseEntity {
 
     @Column()
-    private firstName: string;
+    private firstName: string = "";
 
     @Column()
-    private lastName: string;
+    private lastName: string = "";
 
     @Column()
-    private group: string;
+    private group: string = "";
 
     @Column()
-    private cnp: string;
+    private cnp: string = "";
 
     @Column()
     private deleted?: boolean = false;
@@ -38,21 +38,22 @@ export class Student extends BaseEntity {
     private fbPoints: number = 0;
 
     @Column()
-    private classesMark : number = 0;
+    private classesMark: number = 0;
     @Column()
-    private gitMark : number = 0;
+    private gitMark: number = 0;
 
     @Column()
-    private linkedinMark : number = 0;
+    private linkedinMark: number = 0;
 
     @Column()
-    private finalMark : number = 0;
+    private finalMark: number = 0;
 
     @Column()
-    private willPromote : string = "No";
+    private willPromote: string = "No";
 
     @Column()
-    private twitterMark : number = 0;
+    private twitterMark: number = 0;
+
     @OneToMany((type) => AttendanceComments, (attendanceComments) => attendanceComments.student)
     public attendanceComments: Array<AttendanceComments> = new Array<AttendanceComments>();
     public markAsDeleted(): void {
