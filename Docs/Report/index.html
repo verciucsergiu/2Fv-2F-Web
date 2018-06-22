@@ -37,16 +37,20 @@
         <div class="itab">
             <h3>○ Implemented Framework</h3>
             <section>
-                <p>Here we have chosen to implement a SinglePageApplication (SPA) on NodeJs. For this we needed to write our own framework
-                    to dynamically insert DOM elements and to obtain the router functionality.<br>
-                Our Website respects the following structure: <br>
-                <img src="./img/Code_2018-06-22_05-59-33.png"><br>
-                Where a page is as:<br>
-                <img src="./img/Code_2018-06-22_06-00-16.png"><br>
-                The folders are pretty self explanatory: We hold one Guard Class in a .js guard file, each for every right of acces (Student,Teacher,Admin).
-                Each Service Class in a .js service and the Models that we use to represent data.<br>
-                The index.html should only contain the nav-bar, leaving the rest of the HTMl to be injected.<br>
-                <img src="./img/Code_2018-06-22_06-03-50.png">
+                <p>Here we have chosen to implement a SinglePageApplication (SPA) on NodeJs. For this we needed to write our
+                    own framework to dynamically insert DOM elements and to obtain the router functionality.
+                    <br> Our Website respects the following structure:
+                    <br>
+                    <img src="./img/Code_2018-06-22_05-59-33.png">
+                    <br> Where a page is as:
+                    <br>
+                    <img src="./img/Code_2018-06-22_06-00-16.png">
+                    <br> The folders are pretty self explanatory: We hold one Guard Class in a .js guard file, each for every
+                    right of acces (Student,Teacher,Admin). Each Service Class in a .js service and the Models that we use
+                    to represent data.
+                    <br> The index.html should only contain the nav-bar, leaving the rest of the HTMl to be injected.
+                    <br>
+                    <img src="./img/Code_2018-06-22_06-03-50.png">
                 </p>
                 <section>
                     <div class="iitab">
@@ -54,24 +58,28 @@
                         <div class="iiitab">
                             We are able to link HTML element values to javascript variables trough our framework, as the next example:
                             <br>
-                            <img src="./img/Code_2018-06-22_05-47-11.png"><br>
-                            <img src="./img/Code_2018-06-22_05-49-53.png"><br>
-                            The two variables will share the same value.
+                            <img src="./img/Code_2018-06-22_05-47-11.png">
+                            <br>
+                            <img src="./img/Code_2018-06-22_05-49-53.png">
+                            <br> The two variables will share the same value.
                         </div>
                         <h4>• Router</h4>
                         <div class="iiitab">
                             The usage of our router stands as follows:
-                            <img src="./img/Code_2018-06-22_05-53-45.png"><br>
-                            And it's most basic functionality:<br>
-                            <img src="./img/Code_2018-06-22_05-55-29.png"><br>
-                            Being able to switch the page to "prof-grupa" and with the parameter "id".
+                            <img src="./img/Code_2018-06-22_05-53-45.png">
+                            <br> And it's most basic functionality:
+                            <br>
+                            <img src="./img/Code_2018-06-22_05-55-29.png">
+                            <br> Being able to switch the page to "prof-grupa" and with the parameter "id".
                         </div>
                         <h4>• Guards</h4>
                         <div class="iiitab">
-                            For The guards, we have 3 levels of acces and a simple system that uses Local Storage to store a unique token sent from the back-end.<br>
-                            This is an example of the AdminGuard:<br>
-                            <img src="./img/2018-06-22_06-06-10.png"><br>
-                            The AuthService takes care of the rights everyone has, the login and the register.
+                            For The guards, we have 3 levels of acces and a simple system that uses Local Storage to store a unique token sent from the
+                            back-end.
+                            <br> This is an example of the AdminGuard:
+                            <br>
+                            <img src="./img/2018-06-22_06-06-10.png">
+                            <br> The AuthService takes care of the rights everyone has, the login and the register.
                         </div>
                     </div>
                 </section>
@@ -83,7 +91,8 @@
     <section>
         <h2 id="arch">3.Architectural Design</h2>
         <div class="itab">
-            The complete UML Class Diagram along with use cases can be found under the <a href="../Arhitecture/">Architecture</a> directory.
+            The complete UML Class Diagram along with use cases can be found under the
+            <a href="../Arhitecture/">Architecture</a> directory.
         </div>
     </section>
 
@@ -91,21 +100,92 @@
         <h2 id="tech">4.Technologies Used</h2>
         <div class="iitab">
 
-            <h3><a href="https://nodejs.org/en/">Node.js</a></h3><div class="iiitab"> Both our Front-End and Back-End are built on Node.js</div>
-            <h3><a href="https://github.com/jublonet/codebird-js">Code Bird</a></h3><div class="iiitab"> We use codebird to communicate with Twitter</div>
-            <h3><a href="https://github.com/visionmedia/superagent">Super Agent</a></h3><div class="iiitab"> We use superagent to communicate with GitHub,LinkedIn,Facebook and GitBucket</div>
-            <h3><a href="https://webpack.js.org/">Webpack</a></h3><div class="iiitab">We use Webpack to package our front-end app</div>
-            <h3><a href="https://www.npmjs.com/package/bcrypt">bcrypt</a></h3><div class="iiitab">We hash all passwords using bcrypt. Passwords will never be visible to the admin or to the user</div>
-            <h3><a href="https://jwt.io/">jwt</a></h3><div class="iiitab"> We secure our sessions using jwt.We store them in the local storage and remove them upon Logout</div>
-            <h3><a href="https://github.com/typeorm/typeorm">typeorm</a></h3><div class="iiitab"> We use typeorm for the database-server connection. Trough typeorm we are safe against any type of SQL Injection, but we still check for any type of scripts/injections in our request handlers.</div>
-            
-            <h3><a href=""></a></h3><div class="iiitab"></div>
-            <h3><a href=""></a></h3><div class="iiitab"></div>
+            <h3>
+                <a href="https://nodejs.org/en/">Node.js</a>
+            </h3>
+            <div class="iiitab"> Both our Front-End and Back-End are built on Node.js</div>
+            <h3>
+                <a href="https://github.com/jublonet/codebird-js">Code Bird</a>
+            </h3>
+            <div class="iiitab"> We use codebird to communicate with Twitter</div>
+            <h3>
+                <a href="https://github.com/visionmedia/superagent">Super Agent</a>
+            </h3>
+            <div class="iiitab"> We use superagent to communicate with GitHub,LinkedIn,Facebook and GitBucket</div>
+            <h3>
+                <a href="https://webpack.js.org/">Webpack</a>
+            </h3>
+            <div class="iiitab">We use Webpack to package our front-end app</div>
+            <h3>
+                <a href="https://www.npmjs.com/package/bcrypt">bcrypt</a>
+            </h3>
+            <div class="iiitab">We hash all passwords using bcrypt. Passwords will never be visible to the admin or to the user</div>
+            <h3>
+                <a href="https://jwt.io/">jwt</a>
+            </h3>
+            <div class="iiitab"> We secure our sessions using jwt.We store them in the local storage and remove them upon Logout</div>
+            <h3>
+                <a href="https://github.com/typeorm/typeorm">typeorm</a>
+            </h3>
+            <div class="iiitab"> We use typeorm for the database-server connection. Trough typeorm we are safe against any type of SQL Injection,
+                but we still check for any type of scripts/injections in our request handlers.</div>
+            <h3>Dependency Injection</h3>
+            <div class="iiiitab">
+                Trough our framework we've built Injectable classes which make the developing a lot easier. Some notable are:
+                <ul>
+                    <b>Controller functionality</b>
+                    <li>HttpPost</li>
+                    <li>HttpPut</li>
+                    <li>HttpGet</li>
+                    <li>HttpDelete</li>
+                    <b>Repositories</b>
+                    <li>StudentRepository</li>
+                    <li>TeacherRepository</li>
+                    <li>AttendanceRepository</li>
+                    <li>PendingInvitesRepository</li>
+                    <li>GroupRepository</li>
+                    <b>Commands/Querries</b>
+                    <li>CommandHandler</li>
+                    <li>QueryHandler</li>
+                    <b>Utils</b>
+                    <li>JwtFactory</li>
+                    <li>UserService</li>
+                </ul>
+            </div>
+            <h3>• CQRS</h3>
+            <div class="iiiitab">
+                We use CQRS to completely separate responsability between actions that change data and actions that only retrieve them, all
+                the way from the rest controller
+            </div>
         </div>
     </section>
 
-    <section>
+    <section class="text">
         <h2 id="backend">5.Back-End Development</h2>
+        <div class="itab">
+            <p>
+                As the front-end, the back-end is also build on node.js, however we also use TypeScript since it compiles to JavaScript but
+                it has more functionalities.
+
+                <h2>Design-patterns:</h2>
+                <div class="iiitab">
+                    <h3>• Factory</h3>
+                    <div class="iiiitab">
+                        Mainly we use the Factory Pattern to build jwt's
+                    </div>
+                    <h3>• Bridge</h3>
+                    <div class="iiiitab">ALmost all our important classes follow specific interfaces</div>
+                    <h3>• Repository</h3>
+                    <div class="iiiitab">For every entity we have a different repository extended from the Base Repository, which we inject when
+                        needed
+                    </div>
+                    <h3>• Builder</h3>
+                    <div class="iiiitab">
+                        We use WebApiBuilder to build the main application and start it.
+                    </div>
+                </div>
+            </p>
+        </div>
     </section>
 </body>
 

@@ -40,10 +40,7 @@ export class AddLinkedInMarkCommandHandler implements ICommandHandler<AddLinkedI
             .set('Authorization', 'Bearer ' + student.lnToken1 + student.lnToken2)
             .set('Content-Type', 'application/json')
             .then((result) => {
-                if (result.body.headline === "Programator" || result.body.headline === "Developer"
-                    || result.body.headline === "WebDeveloper") {
                     student.linkedinMark = 1;
-                }
             }).catch((err) => {
                 student.lnToken1 = "";
                 student.lnToken2 = "";

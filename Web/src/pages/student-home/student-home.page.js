@@ -34,6 +34,7 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
             this.identity = {};
             this.twitterAuthStatus = "waiting";
             this.cb = new codebird;
+            this.maxweek = 0;
 
             this.$onInit = () => {
                 var url_string = window.location.href;
@@ -221,6 +222,7 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
                 for (let student of jsonResponse) {
                     if (student.cnp == this.cnp) {
                         this.identity = student;
+                        this.computeMaxWeek();
                         console.log(this.identity);
                     }
                     this.studentName = student.firstName + ' ' + student.lastName;
@@ -231,6 +233,15 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
                 this.getTwitterData();
                 this.refreshRequestSent = false;
                 this.$refresh();
+            }
+
+            this.computeMaxWeek = () => {
+                this.identity.attendanceComments.sort((a,b) => a.weekNumber > b.weekNumber);
+                for(let attendance of this.identity.attendanceComments){
+                    if(attendance.value != "")
+                        this.maxweek = attendance.weekNumber;
+                }
+                console.log(this.maxweek);
             }
 
             this.lookuperr = () => { }
@@ -384,3 +395,8 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
         },
     );
 })();
+
+
+// <a id="shareStudOnFaceBook" class="share share-icon share-facebook" ><i class="fa fa-facebook"></i><span>Share on Facebook</span></a>
+// <a id="shareStudOnLinkedIn" class="share share-icon share-linkedIn" ><i class="fa fa-linkedin"></i><span>Share on LinkedIn</span></a>
+        
