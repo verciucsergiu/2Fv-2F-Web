@@ -1,0 +1,28 @@
+.guide-container {
+    width: 95%;
+    padding: 10px;
+    height: auto;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12) !important;
+    background-color: #f9f9f9 !important;
+    align-self: center;
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+a{
+    font-size: 17px;
+}
+
+.itab {
+    margin-left: 25px;
+}
+.iitab {
+    margin-left: 40px;
+}
+.iiitab{
+    margin-left: 50px;
+}
+
+.text {
+    max-width: 700px;
+}
