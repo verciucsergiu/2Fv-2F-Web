@@ -302,7 +302,8 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
             }
 
             this.shareTwitter = () => {
-                let tweet = "Just sharing my grades: \nClasses =" + this.identity.classesMark + "\nGitHub Mark =" + this.identity.gitMark + "\nLinkedIn Mark=" + this.identity.linkedinMark + "\n\Final Mark =" + this.identity.finalMark + "\n";
+                let downloadID = "http://localhost:3000/#/download-student/" + this.identity.id + "_" + this.identity.group;
+                let tweet = "Just sharing my grades: \n" + downloadID;
                 this.sharepoststd(tweet);
             }
             this.twitterPoints = 0;
