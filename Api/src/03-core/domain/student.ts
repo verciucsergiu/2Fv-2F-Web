@@ -26,16 +26,13 @@ export class Student extends BaseEntity {
     private fbToken: string = '';
 
     @Column()
-    private fbUserId: string = '';
-
-    @Column()
     private lnToken1: string = '';
 
     @Column()
     private lnToken2: string = '';
 
-    @Column('float')
-    private fbPoints: number = 0;
+    @Column()
+    private fbMark: number = 0;
 
     @Column()
     private classesMark: number = 0;
@@ -53,7 +50,6 @@ export class Student extends BaseEntity {
 
     @Column()
     private twitterMark: number = 0;
-
     @OneToMany((type) => AttendanceComments, (attendanceComments) => attendanceComments.student)
     public attendanceComments: Array<AttendanceComments> = new Array<AttendanceComments>();
     public markAsDeleted(): void {
@@ -76,15 +72,7 @@ export class Student extends BaseEntity {
         return this.fbToken;
     }
 
-    public setFbUserId(id: string): void {
-        this.fbUserId = id;
-    }
-
-    public getFbUserId(): string {
-        return this.fbUserId;
-    }
-
-    public setFbPoints(value: number): void {
-        this.fbPoints = value;
+    public setFbMark(value: number): void {
+        this.fbMark = value;
     }
 }

@@ -183,7 +183,7 @@ var ExporterService = class {
             for (let attendance of student.attendanceComments) {
                 text = text + attendance.comment + ',' + attendance.value + ',';
             }
-            text = text + student.gitMark + ',' + student.twitterMark + ',' + student.linkedinMark + ',' + student.fbPoints + ',' + student.finalMark + ',' + student.willPromote;
+            text = text + student.gitMark + ',' + student.twitterMark + ',' + student.linkedinMark + ',' + student.fbMark + ',' + student.finalMark + ',' + student.willPromote;
             text = text + "\n";
         }
 
@@ -219,7 +219,7 @@ var ExporterService = class {
             text = text + xindent + "<GitHub>" + student.gitMark + "</GitHub>\n";
             text = text + xindent + "<Twitter>" + student.twitterMark + "</Twitter>\n";
             text = text + xindent + "<LinkedIn>" + student.linkedinMark + "</LinkedIn>\n";
-            text = text + xindent + "<FaceBook>" + student.fbPoints + "</FaceBook>\n";
+            text = text + xindent + "<FaceBook>" + student.fbMark + "</FaceBook>\n";
             text = text + xindent + "<Final>" + student.finalMark + "</Final>\n";
             text = text + xindent + "<Passing>" + student.willPromote + "</Passing>\n";
 
@@ -408,13 +408,13 @@ var ExporterService = class {
         <td>" + student.gitMark + "</td>\n\
         <td>" + student.linkedinMark + "</td>\n\
         <td>" + student.twitterMark + "</td>\n\
-        <td>" + student.fbPoints + "</td>\n\
+        <td>" + student.fbMark + "</td>\n\
         <td>" + student.finalMark + "</td>\n\
         <td>" + student.willPromote + "</td>\n";
             text = text + "\
     </tr>";
         }
-        // text = text + student.gitMark + ',' + student.twitterMark + ',' + student.linkedinMark + ',' + student.fbPoints + ',' + student.finalMark + ',' + student.willPromote;
+        // text = text + student.gitMark + ',' + student.twitterMark + ',' + student.linkedinMark + ',' + student.fbMark + ',' + student.finalMark + ',' + student.willPromote;
         text = text + "    </tbody>\n  </table>\n";
 
         text = text + "</body>\n</html>\n";

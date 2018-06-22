@@ -19,6 +19,7 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
             this.group = "";
             this.username = "";
             this.studentName = "";
+            this.studentId = "";
             this.showPopup = false;
             this.info = [];
             this.currentStudent;
@@ -51,10 +52,10 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
                 }
 
                 FB.init({
-                    appId: '177880766235218',
+                    appId: '509509989447302',
                     cookie: true,
                     xfbml: true,
-                    version: 'v2.8'
+                    version: 'v3.0'
                 });
                 FB.getLoginStatus((response) => {
                     this.facebookStatus = response.status;
@@ -66,6 +67,7 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
                     this.attendanceArray = response.body.attendanceComments;
                     console.log(this.attendanceArray);
                     let jsonResponse = response.body;
+                    this.studentId = jsonResponse.id;
                     this.studentName = jsonResponse.firstName + ' ' + jsonResponse.lastName;
                     this.currentStudent = this.studentName;
                     this.group = jsonResponse.group;
@@ -233,7 +235,7 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
 
             this.lookuperr = () => { }
 
-            this.tableHeader = ["First name", "Last name", "Classes score", "GitHub score", "Twitter Mark", "Linkedin bonus", "Final score", "Will promote"];
+            this.tableHeader = ["First name", "Last name", "Classes score", "GitHub score","Facebook score","Twitter score", "Linkedin bonus", "Final score", "Will promote"];
 
             this.recommendations = [
                 "https://eager.io/blog/the-history-of-the-url-path-fragment-query-auth/",

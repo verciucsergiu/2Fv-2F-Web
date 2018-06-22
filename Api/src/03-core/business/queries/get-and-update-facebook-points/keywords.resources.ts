@@ -16,10 +16,6 @@ export const KEYWORDS: any[] = [
         value: 1
     },
     {
-        name: "Facultatea de Informatica Iasi",
-        value: 1
-    },
-    {
         name: "Unity",
         value: 1
     },
@@ -41,6 +37,10 @@ export const KEYWORDS: any[] = [
     },
     {
         name: "javascript",
+        value: 1
+    },
+    {
+        name: "development",
         value: 1
     }
 ];

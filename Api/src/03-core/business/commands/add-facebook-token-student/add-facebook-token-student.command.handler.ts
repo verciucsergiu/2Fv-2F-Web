@@ -15,7 +15,6 @@ export class AddFacebookTokenHandler implements ICommandHandler<AddFacebookToken
         const student: any = await this.studentRepository.getStudentWithAttendance(command.studentId);
         const studentAsEntity: Student = Object.assign(new Student(), student);
         studentAsEntity.setFbToken(command.token.authToken);
-        studentAsEntity.setFbUserId(command.token.userId);
         await this.studentRepository.update(studentAsEntity);
     }
 }
