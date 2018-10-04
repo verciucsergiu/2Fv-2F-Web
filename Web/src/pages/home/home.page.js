@@ -2,8 +2,8 @@ var rt = require('../../../framework/router');
 var services = require('../../services/index');
 var codebird = require('../../../node_modules/codebird');
 var request = require('../../../node_modules/superagent');
-const LINKED_CLIENT_ID = "781qvgq30f1r1m";
-const LINKED_CLIENT_SECRET = "DDjbekhvYRM79KYD";
+const LINKED_CLIENT_ID = "7";
+const LINKED_CLIENT_SECRET = ";
 const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
 (() => {
     rt.route('/', {
@@ -20,7 +20,7 @@ const LINKED_REDIRECT_URI = encodeURI("http://localhost:3000");
                 this.role = services.AuthService.getUserRole();
 
                 //codebird
-                this.cb.setConsumerKey('qNmVG4mMKW76TNI9pPhSRwt1h', 'HDqJqH47FVNnb8PATfaTHEQiqnmQcpWS77sVNZNNaJwBPF1nBE');
+                this.cb.setConsumerKey('', '');
                 if (services.AuthService.getTwitterSecret() != null) {
                     this.twitterAuthStatus = "confirmed";
                     this.cb.setToken(services.AuthService.getTwitterToken(), services.AuthService.getTwitterSecret())
